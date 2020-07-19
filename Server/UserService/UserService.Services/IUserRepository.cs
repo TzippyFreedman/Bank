@@ -13,5 +13,7 @@ namespace UserService.Services
         Task<bool> CheckEmailExistsAsync(string email);
         Task<UserModel> AddUserAsync(UserModel user);
         Task AddAccountAsync(AccountModel account);
+        Task<AccountModel> GetAccountDetailsAsync(Guid accountId);
+
     }
 }

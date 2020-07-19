@@ -14,7 +14,7 @@ namespace UserService.Data
             CreateMap<UserModel, User>()
                 .ReverseMap();
 
-            CreateMap<AccountModel, Account>();
+            CreateMap<AccountModel, Account>().ReverseMap();
         }
     }
 }

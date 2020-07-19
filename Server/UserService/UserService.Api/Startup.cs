@@ -38,7 +38,9 @@ namespace UserService.Api
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
-
+            services.AddScoped(typeof(IUserService), typeof(UserService.Services.UserService));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
         }
 
