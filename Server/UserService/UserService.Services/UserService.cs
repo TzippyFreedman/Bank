@@ -1,15 +1,15 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Services.Models;
-
+using Serilog;
 namespace UserService.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+
 
         public UserService(IUserRepository userRepository)
         {
@@ -30,8 +30,8 @@ namespace UserService.Services
             {
                 //newUser.Id = Guid.NewGuid();
                 await  _userRepository.AddUserAsync(newUser);
-             
-                Log.Information("User with email {@email}  created successfully", newUser.Email);
+
+                Serilog.Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
             }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
-import { cwd } from 'process';
 import { IAccount } from '../shared/models/IAccount';
 
 @Component({
@@ -19,6 +18,7 @@ export class UserAccountComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       this.accountId = paramMap.get('userFileId');
+      Cookie.setCookie('cookieName', 'cookieValue');
 
   });
 
