@@ -60,13 +60,15 @@ namespace UserService.Api.Controllers
                 throw new AccountNotFoundException(accountId);
             }
             UserModel user = await _userService.GetUserByIdAsync(account.UserId);
-            AccountDTO accountDTO = new AccountDTO();
-
-            accountDTO.FirstName = user.FirstName;
-            accountDTO.LastName = user.LastName;
-            accountDTO.Balance = account.Balance;
-            accountDTO.OpenDate = account.OpenDate;
-          return accountDTO;
+            return new AccountDTO()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Balance = account.Balance,
+                OpenDate = account.OpenDate,
+                Email = user.Email
+            };
+          
         }
     }
 }

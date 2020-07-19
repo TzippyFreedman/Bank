@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Services.Models;
@@ -26,18 +27,13 @@ namespace UserService.Services
                 Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
                 return false;
             }
-            else
-            {
-                UserModel user = await _userRepository.AddUserAsync(newUser);
-
-                AccountModel account = new AccountModel { UserId = user.Id };
-
-                await  _userRepository.AddAccountAsync(account);
-
+            
+                await _userRepository.RegisterAsync(newUser);
+     
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
-            }
+          
         }
 
         public async Task<Guid> LoginAsync(string email, string password)
@@ -73,6 +69,13 @@ namespace UserService.Services
           
 
             return user;
+        }
+        private static string Hash(byte[] input, string algorithm = "sha256")
+        {
+            using (var hashAlgorithm = HashAlgorithm.Create(algorithm))
+            {
+                return Convert.ToBase64String(hashAlgorithm.ComputeHash(input));
+            }
         }
 
     }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using UserService.Api.Exceptions;
 
 namespace UserService.Api.Middlewares
 {
@@ -37,8 +38,12 @@ namespace UserService.Api.Middlewares
 
         private async static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            
             var code = HttpStatusCode.InternalServerError;
-          
+            if (ex is AccountNotFoundException)
+            {
+                code = HttpStatusCode.NotFound;
+            }
             Log.Error(ex, "errot caught in ErrorHandlingMiddleware");
 
             string result = JsonSerializer

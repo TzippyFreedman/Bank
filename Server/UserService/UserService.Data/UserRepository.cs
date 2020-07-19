@@ -21,26 +21,7 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task AddAccountAsync(AccountModel newAccountModel)
-        {
-            Account newAccount = _mapper.Map<Account>(newAccountModel);
-
-            _userDbContext.Accounts.Add(newAccount);
-
-            await _userDbContext.SaveChangesAsync();
-
-        }
-
-        public async Task<UserModel> AddUserAsync(UserModel newUserModel)
-        {
-            User newUser = _mapper.Map<User>(newUserModel);
-
-            _userDbContext.Users.Add(newUser);
-
-            await _userDbContext.SaveChangesAsync();
-
-            return _mapper.Map<UserModel>(newUser);
-        }
+        
 
         public async Task<bool> CheckEmailExistsAsync(string email)
         {
@@ -93,5 +74,23 @@ namespace UserService.Data
 
             return _mapper.Map<UserModel>(user);
                 }
+
+        public async Task RegisterAsync(UserModel newUserModel)
+        {
+ 
+            User newUser = _mapper.Map<User>(newUserModel);
+
+            _userDbContext.Users.Add(newUser);
+
+            Account account = new Account { UserId = newUser.Id };
+            _userDbContext.Accounts.Add(account);
+
+            await _userDbContext.SaveChangesAsync();
+           
+
+            
+        }
+
+       
     }
 }
