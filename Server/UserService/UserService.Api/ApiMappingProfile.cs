@@ -13,10 +13,10 @@ namespace UserService.Api
         public ApiMappingProfile()
         {
             CreateMap<RegisterDTO, UserModel>();
-            CreateMap<AccountModel, AccountDTO>()
-                .ReverseMap();
-            CreateMap<UserModel, AccountDTO>()
-                .ReverseMap();
+            CreateMap<AccountModel, AccountDTO>();
+
+            CreateMap<UserModel, AccountDTO>();
+               
         }
     }
 }
