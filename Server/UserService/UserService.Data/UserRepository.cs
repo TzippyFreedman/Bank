@@ -72,5 +72,17 @@ namespace UserService.Data
 
         }
 
+        public async Task<AccountModel> GetAccountDetailsAsync(Guid accountId)
+        {
+          Account account=  await _userDbContext.Accounts
+                .Where(account => account.Id == accountId)
+                .FirstOrDefaultAsync();
+            if(account==null)
+            {
+                return null;
+            }
+          return   _mapper.Map<AccountModel>(account);
+
+                }
     }
 }

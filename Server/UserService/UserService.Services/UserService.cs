@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using UserService.Services.Exceptions;
 using UserService.Services.Models;
 
 namespace UserService.Services
@@ -56,6 +57,16 @@ namespace UserService.Services
                 return userAccount.Id;
             }
 
+        }
+
+        public async Task<AccountModel> GetAccountDetailsAsync(Guid accountId)
+        {
+            AccountModel account = await _userRepository.GetAccountDetailsAsync(accountId);
+            if(account == null)
+            {
+                throw new AccountNotFoundException(accountId);
+            }
+            return account;
         }
     }
 }
