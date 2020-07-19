@@ -5,6 +5,7 @@ import { ILogin } from '../models/ILogin';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../models/IUser';
 import { catchError } from 'rxjs/operators';
+import { IAccount } from '../models/IAccount';
 
 const LOGIN_URL='user/login';
 const REGISTER_URL='user/';
@@ -49,7 +50,7 @@ const ACCOUNT_URL='user/getAccountDetails/'
 
     public getAccountDetails = (userId:String) => {
       debugger;
-      return this.http.get<Account>(this.createCompleteRoute(ACCOUNT_URL+ userId, environment.baseURL))
+      return this.http.get<IAccount>(this.createCompleteRoute(ACCOUNT_URL+ userId, environment.baseURL))
         .pipe(catchError(this.handleError));
   
     }

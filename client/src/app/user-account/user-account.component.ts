@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
 import { cwd } from 'process';
+import { IAccount } from '../shared/models/IAccount';
 
 @Component({
   selector: 'app-user-account',
@@ -10,7 +11,7 @@ import { cwd } from 'process';
   styleUrls: ['./user-account.component.css']
 })
 export class UserAccountComponent implements OnInit {
-  account: Account;
+  account: IAccount;
   accountId: string;
   constructor(private route:ActivatedRoute, private http: DataService) { }
 
