@@ -54,18 +54,20 @@ namespace UserService.Api.Controllers
 
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
-            AccountModel account=await  _userService.GetAccountDetailsAsync(accountId);
+            AccountModel account=await  _userService.GetAccountByIdAsync(accountId);
+
             if (account == null)
             {
                 throw new AccountNotFoundException(accountId);
             }
+
             UserModel user = await _userService.GetUserByIdAsync(account.UserId);
+
             AccountDTO accountDTO = new AccountDTO();
 
-            accountDTO.FirstName = user.FirstName;
-            accountDTO.LastName = user.LastName;
-            accountDTO.Balance = account.Balance;
-            accountDTO.OpenDate = account.OpenDate;
+            _mapper.Map(user, accountDTO);
+            _mapper.Map(account, accountDTO);
+
           return accountDTO;
         }
     }
