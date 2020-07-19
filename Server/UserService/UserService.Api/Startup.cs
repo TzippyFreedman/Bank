@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UserService.Api.Middlewares;
 using UserService.Data;
+using UserService.Services;
 
 namespace UserService.Api
 {
@@ -31,7 +33,9 @@ namespace UserService.Api
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
-
+            services.AddScoped(typeof(IUserService), typeof(UserService.Services.UserService));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
         }
 

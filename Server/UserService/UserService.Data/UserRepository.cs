@@ -21,6 +21,21 @@ namespace UserService.Data
             _mapper = mapper;
         }
 
+        public async Task<AccountModel> GetAccountInfoAsync(Guid accountId)
+        {
+           Account account=await  _userDbContext.Accounts.Where(account => account.Id == accountId)
+                .FirstOrDefaultAsync();
+            if(account!=null)
+            {
+                return _mapper.Map<AccountModel>(account);
+            }
+            else
+            {
+                return null;
+            }
+                 
+                }
+
         public async  Task<UserModel> GetUser(string email, string password)
         {
              User user=  await   _userDbContext.Users

@@ -23,7 +23,7 @@ namespace UserService.Api.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<Guid>> LoginAsync(LoginDTO loginDTO)
+        public async Task<ActionResult<Guid>> LoginAsync([FromQuery]LoginDTO loginDTO)
         {
             Guid AccountId=await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             if (AccountId==Guid.Empty)
@@ -34,6 +34,14 @@ namespace UserService.Api.Controllers
 
             return AccountId;
 
+        }
+
+
+        [HttpGet]
+        public async Task<AccountDTO> GetAccountInfo()
+        {
+
+            return await _userService.GetAccountInfoAsync();
         }
     }
 }
