@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
@@ -47,7 +48,7 @@ namespace UserService.Data
             return isEmailExist;
         }
 
-        public async Task<UserModel> GetUser(string email, string password)
+        public async Task<UserModel> GetUserAsync(string email, string password)
         {
             User user = await _userDbContext.Users
                .Where(user => user.Email == email && user.Password == password)
@@ -56,7 +57,18 @@ namespace UserService.Data
             {
                 return null;
             }
+
             return _mapper.Map<UserModel>(user);
+
+        }
+
+        public async Task<AccountModel> GetUserAccountByUserIdAsync(Guid id)
+        {
+
+            Account userAccount = await _userDbContext.Accounts
+                      .Where(file => file.UserId == id)
+                      .FirstOrDefaultAsync();
+            return _mapper.Map<AccountModel>(userAccount);
 
         }
 

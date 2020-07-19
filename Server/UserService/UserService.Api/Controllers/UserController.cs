@@ -33,7 +33,7 @@ namespace UserService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Guid>> LoginAsync(LoginDTO loginDTO)
+        public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
             Guid AccountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             if (AccountId == Guid.Empty)

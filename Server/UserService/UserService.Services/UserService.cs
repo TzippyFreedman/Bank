@@ -10,14 +10,13 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly ILogger _logger;
 
-        public UserService(IUserRepository userRepository, ILogger logger)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _logger = logger;
         }
 
+ 
         public async Task<bool> RegisterAsync(UserModel newUser)
         {
             bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
@@ -43,7 +42,7 @@ namespace UserService.Services
 
         public async Task<Guid> LoginAsync(string email, string password)
         {
-            UserModel user = await _userRepository.GetUser(email, password);
+            UserModel user = await _userRepository.GetUserAsync(email, password);
 
             if (user == null)
             {
@@ -52,7 +51,7 @@ namespace UserService.Services
             }
             else
             {
-                AccountModel userAccount = await _userRepository.GetUserAccountByUserId(user.Id);
+                AccountModel userAccount = await _userRepository.GetUserAccountByUserIdAsync(user.Id);
 
                 return userAccount.Id;
             }
