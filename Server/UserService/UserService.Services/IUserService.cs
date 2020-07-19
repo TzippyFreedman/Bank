@@ -11,5 +11,7 @@ namespace UserService.Services
         Task<Guid> LoginAsync(string email, string password);
         Task<bool> RegisterAsync(UserModel newUserModel);
       Task<AccountModel> GetAccountDetailsAsync(Guid accountId);
+        Task<UserModel> GetUserByIdAsync(Guid id);
+
     }
 }
