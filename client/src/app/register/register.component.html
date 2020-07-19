@@ -5,24 +5,24 @@
         <label for="firstName">First Name</label>
         <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" />
         <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.firstName.errors.required"> Name is required</div>
+            <div *ngIf="formControls.firstName.errors.required"> First Name is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="lastName">Last Name</label>
         <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" />
         <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.lastName.errors.required"> Name is required</div>
+            <div *ngIf="formControls.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
         <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
         <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
-            <div *ngIf="formControls.email.errors.required">Username is required</div>
+            <div *ngIf="formControls.email.errors.required">Email is required</div>
         </div>
         <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
-            <div *ngIf="formControls.email.errors.pattern">Username emial invalid</div>
+            <div *ngIf="formControls.email.errors.pattern">Email is invalid</div>
         </div>
     </div>
     <div class="form-group">
