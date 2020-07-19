@@ -28,14 +28,9 @@ namespace UserService.Services
             }
             else
             {
-            //put both functions in same transaction
-
-                UserModel user = await _userRepository.AddUserAsync(newUser);
-
-                AccountModel account = new AccountModel { UserId = user.Id };
-
-                await  _userRepository.AddAccountAsync(account);
-
+                newUser.Id = Guid.NewGuid();
+                await  _userRepository.RegisterAsync(newUser);
+             
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
