@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
 import { IAccount } from '../shared/models/IAccount';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-user-account',
@@ -12,13 +13,14 @@ import { IAccount } from '../shared/models/IAccount';
 export class UserAccountComponent implements OnInit {
   account: IAccount;
   accountId: string;
-  constructor(private route:ActivatedRoute, private http: DataService) { }
+  constructor(private route:ActivatedRoute, private http: DataService,private cookieService: CookieService) { }
 
   
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       this.accountId = paramMap.get('userFileId');
-      Cookie.setCookie('cookieName', 'cookieValue');
+      this.cookieService.set( 'userFileId', this.accountId  );
+     // this.cookieValue = this.cookieService.get('Test');
 
   });
 

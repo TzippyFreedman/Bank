@@ -8,7 +8,7 @@ namespace UserService.Services
 {
     public interface IUserRepository
     {
-        Task<UserModel> GetUserAsync(string email, string password);
+        Task<UserModel> GetUserAsync(string email);
         Task<AccountModel> GetAccountByUserIdAsync(Guid id);
         Task<bool> CheckEmailExistsAsync(string email);
       

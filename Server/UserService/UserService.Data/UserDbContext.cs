@@ -10,21 +10,22 @@ namespace UserService.Data
 {
     public class UserDbContext : DbContext
     {
-        private readonly IEncryptionProvider _provider;
-        private readonly AesKeyInfo _encryptionInfo;
+/*        private readonly IEncryptionProvider _provider;
+        private readonly AesKeyInfo _encryptionInfo;*/
 
         public UserDbContext(DbContextOptions options) : base(options)
         {
         
-            //change to hash 
+/*            //change to hash 
             _encryptionInfo = AesProvider.GenerateKey(AesKeySize.AES128Bits);
             _provider = new AesProvider(_encryptionInfo.Key, _encryptionInfo.IV);
-
+*/
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                 .UseEncryption(_provider);
+          /*  modelBuilder
+                 .UseEncryption(_provider);*/
+
             modelBuilder.Entity<User>()
                 .ToTable("User");
             modelBuilder.Entity<User>()
@@ -44,8 +45,12 @@ namespace UserService.Data
                          .Property(user => user.LastName)
                           .IsRequired();
             modelBuilder.Entity<User>()
-                        .Property(user => user.Password)
+                        .Property(user => user.PasswordHash)
                         .IsRequired();
+            modelBuilder.Entity<User>()
+                        .Property(user => user.PasswordSalt)
+                        .IsRequired();
+
             modelBuilder.Entity<Account>()
                         .ToTable("Account");
             modelBuilder.Entity<Account>()

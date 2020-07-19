@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
 using UserService.Services;
 using UserService.Services.Models;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace UserService.Data
 {
@@ -31,28 +30,26 @@ namespace UserService.Data
             return isEmailExist;
         }
 
-        public async Task<UserModel> GetUserAsync(string email, string password)
+        public async Task<UserModel> GetUserAsync(string email)
         {
             User user = await _userDbContext.Users
-               .Where(user => user.Email == email && user.Password == password)
+               .Where(user => user.Email == email)
                .FirstOrDefaultAsync();
+
             if (user == null)
             {
                 return null;
             }
-
             return _mapper.Map<UserModel>(user);
 
         }
 
         public async Task<AccountModel> GetAccountByUserIdAsync(Guid id)
         {
-
             Account userAccount = await _userDbContext.Accounts
                       .Where(file => file.UserId == id)
                       .FirstOrDefaultAsync();
             return _mapper.Map<AccountModel>(userAccount);
-
         }
 
         public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
@@ -66,7 +63,6 @@ namespace UserService.Data
                 return null;
             }
             return _mapper.Map<AccountModel>(account);
-
         }
 
         public async Task<UserModel> GetUserByIdAsync(Guid id)
@@ -80,11 +76,15 @@ namespace UserService.Data
         public async Task AddUserAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
+
+
             newUser.Account = new Account();
             _userDbContext.Users.Add(newUser);
 
           await  _userDbContext.SaveChangesAsync();
         }
+
+       
 
     }
 }

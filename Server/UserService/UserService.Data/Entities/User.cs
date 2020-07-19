@@ -14,10 +14,12 @@ namespace UserService.Data.Entities
         public string LastName { get; set; }
 
         public string Email { get; set; }
-        
+
         //change to hash 
-        [Encrypted]
-        public string Password { get; set; }
+        /*  [Encrypted]
+          public string Password { get; set; }*/
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
         public virtual Account Account { get; set; }
     }
