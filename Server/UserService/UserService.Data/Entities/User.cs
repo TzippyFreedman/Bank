@@ -18,8 +18,11 @@ namespace UserService.Data.Entities
         //change to hash 
         /*  [Encrypted]
           public string Password { get; set; }*/
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        [Required]
+        public string PasswordHash { get; set; }
+        [Required]
+
+        public string PasswordSalt { get; set; }
 
         public virtual Account Account { get; set; }
     }
