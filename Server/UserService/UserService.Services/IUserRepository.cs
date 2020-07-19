@@ -11,10 +11,9 @@ namespace UserService.Services
         Task<UserModel> GetUserAsync(string email, string password);
         Task<AccountModel> GetAccountByUserIdAsync(Guid id);
         Task<bool> CheckEmailExistsAsync(string email);
-        Task<UserModel> AddUserAsync(UserModel user);
-        Task AddAccountAsync(AccountModel account);
+      
         Task<AccountModel> GetAccountByIdAsync(Guid accountId);
         Task<UserModel> GetUserByIdAsync(Guid id);
-
+        Task RegisterAsync(UserModel userModel);
     }
 }
