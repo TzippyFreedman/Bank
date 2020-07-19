@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment';
 import { IUser } from '../models/IUser';
 import { catchError } from 'rxjs/operators';
 
-const LOGIN_URL='user';
+const LOGIN_URL='user/login';
 const REGISTER_URL='user/';
-const ACCOUNT_URL=''
+const ACCOUNT_URL='user/getAccountDetails/'
 @Injectable({
 
     providedIn: 'root',
@@ -47,8 +47,9 @@ const ACCOUNT_URL=''
   
     }
 
-    public getUserAccountDetails = (userId:String) => {
-      return this.http.get<boolean>(this.createCompleteRoute(ACCOUNT_URL, environment.baseURL),user,this.generateHeaders())
+    public getAccountDetails = (userId:String) => {
+      debugger;
+      return this.http.get<Account>(this.createCompleteRoute(ACCOUNT_URL+ userId, environment.baseURL))
         .pipe(catchError(this.handleError));
   
     }

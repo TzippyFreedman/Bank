@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj": {}
+    "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj": {
+    "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj",
         "projectName": "UserService.Data",
-        "projectPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Data\\obj\\",
+        "projectPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj",
+        "packagesPath": "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Esther Rivka Kaye\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,17 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\User\\Brix": {},
-          "C:\\Users\\User\\Brix\\massagesv_4": {},
-          "C:\\Users\\User\\Brix\\week6": {},
-          "http://packagesource": {},
+          "C:\\Users\\Esther Rivka Kaye\\source\\repos\\Nugget Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj": {
-                "projectPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj"
+              "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj": {
+                "projectPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj"
               }
             }
           }
@@ -86,35 +80,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj": {
+    "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj",
         "projectName": "UserService.Services",
-        "projectPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService.Services\\obj\\",
+        "projectPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\UserService.Services.csproj",
+        "packagesPath": "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Esther Rivka Kaye\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -122,10 +107,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\User\\Brix": {},
-          "C:\\Users\\User\\Brix\\massagesv_4": {},
-          "C:\\Users\\User\\Brix\\week6": {},
-          "http://packagesource": {},
+          "C:\\Users\\Esther Rivka Kaye\\source\\repos\\Nugget Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -157,18 +139,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

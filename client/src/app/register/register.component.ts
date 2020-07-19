@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private userService:DataService 
+      private dataService:DataService 
 
     
   ) {
@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
      this.userToRegister=this.registerForm.value;
 
 
-      this.userService.register(this.userToRegister)
+      this.dataService.register(this.userToRegister)
           .pipe(first())
           .subscribe(
               data => {

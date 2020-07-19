@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
+import { cwd } from 'process';
 
 @Component({
   selector: 'app-user-account',
@@ -9,17 +10,26 @@ import { DataService } from '../shared/services/data.service';
   styleUrls: ['./user-account.component.css']
 })
 export class UserAccountComponent implements OnInit {
-  user:IUser;
-  userFileId:string;
+  account: Account;
+  accountId: string;
   constructor(private route:ActivatedRoute, private http: DataService) { }
 
   
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
-      this.userFileId = paramMap.get('userFileId');
+      this.accountId = paramMap.get('userFileId');
 
   });
 
-  this.http
-}
+  this.http.getAccountDetails(this.accountId)
+  .subscribe(
+    result => {
+this.account = result;
+debugger;  },
+    error => {
+      debugger;
+        alert(error);
+
+    });
+  }
 }
