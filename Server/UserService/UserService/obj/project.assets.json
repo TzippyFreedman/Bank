@@ -8,19 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService\\UserService.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService\\UserService.csproj",
       "projectName": "UserService",
-      "projectPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService\\UserService.csproj",
-      "packagesPath": "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService\\obj\\",
+      "projectPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService\\UserService.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Brix\\github\\Bank\\Server\\UserService\\UserService\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Esther Rivka Kaye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,7 +32,10 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Esther Rivka Kaye\\source\\repos\\Nugget Packages": {},
+        "C:\\Users\\User\\Brix": {},
+        "C:\\Users\\User\\Brix\\massagesv_4": {},
+        "C:\\Users\\User\\Brix\\week6": {},
+        "http://packagesource": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -54,6 +61,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.2, 3.1.2]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -62,7 +75,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
