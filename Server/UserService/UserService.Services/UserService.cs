@@ -29,7 +29,7 @@ namespace UserService.Services
             else
             {
                 //newUser.Id = Guid.NewGuid();
-                await  _userRepository.RegisterAsync(newUser);
+                await  _userRepository.AddUserAsync(newUser);
              
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
 

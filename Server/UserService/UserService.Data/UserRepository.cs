@@ -78,7 +78,7 @@ namespace UserService.Data
 
             return _mapper.Map<UserModel>(user);
         }
-        public async Task RegisterAsync(UserModel newUserModel)
+        public async Task AddUserAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
             newUser.Account = new Account();
