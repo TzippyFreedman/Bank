@@ -25,10 +25,7 @@ namespace UserService.Api.Middlewares
         {
             try
             {
-
                 await _next(context);
-               
-
             }
             catch (Exception ex)
             {
@@ -40,10 +37,12 @@ namespace UserService.Api.Middlewares
         {
             
             var code = HttpStatusCode.InternalServerError;
+
             if (ex is AccountNotFoundException)
             {
                 code = HttpStatusCode.NotFound;
             }
+
             Log.Error(ex, "errot caught in ErrorHandlingMiddleware");
 
             string result = JsonSerializer

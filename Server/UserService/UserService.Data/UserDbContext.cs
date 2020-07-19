@@ -34,6 +34,7 @@ namespace UserService.Data
             modelBuilder.Entity<User>()
                          .Property(user => user.FirstName)
                           .IsRequired();
+
             modelBuilder.Entity<User>()
                          .Property(user => user.LastName)
                           .IsRequired();
@@ -65,8 +66,8 @@ namespace UserService.Data
 
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+       /* public DbSet<User> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }*/
 
     }
 }

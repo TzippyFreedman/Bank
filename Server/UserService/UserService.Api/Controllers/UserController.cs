@@ -28,7 +28,7 @@ namespace UserService.Api.Controllers
         public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
-       
+
             bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password);
             return isRegisterSuccess;
         }
@@ -39,22 +39,21 @@ namespace UserService.Api.Controllers
 
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
-            Guid AccountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
-            if (AccountId == Guid.Empty)
+            Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
+            if (accountId == Guid.Empty)
             {
 
                 return Unauthorized();
             }
 
-            return AccountId;
-
+            return accountId;
         }
         [HttpGet]
         [Route("[action]/{accountId}")]
 
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
-            AccountModel account=await  _userService.GetAccountByIdAsync(accountId);
+            AccountModel account = await _userService.GetAccountByIdAsync(accountId);
 
             if (account == null)
             {
@@ -66,9 +65,10 @@ namespace UserService.Api.Controllers
             AccountDTO accountDTO = new AccountDTO();
 
             _mapper.Map(user, accountDTO);
-            _mapper.Map(account, accountDTO);
-
-          return accountDTO;
+            //_mapper.Map(account, accountDTO);
+            accountDTO.Balance = account.Balance;
+            accountDTO.OpenDate = account.OpenDate;
+            return accountDTO;
         }
     }
 }

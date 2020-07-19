@@ -13,8 +13,6 @@ namespace UserService.Api
         public ApiMappingProfile()
         {
             CreateMap<RegisterDTO, UserModel>();
-            CreateMap<AccountModel, AccountDTO>();
-
             CreateMap<UserModel, AccountDTO>();
                
         }
