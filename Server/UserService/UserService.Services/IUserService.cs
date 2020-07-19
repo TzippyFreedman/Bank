@@ -8,8 +8,8 @@ namespace UserService.Services
 {
     public interface IUserService
     {
-        Task<Guid> LoginAsync(string email,string password);
-        Task<AccountModel> GetAccountInfoAsync(Guid accountId);
-
+        Task<Guid> LoginAsync(string email, string password);
+        Task<bool> RegisterAsync(UserModel newUserModel);
+      Task<AccountModel> GetAccountDetailsAsync(Guid accountId);
     }
 }

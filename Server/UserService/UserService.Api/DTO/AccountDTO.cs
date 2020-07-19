@@ -7,5 +7,11 @@ namespace UserService.Api.DTO
 {
     public class AccountDTO
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public float Balance { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
     }
 }

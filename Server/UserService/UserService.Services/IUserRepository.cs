@@ -8,9 +8,12 @@ namespace UserService.Services
 {
     public interface IUserRepository
     {
-        Task<UserModel> GetUser(string email, string password);
-        Task<AccountModel> GetUserAccountByUserId(Guid id);
-        Task<AccountModel> GetAccountInfoAsync(Guid accountId);
+        Task<UserModel> GetUserAsync(string email, string password);
+        Task<AccountModel> GetUserAccountByUserIdAsync(Guid id);
+        Task<bool> CheckEmailExistsAsync(string email);
+        Task<UserModel> AddUserAsync(UserModel user);
+        Task AddAccountAsync(AccountModel account);
+        Task<AccountModel> GetAccountDetailsAsync(Guid accountId);
 
     }
 }

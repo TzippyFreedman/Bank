@@ -56,9 +56,9 @@ namespace UserService.Data
                          .Property(account => account.OpenDate)
                          .HasDefaultValueSql("getdate()")
                          .ValueGeneratedOnAdd();
-/*            modelBuilder.Entity<Account>()
-                        .Property(account => account.UserId)
-                        .IsRequired();*/
+            /*            modelBuilder.Entity<Account>()
+                                    .Property(account => account.UserId)
+                                    .IsRequired();*/
             modelBuilder.Entity<Account>()
                         .Property(account => account.Balance)
                         .HasDefaultValue(1000);

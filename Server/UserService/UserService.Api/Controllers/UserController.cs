@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Api.DTO;
 using UserService.Services;
+using UserService.Services.Models;
 
 namespace UserService.Api.Controllers
 {
@@ -14,34 +15,46 @@ namespace UserService.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IMapper mapper, IUserService userService)
         {
+            _mapper = mapper;
             _userService = userService;
         }
-
+        [HttpPost]
+        public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
+        {
+            UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
+       
+            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel);
+            return isRegisterSuccess;
+        }
 
         [HttpGet]
-        public async Task<ActionResult<Guid>> LoginAsync([FromQuery]LoginDTO loginDTO)
+        [Route("[action]")]
+
+
+        public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
-            Guid AccountId=await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
-            if (AccountId==Guid.Empty)
+            Guid AccountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
+            if (AccountId == Guid.Empty)
             {
-                
+
                 return Unauthorized();
             }
 
             return AccountId;
 
         }
-
-
         [HttpGet]
-        public async Task<AccountDTO> GetAccountInfo()
-        {
+        [Route("[action]/{accountId}")]
 
-            return await _userService.GetAccountInfoAsync();
+        public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
+        {
+            AccountModel account=await  _userService.GetAccountDetailsAsync(accountId);
+            return _mapper.Map<AccountDTO>(account);
         }
     }
 }

@@ -15,41 +15,54 @@ namespace UserService.Data
     {
         private readonly UserDbContext _userDbContext;
         private readonly IMapper _mapper;
+
         public UserRepository(UserDbContext userDbContext, IMapper mapper)
         {
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-
-        public async Task<AccountModel> GetAccountInfoAsync(Guid accountId)
+        public async Task AddAccountAsync(AccountModel newAccountModel)
         {
-           Account account=await  _userDbContext.Accounts.Where(account => account.Id == accountId)
-                .FirstOrDefaultAsync();
-            if(account!=null)
-            {
-                return _mapper.Map<AccountModel>(account);
-            }
-            else
+            Account newAccount = _mapper.Map<Account>(newAccountModel);
+
+            _userDbContext.Accounts.Add(newAccount);
+
+            await _userDbContext.SaveChangesAsync();
+
+        }
+
+        public async Task<UserModel> AddUserAsync(UserModel newUserModel)
+        {
+            User newUser = _mapper.Map<User>(newUserModel);
+
+            _userDbContext.Users.Add(newUser);
+
+            await _userDbContext.SaveChangesAsync();
+
+            return _mapper.Map<UserModel>(newUser);
+        }
+
+        public async Task<bool> CheckEmailExistsAsync(string email)
+        {
+           bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
+            return isEmailExist;
+        }
+
+        public async Task<UserModel> GetUserAsync(string email, string password)
+        {
+            User user = await _userDbContext.Users
+               .Where(user => user.Email == email && user.Password == password)
+               .FirstOrDefaultAsync();
+            if (user == null)
             {
                 return null;
             }
-                 
-                }
 
-        public async  Task<UserModel> GetUser(string email, string password)
-        {
-             User user=  await   _userDbContext.Users
-                .Where(user => user.Email == email && user.Password == password)
-                .FirstOrDefaultAsync();
-            if(user==null)
-            {
-                return null;
-            }
             return _mapper.Map<UserModel>(user);
-           
-         }
 
-        public async Task<AccountModel> GetUserAccountByUserId(Guid id)
+        }
+
+        public async Task<AccountModel> GetUserAccountByUserIdAsync(Guid id)
         {
 
             Account userAccount = await _userDbContext.Accounts
@@ -59,5 +72,17 @@ namespace UserService.Data
 
         }
 
+        public async Task<AccountModel> GetAccountDetailsAsync(Guid accountId)
+        {
+          Account account=  await _userDbContext.Accounts
+                .Where(account => account.Id == accountId)
+                .FirstOrDefaultAsync();
+            if(account==null)
+            {
+                return null;
+            }
+          return   _mapper.Map<AccountModel>(account);
+
+                }
     }
 }

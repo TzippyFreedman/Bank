@@ -13,5 +13,6 @@ namespace UserService.Services.Models
         public DateTime OpenDate { get; set; }
 
         public float Balance { get; set; }
+
     }
 }
