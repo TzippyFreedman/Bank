@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
      {path:"",redirectTo:'/login',pathMatch:"full"}
 ]),
   ],
-  providers: [],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
