@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UserService.Api.Middlewares;
 using UserService.Data;
 
 namespace UserService.Api
@@ -41,6 +42,7 @@ namespace UserService.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseErrorHandlingMiddleware();
 
             app.UseHttpsRedirection();
 
