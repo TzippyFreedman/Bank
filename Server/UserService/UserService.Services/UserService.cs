@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ILogger _logger;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, ILogger logger)
         {
             _userRepository = userRepository;
+            _logger = logger;
         }
 
         public async Task<bool> RegisterAsync(UserModel newUser)
@@ -21,6 +24,7 @@ namespace UserService.Services
 
             if (isEmailExist)
             {
+                Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
                 return false;
             }
             else
@@ -30,6 +34,8 @@ namespace UserService.Services
                 AccountModel account = new AccountModel { UserId = user.Id };
 
                 await  _userRepository.AddAccountAsync(account);
+
+                Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
             }
