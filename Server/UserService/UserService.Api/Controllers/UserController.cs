@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Api.DTO;
+using UserService.Api.Exceptions;
 using UserService.Services;
 using UserService.Services.Models;
 
@@ -54,7 +55,18 @@ namespace UserService.Api.Controllers
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
             AccountModel account=await  _userService.GetAccountDetailsAsync(accountId);
-            return _mapper.Map<AccountDTO>(account);
+            if (account == null)
+            {
+                throw new AccountNotFoundException(accountId);
+            }
+            UserModel user = await _userService.GetUserByIdAsync(account.UserId);
+            AccountDTO accountDTO = new AccountDTO();
+
+            accountDTO.FirstName = user.FirstName;
+            accountDTO.LastName = user.LastName;
+            accountDTO.Balance = account.Balance;
+            accountDTO.OpenDate = account.OpenDate;
+          return accountDTO;
         }
     }
 }

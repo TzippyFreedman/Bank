@@ -11,7 +11,7 @@ namespace UserService.Api.DTO
         public string LastName { get; set; }
         public float Balance { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime OpenDate { get; set; }
 
     }
 }
