@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "7UnfQFdQvPyc7y3mVoAiq9UlrzrpLJ2DSGuVXZBxEEovfuh6OQn/swz7Qti+uR350tMQ83Tn+yRCxERs7zPA9g==",
+  "dgSpecHash": "8SeXttz1qN3JKe1QiGXeGkzL1Ws2/yqeIg69CBIV3TWbRFIyiN88h5Cyjmzf38x/PyT1aR1/9tLbCEdyTxuK/Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Esther Rivka Kaye\\source\\repos\\FinalBank\\Bank\\Server\\UserService\\UserService.Data\\UserService.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\entityframeworkcore.dataencryption\\1.1.0\\entityframeworkcore.dataencryption.1.1.0.nupkg.sha512",
+    "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.6\\microsoft.aspnetcore.cryptography.internal.3.1.6.nupkg.sha512",
+    "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.6\\microsoft.aspnetcore.cryptography.keyderivation.3.1.6.nupkg.sha512",
     "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.server.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\Esther Rivka Kaye\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.0.0\\microsoft.aspnetcore.http.abstractions.2.0.0.nupkg.sha512",

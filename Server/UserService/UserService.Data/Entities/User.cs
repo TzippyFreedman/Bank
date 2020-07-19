@@ -15,11 +15,8 @@ namespace UserService.Data.Entities
 
         public string Email { get; set; }
 
-        //change to hash 
-        /*  [Encrypted]
-          public string Password { get; set; }*/
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public string PasswordHash { get; set; }
+        public string PasswordSalt { get; set; }
 
         public virtual Account Account { get; set; }
     }
