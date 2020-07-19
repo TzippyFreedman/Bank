@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
+//check if entities is necessary 
 namespace UserService.Data.Entities
 {
     public class User

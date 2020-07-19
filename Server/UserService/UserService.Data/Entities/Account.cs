@@ -4,6 +4,8 @@ using System.Text;
 
 namespace UserService.Data.Entities
 {
+    //check if entities is necessary 
+
     public class Account
     {
         public Guid Id { get; set; }
