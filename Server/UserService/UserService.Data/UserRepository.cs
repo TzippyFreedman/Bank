@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -77,15 +78,11 @@ namespace UserService.Data
 
             return _mapper.Map<UserModel>(user);
         }
-        public async Task RegisterAsync(UserModel newUserModel)
+        public async Task AddUserAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
-            
+            newUser.Account = new Account();
             _userDbContext.Users.Add(newUser);
-
-            Account newAccount = new Account();
-            newAccount.UserId = newUser.Id;
-            _userDbContext.Accounts.Add(newAccount);
 
           await  _userDbContext.SaveChangesAsync();
         }
