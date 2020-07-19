@@ -25,7 +25,6 @@ namespace UserService.Data
         {
             modelBuilder
                  .UseEncryption(_provider);
-
             modelBuilder.Entity<User>()
                 .ToTable("User");
             modelBuilder.Entity<User>()
@@ -46,7 +45,6 @@ namespace UserService.Data
             modelBuilder.Entity<User>()
                         .Property(user => user.Password)
                         .IsRequired();
-
             modelBuilder.Entity<Account>()
                         .ToTable("Account");
             modelBuilder.Entity<Account>()
