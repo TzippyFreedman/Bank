@@ -1,4 +1,4 @@
-export interface IUserAccount{
+export interface IAccount{
     openDate:Date,
    balance:number;
      

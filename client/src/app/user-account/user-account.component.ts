@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../shared/models/IUser';
+import { DataService } from '../shared/services/data.service';
 
 @Component({
   selector: 'app-user-account',
@@ -10,7 +11,7 @@ import { IUser } from '../shared/models/IUser';
 export class UserAccountComponent implements OnInit {
   user:IUser;
   userFileId:string;
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute, private http: DataService) { }
 
   
   ngOnInit(): void {
@@ -18,5 +19,7 @@ export class UserAccountComponent implements OnInit {
       this.userFileId = paramMap.get('userFileId');
 
   });
+
+  this.http
 }
 }

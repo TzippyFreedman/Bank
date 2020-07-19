@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { IAuthenticater } from '../models/IAuthenticater';
+import { ILogin } from '../models/ILogin';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../models/IUser';
 import { catchError } from 'rxjs/operators';
 
-const LOGIN_URL='user/LoginWithToken';
-const REGISTER_URL='user/register';
+const LOGIN_URL='user';
+const REGISTER_URL='user/';
+const ACCOUNT_URL=''
 @Injectable({
 
     providedIn: 'root',
   })
-  export class UserService {
+  export class DataService {
     constructor(private http:HttpClient) { }
     private handleError(error: HttpErrorResponse) {
       if (error.error.message  ) {
@@ -33,14 +34,21 @@ const REGISTER_URL='user/register';
       return throwError(
         'Something bad happened; please try again later.');
     };
-    public login = (body:IAuthenticater) => {
+    public login = (loginObj:ILogin) => {
     
-      return this.http.post<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),body,{withCredentials:true})
+      return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
+      {params: {email:loginObj.email, password: loginObj.password }})
         .pipe(catchError(this.handleError));
     
     }
     public register = (user:IUser) => {
       return this.http.post<boolean>(this.createCompleteRoute(REGISTER_URL, environment.baseURL),user,this.generateHeaders())
+        .pipe(catchError(this.handleError));
+  
+    }
+
+    public getUserAccountDetails = (userId:String) => {
+      return this.http.get<boolean>(this.createCompleteRoute(ACCOUNT_URL, environment.baseURL),user,this.generateHeaders())
         .pipe(catchError(this.handleError));
   
     }

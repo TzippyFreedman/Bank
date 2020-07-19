@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { IUser } from '../shared/models/IUser';
-import { UserService } from '../shared/services/data.service';
+import { DataService } from '../shared/services/data.service';
 
 
 
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private userService:UserService 
+      private userService:DataService 
 
     
   ) {
@@ -49,9 +49,7 @@ export class RegisterComponent implements OnInit {
             'firstName': new FormControl('',[
               Validators.required]),
               'lastName': new FormControl('',[
-               Validators.required]),
-               'age': new FormControl('',[
-                Validators.required])
+               Validators.required])
 
   });
   }

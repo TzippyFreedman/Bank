@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {  FormGroup, Validators, FormControl } from '@angular/forms';
-import { IAuthenticater } from '../shared/models/IAuthenticater';
-import { UserService } from '../shared/services/data.service';
+import { ILogin } from '../shared/models/ILogin';
+import { DataService } from '../shared/services/data.service';
 
 
 
@@ -16,9 +16,9 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
-    userToAuthenticate = <IAuthenticater>{};
+    userToAuthenticate = <ILogin>{};
 
-    constructor(private router:Router,private http:UserService)  { }
+    constructor(private router:Router,private http: DataService)  { }
   
     
   ngOnInit(): void {
@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6)
     ])
   });
+
 
  
   }
