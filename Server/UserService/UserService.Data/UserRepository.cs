@@ -46,5 +46,19 @@ namespace UserService.Data
            bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
             return isEmailExist;
         }
+
+        public async Task<UserModel> GetUser(string email, string password)
+        {
+            User user = await _userDbContext.Users
+               .Where(user => user.Email == email && user.Password == password)
+               .FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return null;
+            }
+            return _mapper.Map<UserModel>(user);
+
+        }
+
     }
 }

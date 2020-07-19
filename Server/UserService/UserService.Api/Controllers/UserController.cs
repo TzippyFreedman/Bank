@@ -31,5 +31,19 @@ namespace UserService.Api.Controllers
             bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel);
             return isRegisterSuccess;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Guid>> LoginAsync(LoginDTO loginDTO)
+        {
+            Guid AccountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
+            if (AccountId == Guid.Empty)
+            {
+
+                return Unauthorized();
+            }
+
+            return AccountId;
+
+        }
     }
 }

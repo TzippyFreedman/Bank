@@ -40,6 +40,24 @@ namespace UserService.Services
                 return true;
             }
         }
+
+        public async Task<Guid> LoginAsync(string email, string password)
+        {
+            UserModel user = await _userRepository.GetUser(email, password);
+
+            if (user == null)
+            {
+                Log.Information($"attemt to login for user with email:{email} failed!");
+                return Guid.Empty;
+            }
+            else
+            {
+                AccountModel userAccount = await _userRepository.GetUserAccountByUserId(user.Id);
+
+                return userAccount.Id;
+            }
+
+        }
     }
 }
 
