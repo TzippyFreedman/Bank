@@ -28,6 +28,8 @@ namespace UserService.Services
             }
             else
             {
+            //put both functions in same transaction
+
                 UserModel user = await _userRepository.AddUserAsync(newUser);
 
                 AccountModel account = new AccountModel { UserId = user.Id };

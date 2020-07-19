@@ -15,7 +15,8 @@ namespace UserService.Data
 
         public UserDbContext(DbContextOptions options) : base(options)
         {
-
+        
+            //change to hash 
             _encryptionInfo = AesProvider.GenerateKey(AesKeySize.AES128Bits);
             _provider = new AesProvider(_encryptionInfo.Key, _encryptionInfo.IV);
 
