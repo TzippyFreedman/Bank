@@ -33,7 +33,8 @@ namespace UserService.Data
                         .IsRequired();
             modelBuilder.Entity<User>()
                        .Property(user => user.Id)
-                       .HasDefaultValueSql("NEWID()");
+                       .HasDefaultValueSql("NEWID()")
+                       .ValueGeneratedOnAdd();
             modelBuilder.Entity<User>()
                         .HasIndex(user => user.Email)
                         .IsUnique();
