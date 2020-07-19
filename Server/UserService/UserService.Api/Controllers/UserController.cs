@@ -29,7 +29,7 @@ namespace UserService.Api.Controllers
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
        
-            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel);
+            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password);
             return isRegisterSuccess;
         }
 

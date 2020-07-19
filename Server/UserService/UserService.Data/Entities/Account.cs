@@ -14,7 +14,6 @@ namespace UserService.Data.Entities
 
         public DateTime OpenDate { get; set; }
    
-
         public float Balance { get; set; }
         public virtual User user { get; set; }
 

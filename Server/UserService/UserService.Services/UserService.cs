@@ -16,9 +16,11 @@ namespace UserService.Services
             _userRepository = userRepository;
         }
 
- 
-        public async Task<bool> RegisterAsync(UserModel newUser)
+
+        public async Task<bool> RegisterAsync(UserModel newUser, string password)
         {
+            byte[] passwordHash, passwordSalt;
+
             bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
 
             if (isEmailExist)
@@ -28,9 +30,12 @@ namespace UserService.Services
             }
             else
             {
-                //newUser.Id = Guid.NewGuid();
-                await  _userRepository.AddUserAsync(newUser);
-             
+                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+
+                newUser.PasswordHash = passwordHash;
+                newUser.PasswordSalt = passwordSalt;
+                await _userRepository.AddUserAsync(newUser);
+
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
@@ -39,35 +44,61 @@ namespace UserService.Services
 
         public async Task<Guid> LoginAsync(string email, string password)
         {
-            UserModel user = await _userRepository.GetUserAsync(email, password);
+            UserModel user = await _userRepository.GetUserAsync(email);
 
             if (user == null)
             {
                 Log.Information($"attemt to login for user with email:{email} failed!");
                 return Guid.Empty;
             }
-            else
-            {
-                AccountModel userAccount = await _userRepository.GetAccountByUserIdAsync(user.Id);
 
-                return userAccount.Id;
+            if (!VerifyPassword(password, user.PasswordHash, user.PasswordSalt))
+            {
+                Log.Information($"attemt to login for user with email:{email} failed!");
+                return Guid.Empty;
             }
+
+            AccountModel userAccount = await _userRepository.GetAccountByUserIdAsync(user.Id);
+
+            return userAccount.Id;
 
         }
 
         public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
         {
             AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
-          
+
             return account;
         }
 
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
             UserModel user = await _userRepository.GetUserByIdAsync(id);
-          
+
 
             return user;
+        }
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password)); // Create hash using password salt.
+                for (int i = 0; i < computedHash.Length; i++)
+                { // Loop through the byte array
+                    if (computedHash[i] != passwordHash[i]) return false; // if mismatch
+                }
+            }
+            return true; //if no mismatches.
         }
 
     }
