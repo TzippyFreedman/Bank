@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UserService.Data.Entities
+namespace UserService.Services.Models
 {
-    public class Account
+    public class AccountModel
     {
         public Guid Id { get; set; }
 
@@ -13,7 +13,6 @@ namespace UserService.Data.Entities
         public DateTime OpenDate { get; set; }
 
         public float Balance { get; set; }
-        public virtual User user { get; set; }
 
     }
 }
