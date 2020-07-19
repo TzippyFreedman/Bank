@@ -9,12 +9,12 @@ namespace UserService.Services
     public interface IUserRepository
     {
         Task<UserModel> GetUserAsync(string email, string password);
-        Task<AccountModel> GetUserAccountByUserIdAsync(Guid id);
+        Task<AccountModel> GetAccountByUserIdAsync(Guid id);
         Task<bool> CheckEmailExistsAsync(string email);
-        
-        Task<AccountModel> GetAccountDetailsAsync(Guid accountId);
+        Task<UserModel> AddUserAsync(UserModel user);
+        Task AddAccountAsync(AccountModel account);
+        Task<AccountModel> GetAccountByIdAsync(Guid accountId);
         Task<UserModel> GetUserByIdAsync(Guid id);
-        Task RegisterAsync(UserModel newUser);
 
     }
 }

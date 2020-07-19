@@ -21,11 +21,30 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        
+        public async Task AddAccountAsync(AccountModel newAccountModel)
+        {
+            Account newAccount = _mapper.Map<Account>(newAccountModel);
+
+            _userDbContext.Accounts.Add(newAccount);
+
+            await _userDbContext.SaveChangesAsync();
+
+        }
+
+        public async Task<UserModel> AddUserAsync(UserModel newUserModel)
+        {
+            User newUser = _mapper.Map<User>(newUserModel);
+
+            _userDbContext.Users.Add(newUser);
+
+            await _userDbContext.SaveChangesAsync();
+
+            return _mapper.Map<UserModel>(newUser);
+        }
 
         public async Task<bool> CheckEmailExistsAsync(string email)
         {
-           bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
+            bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
             return isEmailExist;
         }
 
@@ -43,7 +62,7 @@ namespace UserService.Data
 
         }
 
-        public async Task<AccountModel> GetUserAccountByUserIdAsync(Guid id)
+        public async Task<AccountModel> GetAccountByUserIdAsync(Guid id)
         {
 
             Account userAccount = await _userDbContext.Accounts
@@ -53,44 +72,27 @@ namespace UserService.Data
 
         }
 
-        public async Task<AccountModel> GetAccountDetailsAsync(Guid accountId)
+        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
         {
-          Account account=  await _userDbContext.Accounts
-                .Where(account => account.Id == accountId)
-                .FirstOrDefaultAsync();
-            if(account==null)
+            Account account = await _userDbContext.Accounts
+                  .Where(account => account.Id == accountId)
+                  .FirstOrDefaultAsync();
+
+            if (account == null)
             {
                 return null;
             }
-          return   _mapper.Map<AccountModel>(account);
+            return _mapper.Map<AccountModel>(account);
 
-                }
+        }
 
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
-          User user=await   _userDbContext.Users
-                .Where(user => user.Id == id)
-                .FirstOrDefaultAsync();
+            User user = await _userDbContext.Users
+                  .Where(user => user.Id == id)
+                  .FirstOrDefaultAsync();
 
             return _mapper.Map<UserModel>(user);
-                }
-
-        public async Task RegisterAsync(UserModel newUserModel)
-        {
- 
-            User newUser = _mapper.Map<User>(newUserModel);
-
-            _userDbContext.Users.Add(newUser);
-
-            Account account = new Account { UserId = newUser.Id };
-            _userDbContext.Accounts.Add(account);
-
-            await _userDbContext.SaveChangesAsync();
-           
-
-            
         }
-
-       
     }
 }

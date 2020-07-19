@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Services.Models;
@@ -27,13 +26,20 @@ namespace UserService.Services
                 Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
                 return false;
             }
-            
-                await _userRepository.RegisterAsync(newUser);
-     
+            else
+            {
+            //put both functions in same transaction
+
+                UserModel user = await _userRepository.AddUserAsync(newUser);
+
+                AccountModel account = new AccountModel { UserId = user.Id };
+
+                await  _userRepository.AddAccountAsync(account);
+
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
 
                 return true;
-          
+            }
         }
 
         public async Task<Guid> LoginAsync(string email, string password)
@@ -47,19 +53,17 @@ namespace UserService.Services
             }
             else
             {
-                AccountModel userAccount = await _userRepository.GetUserAccountByUserIdAsync(user.Id);
+                AccountModel userAccount = await _userRepository.GetAccountByUserIdAsync(user.Id);
 
                 return userAccount.Id;
             }
 
         }
 
-        public async Task<AccountModel> GetAccountDetailsAsync(Guid accountId)
+        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
         {
-            AccountModel account = await _userRepository.GetAccountDetailsAsync(accountId);
-           
-
-
+            AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
+          
             return account;
         }
 
@@ -69,13 +73,6 @@ namespace UserService.Services
           
 
             return user;
-        }
-        private static string Hash(byte[] input, string algorithm = "sha256")
-        {
-            using (var hashAlgorithm = HashAlgorithm.Create(algorithm))
-            {
-                return Convert.ToBase64String(hashAlgorithm.ComputeHash(input));
-            }
         }
 
     }

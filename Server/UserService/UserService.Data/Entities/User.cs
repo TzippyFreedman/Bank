@@ -14,7 +14,8 @@ namespace UserService.Data.Entities
         public string LastName { get; set; }
 
         public string Email { get; set; }
-
+        
+        //change to hash 
         [Encrypted]
         public string Password { get; set; }
 
