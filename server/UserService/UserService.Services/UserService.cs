@@ -76,6 +76,10 @@ namespace UserService.Services
             return user;
         }
 
+        public Task VerifyEmailAsync(EmailVerificationModel emailVerification)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

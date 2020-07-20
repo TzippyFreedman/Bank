@@ -41,8 +41,6 @@ namespace UserService.Api.Controllers
 
         [HttpGet]
         [Route("[action]")]
-
-
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
@@ -54,9 +52,9 @@ namespace UserService.Api.Controllers
 
             return accountId;
         }
+
         [HttpGet]
         [Route("[action]/{accountId}")]
-
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
             AccountModel account = await _userService.GetAccountByIdAsync(accountId);

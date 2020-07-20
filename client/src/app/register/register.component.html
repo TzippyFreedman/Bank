@@ -5,11 +5,11 @@
         <label for="email">Email</label>
         <input type="text" formControlName="email" class="form-control"
             [ngClass]="{ 'is-invalid': vertificationSubmitted && registerFormControls.email.errors }" />
-        <div *ngIf="vertificationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.required">Email is required</div>
+        <div *ngIf="vertificationSubmitted && vertificationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="vertificationFormControls.email.errors.required">Email is required</div>
         </div>
-        <div *ngIf="vertificationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
+        <div *ngIf="vertificationSubmitted && vertificationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="vertificationFormControls.email.errors.pattern">Email is invalid</div>
         </div>
     </div>
     <div class="form-group">
