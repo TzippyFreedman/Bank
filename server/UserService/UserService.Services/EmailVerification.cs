@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 
 namespace UserService.Services
 {
@@ -26,16 +23,14 @@ namespace UserService.Services
                     smtp.Credentials = new NetworkCredential("tzippyfreedman1@gmail.com", "Tf0583265366"); //Enter email with password 
                     smtp.EnableSsl = true;
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-
                     smtp.Send(mail);
                 }
-
-
             }
         }
 
         public static string GenerateVerificationCode()
         {
+            //digits or digits+letters
             //Random rand = new Random();
             //rand.Next(1000, 9999);
             //  return rand.ToString();

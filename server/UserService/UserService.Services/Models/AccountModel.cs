@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserService.Services.Models
 {
@@ -9,6 +7,6 @@ namespace UserService.Services.Models
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public DateTime OpenDate { get; set; }
-        public float Balance { get; set; }
+        public int Balance { get; set; }
     }
 }

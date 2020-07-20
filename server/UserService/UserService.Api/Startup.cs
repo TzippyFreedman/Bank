@@ -25,15 +25,12 @@ namespace UserService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
-
             services.AddScoped(typeof(IUserService), typeof(UserService.Services.UserService));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
             services.AddControllers();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("MyPolicy",
@@ -50,7 +47,6 @@ namespace UserService.Api
 
             var swaggerTitle = Configuration["AppSettings:Swagger:Title"];
             var swaggerName = Configuration["AppSettings:Swagger:Name"];
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(swaggerName, new OpenApiInfo()
@@ -61,7 +57,6 @@ namespace UserService.Api
                     {
                         Name = Configuration["AppSettings:Swagger:OpenApiContact:Name"],
                         Email = Configuration["AppSettings:Swagger:OpenApiContact:Email"]
-
                     }
                 });
             });
@@ -79,18 +74,15 @@ namespace UserService.Api
 
             }
             app.UseErrorHandlingMiddleware();
-
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"/swagger/{swaggerName}/swagger.json", swaggerName);
             });
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

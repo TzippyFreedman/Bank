@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -16,7 +15,6 @@ namespace UserService.Services
                                 prf: KeyDerivationPrf.HMACSHA512,
                                 iterationCount: 10000,
                                 numBytesRequested: 256 / 8);
-
             return Convert.ToBase64String(valueBytes);
         }
 

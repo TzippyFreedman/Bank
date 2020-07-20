@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
-using UserService.Data.Exceptions;
 using UserService.Services;
 using UserService.Services.Models;
 
@@ -27,9 +26,7 @@ namespace UserService.Api.Controllers
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
             await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
-            return StatusCode(201);
-            //return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
-
+            return StatusCode((int)HttpStatusCode.Created);
         }
 
         [HttpPost]
@@ -40,7 +37,6 @@ namespace UserService.Api.Controllers
              await _userService.VerifyEmailAsync(emailVerification);
         }
 
-        //fix if empty
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
