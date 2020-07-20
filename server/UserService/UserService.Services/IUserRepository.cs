@@ -16,5 +16,6 @@ namespace UserService.Services
         Task<UserModel> GetUserByIdAsync(Guid id);
         Task AddUserAsync(UserModel userModel);
         Task AddVerificationAsync(EmailVerificationModel emailVerification);
+        Task<EmailVerificationModel> GetVerificationAsync( string email);
     }
 }

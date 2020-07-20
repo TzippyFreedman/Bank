@@ -24,9 +24,10 @@ namespace UserService.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
         {
+
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
 
-            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password);
+            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
             return isRegisterSuccess;
         }
 

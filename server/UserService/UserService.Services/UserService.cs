@@ -1,9 +1,11 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Serilog;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Net.Mail;
 using System.Threading.Tasks;
+using UserService.Api.Exceptions;
+using UserService.Services.Exceptions;
 using UserService.Services.Models;
 
 namespace UserService.Services
@@ -18,28 +20,40 @@ namespace UserService.Services
         }
 
 
-        public async Task<bool> RegisterAsync(UserModel newUser, string password)
+        public async Task<bool> RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
-
-            bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
-
-            if (isEmailExist)
+            
+            EmailVerificationModel Verification = await _userRepository.GetVerificationAsync(newUser.Email);
+            if(Verification.ExpirationTime > DateTime.Now)
             {
-                Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
-                return false;
+                throw new ExpirationTimeOverException(Verification.ExpirationTime);
             }
-            else
+            if (Verification.Code != verificationCode)
             {
-                string passwordSalt = Hash.CreateSalt();
-                string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
-
-                newUser.PasswordHash = passwordHash;
-                newUser.PasswordSalt = passwordSalt;
-
-                await _userRepository.AddUserAsync(newUser);
-                Log.Information("User with email {@email}  created successfully", newUser.Email);
-                return true;
+                throw new WrongVerificationCodeException(Verification.Code);
             }
+           
+                bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
+
+                if (isEmailExist)
+                {
+                    Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
+                    return false;
+                }
+                else
+                {
+                    string passwordSalt = Hash.CreateSalt();
+                    string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
+                    newUser.PasswordHash = passwordHash;
+                    newUser.PasswordSalt = passwordSalt;
+
+                    await _userRepository.AddUserAsync(newUser);
+                    Log.Information("User with email {@email}  created successfully", newUser.Email);
+                    return true;
+
+                }
+
+          
         }
 
         public async Task<Guid> LoginAsync(string email, string password)
@@ -81,41 +95,21 @@ namespace UserService.Services
 
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
         {
-            string vertificationCode = GenerateVerificationCode();
-            emailVerification.Code = vertificationCode;
-            await _userRepository.AddVerificationAsync(emailVerification);
-            SendEmail(emailVerification.Email, vertificationCode);
+            bool isEmailExist = await _userRepository.CheckEmailExistsAsync(emailVerification.Email);
 
-        }
-        private void SendEmail(string emailAddress, string vertificationCode)
-        {
-            using (MailMessage mail = new MailMessage())
+            if (isEmailExist)
             {
-                mail.From = new MailAddress("rivkifreedman1@gmail.com"); //enter whatever email you are sending from here 
-                mail.To.Add(emailAddress); //Text box that the user enters their email address 
-                mail.Subject = "Email Vertification"; //enter whatever subject you would like 
-                mail.Body = $"Your Activation Code is: {vertificationCode}";
-                mail.IsBodyHtml = true;
-
-                using (SmtpClient smtp = new SmtpClient("rivkifreedman1@gmail.com", 587)) //enter the same email that the message is sending from along with port 587
-                {
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("rivkifreedman1@gmail.com", "er0533150865"); //Enter email with password 
-                    smtp.EnableSsl = true;
-                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-
-                    smtp.Send(mail);
-                }
-
-
+                Log.Information("User with email {@email} requested to create but already exists", emailVerification.Email);
+                throw new EmailExistsException(emailVerification.Email);
             }
-        }
-        private string GenerateVerificationCode()
-        {
-            return Path.GetRandomFileName().Replace(".", "").Substring(0, 4); ;
-        }
+            string vertificationCode = EmailVerification.GenerateVerificationCode();
+            emailVerification.Code = vertificationCode;
+          await  _userRepository.AddVerificationAsync(emailVerification);
+            EmailVerification.SendEmail(emailVerification.Email, vertificationCode);
 
+        }
+       
+        
     }
 }
 

@@ -5,8 +5,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
-using UserService.Services;
+//using UserService.Services;
 using UserService.Services.Models;
+using UserService.Services;
 
 namespace UserService.Data
 {
@@ -83,9 +84,42 @@ namespace UserService.Data
 
         public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
         {
-            EmailVerification verification= _mapper.Map<EmailVerification>(emailVerification);
-            _userDbContext.EmailVerifications.Add(verification);
-            await _userDbContext.SaveChangesAsync();
+            Entities.EmailVerification verification = _mapper.Map<Entities.EmailVerification>(emailVerification);
+            if(!_userDbContext.EmailVerifications.Any(v => v.Email == verification.Email))
+            {
+               _userDbContext.EmailVerifications.Add(verification);
+
+            }
+            else
+            {
+                Entities.EmailVerification verificationToUpdate = await  _userDbContext.EmailVerifications
+                    .Where(verification => verification.Email == emailVerification.Email)
+                    .FirstOrDefaultAsync();
+                verificationToUpdate.Code = verification.Code;
+                verificationToUpdate.ExpirationTime = DateTime.Now.AddMinutes(5);
+                //_userDbContext.EmailVerifications.Update(verificationToUpdate);
+
+            }
+
+            // db.SaveChanges();
+            //   _userDbContext.EmailVerifications.Add(verification);
+            await  _userDbContext.SaveChangesAsync();
+        }
+        public async  Task<EmailVerificationModel> GetVerificationAsync(string email)
+        {
+            Entities.EmailVerification emailVerification =await  _userDbContext.EmailVerifications
+                .Where(verification => verification.Email == email)
+                .FirstOrDefaultAsync();
+            if(emailVerification!=null)
+            {
+            return _mapper.Map<EmailVerificationModel>(emailVerification);
+
+            }
+            else
+            //throw exception??
+            {
+                return null;
+            }
         }
 
     }
