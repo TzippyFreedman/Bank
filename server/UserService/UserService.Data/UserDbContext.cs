@@ -54,7 +54,7 @@ namespace UserService.Data
                          .ValueGeneratedOnAdd();
             modelBuilder.Entity<Account>()
                         .Property(account => account.Balance)
-                        .HasDefaultValue(1000);
+                        .HasDefaultValue(100000);
 
             modelBuilder.Entity<EmailVerification>()
                         .ToTable("EmailVerification");

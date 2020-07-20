@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Data.Exceptions;
@@ -27,7 +28,7 @@ namespace UserService.Api.Controllers
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
             await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
-            return StatusCode(201);
+            return StatusCode((int)HttpStatusCode.Created);
             //return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
 
         }
