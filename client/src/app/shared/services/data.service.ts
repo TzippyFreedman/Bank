@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { IUser } from '../models/IUser';
 import { catchError } from 'rxjs/operators';
 import { IAccount } from '../models/IAccount';
+import { IRegister } from '../models/IRegister';
 
 const LOGIN_URL='user/login';
 const REGISTER_URL='user/';
@@ -44,8 +45,8 @@ const VERIFICATION_URL= 'user/verifyEmail';
         .pipe(catchError(this.handleError));
     }
 
-    public register = (user:IUser) => {
-      return this.http.post<boolean>(this.createCompleteRoute(REGISTER_URL, environment.baseURL),user,this.generateHeaders())
+    public register = (user:IRegister) => {
+      return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL),user,this.generateHeaders())
         .pipe(catchError(this.handleError));
   
     }

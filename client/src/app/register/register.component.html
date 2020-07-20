@@ -1,21 +1,21 @@
 <h2>Register</h2>
-<form *ngIf="isVisibleVertificationForm" [formGroup]="vertificationForm" (ngSubmit)="onVertificationSubmit()">
+<form *ngIf="isVisibleVertificationForm" [formGroup]="verificationForm" (ngSubmit)="onVertificationSubmit()">
 
     <div class="form-group">
         <label for="email">Email</label>
         <input type="text" formControlName="email" class="form-control"
-            [ngClass]="{ 'is-invalid': vertificationSubmitted && vertificationFormControls.email.errors }" />
-        <!-- <div *ngIf="vertificationSubmitted && vertificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="vertificationFormControls.email.errors.required">Email is required</div>
+            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
+        <!-- <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
         </div> -->
-        <div *ngIf="vertificationSubmitted && vertificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="vertificationFormControls.email.errors.pattern">Email is invalid</div>
+        <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="verificationFormControls.email.errors.pattern">Email is invalid</div>
         </div>
     </div>
     <div class="form-group">
-        <button [disabled]="vertificationLoading" class="btn btn-primary">
-            <span *ngIf="vertificationLoading" class="spinner-border spinner-border-sm mr-1"></span>
-            Send me vertification code
+        <button [disabled]="verificationLoading" class="btn btn-primary">
+            <span *ngIf="verificationLoading" class="spinner-border spinner-border-sm mr-1"></span>
+            Send me verification code
         </button>
         <a routerLink="/login" class="btn btn-link">Cancel</a>
     </div>
@@ -24,8 +24,8 @@
 <form *ngIf="isVisibleRegistrationForm" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
 
     <div class="form-group">
-        <label for="vertificationCode">Vertification Code</label>
-        <input type="text" formControlName="vertificationCode" class="form-control"
+        <label for="verificationCode">Vertification Code</label>
+        <input type="text" formControlName="verificationCode" class="form-control"
             [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.email.errors }" />
         <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
             <div *ngIf="registerFormControls.email.errors.required">Vertification Code is required</div>
@@ -60,7 +60,7 @@
         <label for="email">Email</label>
         <input type="text" formControlName="email" class="form-control"
             [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.email.errors }" />
-        <div *ngIf="registerationSubmitted" && registerFormControls.email.errors" class="invalid-feedback">
+        <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
             <div *ngIf="registerFormControls.email.errors.required">Email is required</div>
         </div>
         <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">

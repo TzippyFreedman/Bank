@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
+import { IRegister } from '../shared/models/IRegister';
 
 
 
@@ -15,17 +16,17 @@ import { DataService } from '../shared/services/data.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  vertificationForm: FormGroup;
-  vertificationLoading = false;
+  verificationForm: FormGroup;
+  verificationLoading = false;
   registrationLoading = false;
   registerationSubmitted = false;
-  vertificationSubmitted = false;
+  verificationSubmitted = false;
   email: string;
   isVisibleVertificationForm: boolean = true;
   isVisibleRegistrationForm: boolean = false;
 
 
-  userToRegister = <IUser>{};
+  userToRegister = <IRegister>{};
 
   constructor(
     private router: Router,
@@ -54,11 +55,11 @@ export class RegisterComponent implements OnInit {
         Validators.required]),
       'lastName': new FormControl('', [
         Validators.required]),
-        'vertificationCode': new FormControl('', [
+        'verificationCode': new FormControl('', [
           Validators.required]),
     });
 
-    this.vertificationForm = new FormGroup({
+    this.verificationForm = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
@@ -67,29 +68,29 @@ export class RegisterComponent implements OnInit {
   }
 
   get registerFormControls() { return this.registerForm.controls; }
-  get vertificationFormControls() { return this.registerForm.controls; }
+  get verificationFormControls() { return this.registerForm.controls; }
 
   onVertificationSubmit() {
-    this.vertificationSubmitted = true;
+    this.verificationSubmitted = true;
     // stop here if form is invalid
     debugger;
-    if (this.vertificationForm.invalid) {
+    if (this.verificationForm.invalid) {
       return;
     }
 
-    this.vertificationLoading = true;
-    this.email = this.vertificationForm.value;
+    this.verificationLoading = true;
+    this.email = this.verificationForm.value;
     this.dataService.verifyEmail(this.email)
       .pipe(first())
       .subscribe(
         data => {
-          alert("An Email with a vertification code will be sent to you shortly");
-          this.vertificationLoading = false;
+          alert("An Email with a verification code will be sent to you shortly");
+          this.verificationLoading = false;
           this.showRegistrationForm();
         },
         error => {
           alert(error)
-          this.vertificationLoading = false;
+          this.verificationLoading = false;
         });
   }
 
@@ -106,14 +107,14 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           //this.alertService.success('Registration successful', true);
-          if (data.body == true) {
-            alert("Registration completed. please login with your password and user name.")
-            this.router.navigate(['/login']);
-          }
-          else {
-            alert("Registration failed. A user with requested Email Address already Exists.")
-            this.registrationLoading = false;
-          }
+          // if (data.body == true) {
+          //   alert("Registration completed. please login with your password and user name.")
+          //   this.router.navigate(['/login']);
+          // }
+          // else {
+          //   alert("Registration failed. A user with requested Email Address already Exists.")
+          //   this.registrationLoading = false;
+          // }
 
         },
         error => {
