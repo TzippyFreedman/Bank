@@ -84,11 +84,9 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     this.registrationSubmitted = true;
-    // stop here if form is invalid
     if (this.registrationForm.invalid) {
       return;
     }
-    debugger;
     this.registrationLoading = true;
     this.userToRegister = this.registrationForm.value;
     this.userToRegister.email = this.verificationFormControls.email.value;
