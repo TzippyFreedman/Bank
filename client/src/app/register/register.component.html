@@ -1,15 +1,25 @@
 <h2>Register</h2>
 <form *ngIf="isVisibleVertificationForm" [formGroup]="verificationForm" (ngSubmit)="onVertificationSubmit()">
 
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control"
-            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
+    <!-- <div class="form-group">
+        <label for="verificationEmail">Email</label>
+        <input type="text" formControlName="verificationEmail" class="form-control"
+            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.verificationEmail.errors }" />
         <!-- <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
             <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
         </div> -->
+        <!-- <div *ngIf="verificationSubmitted && verificationFormControls.verificationEmail.errors" class="invalid-feedback">
+            <div *ngIf="verificationFormControls.verificationEmail.errors.pattern">Email is invalid</div>
+        </div>
+    </div> --> 
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
         <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.pattern">Email is invalid</div>
+            <div *ngIf="verificationFormControls.email.errors.required">email is required</div>
+        </div>
+        <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="verificationFormControls.email.errors.pattern"> email invalid</div>
         </div>
     </div>
     <div class="form-group">

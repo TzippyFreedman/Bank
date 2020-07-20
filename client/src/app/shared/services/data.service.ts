@@ -19,14 +19,10 @@ const VERIFICATION_URL= 'user/verifyEmail';
   export class DataService {
     constructor(private http:HttpClient) { }
     private handleError(error: HttpErrorResponse) {
-      if (error.error.message  ) {
-        // A client-side or network error occurred. Handle it accordingly.
-        return throwError(new Error(`An error occurred:${error.error.message}`) );
+    // A client-side or network error occurred. Handle it accordingly.
+      if (error.error.errorMessage  ) {
+        return throwError(new Error(`An error occurred:${error.error.errorMessage}`) );
       } 
-      // if( error.error.errorMessage){
-      //   return throwError(new Error(`An error occurred:${error.error.errorMessage} `));
-
-      // }
       else {
         // The backend returned an unsuccessful response code.
         // The response body may contain clues as to what went wrong,

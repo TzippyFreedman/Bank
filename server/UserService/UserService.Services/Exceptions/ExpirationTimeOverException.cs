@@ -4,13 +4,13 @@ using System.Text;
 
 namespace UserService.Api.Exceptions
 {
-    class VerificationCodeExpiredException : Exception
+    class ExpirationTimeOverException : Exception
     {
-        public VerificationCodeExpiredException()
+        public ExpirationTimeOverException()
         {
 
         }
-        public VerificationCodeExpiredException(DateTime time) : base($"The expiration time was:{time} . please try again!")
+        public ExpirationTimeOverException(DateTime time) : base($"The expiration time was:{time} . please try again!")
         {
 
         }
