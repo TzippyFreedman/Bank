@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -24,8 +25,10 @@ namespace UserService.Api.Controllers
         public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
-            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
-            return isRegisterSuccess;
+            await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
+            return StatusCode(201);
+            //return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+
         }
 
         [HttpPost]
