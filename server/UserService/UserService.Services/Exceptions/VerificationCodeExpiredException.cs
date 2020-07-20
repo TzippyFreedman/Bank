@@ -10,7 +10,7 @@ namespace UserService.Api.Exceptions
         {
 
         }
-        public VerificationCodeExpiredException(DateTime time) : base($"The expiration time was:{time} . please try again!")
+        public VerificationCodeExpiredException(DateTime time) : base($"The expiration time was:{time}")
         {
 
         }

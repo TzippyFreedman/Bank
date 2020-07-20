@@ -10,7 +10,7 @@ namespace UserService.Api.Exceptions
         {
 
         }
-        public IncorrectVerificationCodeException(string verificationCode) : base($"Verification code:{verificationCode} is wrong!!")
+        public IncorrectVerificationCodeException(string verificationCode) : base($"Verification code:{verificationCode} is incorrect!!")
         {
 
         }

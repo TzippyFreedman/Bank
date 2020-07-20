@@ -10,7 +10,7 @@ namespace UserService.Services.Exceptions
         {
 
         }
-        public UserWithRequestedEmailAlreadyExistsException(string email) : base($"Email:{email} already exists! please try again!")
+        public UserWithRequestedEmailAlreadyExistsException(string email) : base($"Email:{email} already exists!")
         {
 
         }

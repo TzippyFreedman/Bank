@@ -15,11 +15,11 @@ import { IRegister } from '../shared/models/IRegister';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
+  registrationForm: FormGroup;
   verificationForm: FormGroup;
   verificationLoading = false;
   registrationLoading = false;
-  registerationSubmitted = false;
+  registrationSubmitted = false;
   verificationSubmitted = false;
   email: string;
   isVisibleVertificationForm: boolean = true;
@@ -43,11 +43,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.registerForm = new FormGroup({
-      'email': new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
-      ]),
+    this.registrationForm = new FormGroup({
       'password': new FormControl('', [
         Validators.required,
         Validators.minLength(6)]),
@@ -59,7 +55,7 @@ export class RegisterComponent implements OnInit {
           Validators.required]),
     });
 
-    this.verificationForm = new FormGroup({
+        this.verificationForm = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
@@ -67,13 +63,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  get registerFormControls() { return this.registerForm.controls; }
-  get verificationFormControls() { return this.registerForm.controls; }
+  get registrationFormControls() { return this.registrationForm.controls; }
+  get verificationFormControls() { return this.verificationForm.controls; }
 
-  onVertificationSubmit() {
+  onVerificationSubmit() {
     this.verificationSubmitted = true;
-    // stop here if form is invalid
-    debugger;
     if (this.verificationForm.invalid) {
       return;
     }
@@ -95,13 +89,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit() {
-    this.registerationSubmitted = true;
+    this.registrationSubmitted = true;
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.registrationForm.invalid) {
       return;
     }
     this.registrationLoading = true;
-    this.userToRegister = this.registerForm.value;
+    this.userToRegister = this.registrationForm.value;
     this.dataService.register(this.userToRegister)
       .pipe(first())
       .subscribe(
@@ -124,7 +118,7 @@ export class RegisterComponent implements OnInit {
         });
   }
 
-  showVertificationForm() {
+  showVerificationForm() {
     this.isVisibleRegistrationForm = false;
     this.isVisibleVertificationForm = true;
 

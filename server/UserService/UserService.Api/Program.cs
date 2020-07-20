@@ -25,7 +25,7 @@ namespace UserService.Api
             Serilog.Debugging.SelfLog.Enable(msg =>
             {
                 Debug.Print(msg);
-                Debugger.Break();
+                 Debugger.Break();
             });
 
             try
