@@ -25,10 +25,8 @@ export class UserAccountComponent implements OnInit {
   this.http.getAccountDetails(this.accountId)
   .subscribe(
     result => {
-    this.account = result;
-    debugger;  },
+    this.account = result; },
         error => {
-          debugger;
         alert(error);
 
     });

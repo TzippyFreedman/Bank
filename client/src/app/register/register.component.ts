@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { IUser } from '../shared/models/IUser';
 import { DataService } from '../shared/services/data.service';
 import { IRegister } from '../shared/models/IRegister';
-
-
 
 @Component({
   selector: 'app-register',
@@ -24,8 +21,6 @@ export class RegisterComponent implements OnInit {
   email: string;
   isVisibleVertificationForm: boolean = true;
   isVisibleRegistrationForm: boolean = false;
-
-
   userToRegister = <IRegister>{};
 
   constructor(
@@ -39,8 +34,6 @@ export class RegisterComponent implements OnInit {
     // }
   }
 
-
-
   ngOnInit(): void {
 
     this.registrationForm = new FormGroup({
@@ -51,11 +44,11 @@ export class RegisterComponent implements OnInit {
         Validators.required]),
       'lastName': new FormControl('', [
         Validators.required]),
-        'verificationCode': new FormControl('', [
-          Validators.required]),
+      'verificationCode': new FormControl('', [
+        Validators.required]),
     });
 
-        this.verificationForm = new FormGroup({
+    this.verificationForm = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")
@@ -65,6 +58,7 @@ export class RegisterComponent implements OnInit {
 
   get registrationFormControls() { return this.registrationForm.controls; }
   get verificationFormControls() { return this.verificationForm.controls; }
+  get verifiedEmail() { return this.verificationForm.get('email'); }
 
   onVerificationSubmit() {
     this.verificationSubmitted = true;
@@ -94,15 +88,16 @@ export class RegisterComponent implements OnInit {
     if (this.registrationForm.invalid) {
       return;
     }
+    debugger;
     this.registrationLoading = true;
     this.userToRegister = this.registrationForm.value;
+    this.userToRegister.email = this.verificationFormControls.email.value;
     this.dataService.register(this.userToRegister)
       .pipe(first())
       .subscribe(
         data => {
-             alert("Registration completed. please login with your password and user name.")
-             this.router.navigate(['/login']);
-
+          alert("Registration completed. please login with your password and user name.")
+          this.router.navigate(['/login']);
         },
         error => {
           alert(error)
