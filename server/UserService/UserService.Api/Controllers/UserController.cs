@@ -23,7 +23,7 @@ namespace UserService.Api.Controllers
             _userService = userService;
         }
         [HttpPost]
-        public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
+        public async Task<ActionResult> RegisterAsync(RegisterDTO userRegister)
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
             await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
@@ -45,12 +45,7 @@ namespace UserService.Api.Controllers
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
-            throw new AccountNotFoundException(Guid.NewGuid());
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
-            if (accountId == Guid.Empty)
-            {
-                return Unauthorized();
-            }
             return accountId;
         }
 

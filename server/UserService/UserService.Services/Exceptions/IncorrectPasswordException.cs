@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserService.Services.Exceptions
 {
-    class IncorrectPasswordException : Exception
+   public class IncorrectPasswordException : Exception
     {
         public IncorrectPasswordException()
         {
