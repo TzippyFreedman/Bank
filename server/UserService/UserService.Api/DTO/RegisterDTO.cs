@@ -9,6 +9,8 @@ namespace UserService.Api.DTO
     public class RegisterDTO
     {
         [Required]
+        public string VerificationCode { get; set; }
+        [Required]
         public string FirstName { get; set; }
 
         [Required]

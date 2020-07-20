@@ -14,7 +14,8 @@ namespace UserService.Data
             CreateMap<AccountModel, Account>()
                 .ReverseMap();
 
-            CreateMap<EmailVerificationModel, EmailVerification>();
+            CreateMap<EmailVerificationModel, EmailVerification>()
+                .ReverseMap();
         }
     }
 }
