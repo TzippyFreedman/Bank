@@ -45,7 +45,6 @@ namespace UserService.Api.Controllers
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
-           // throw new AccountNotFoundException(Guid.NewGuid());
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             return accountId;
         }
