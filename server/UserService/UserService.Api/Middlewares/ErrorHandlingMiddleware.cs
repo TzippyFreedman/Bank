@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using UserService.Api.Exceptions;
 using UserService.Data.Exceptions;
+using UserService.Services.Exceptions;
 
 namespace UserService.Api.Middlewares
 {
@@ -44,7 +45,10 @@ namespace UserService.Api.Middlewares
             {
                 code = HttpStatusCode.NotFound;
             }
-
+            if (ex is IncorrectPasswordException)
+            {
+                code = HttpStatusCode.Unauthorized;
+            }
 
             string result = JsonSerializer
                 .Serialize(new { errorMessage = ex.Message, statusCode = code });
