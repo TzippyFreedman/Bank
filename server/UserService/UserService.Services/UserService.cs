@@ -18,98 +18,78 @@ namespace UserService.Services
         {
             _userRepository = userRepository;
         }
-
-
         public async Task<bool> RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
-            
-            EmailVerificationModel Verification = await _userRepository.GetVerificationAsync(newUser.Email);
-            if(Verification.ExpirationTime > DateTime.Now)
+            EmailVerificationModel verification = await _userRepository.GetVerificationAsync(newUser.Email);
+
+            if (verification.ExpirationTime > DateTime.Now)
             {
-                throw new ExpirationTimeOverException(Verification.ExpirationTime);
+                throw new VerificationCodeExpiredException(verification.ExpirationTime);
             }
-            if (Verification.Code != verificationCode)
+            if (verification.Code != verificationCode)
             {
-                throw new WrongVerificationCodeException(Verification.Code);
+                throw new InncorrectVerificationCodeException(verification.Code);
             }
-           
-                bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
 
-                if (isEmailExist)
-                {
-                    Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
-                    return false;
-                }
-                else
-                {
-                    string passwordSalt = Hash.CreateSalt();
-                    string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
-                    newUser.PasswordHash = passwordHash;
-                    newUser.PasswordSalt = passwordSalt;
+            bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
+            if (isUserExist)
+            {
+                Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
+                return false;
+            }
+            else
+            {
+                string passwordSalt = Hash.CreateSalt();
+                string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
+                newUser.PasswordHash = passwordHash;
+                newUser.PasswordSalt = passwordSalt;
 
-                    await _userRepository.AddUserAsync(newUser);
-                    Log.Information("User with email {@email}  created successfully", newUser.Email);
-                    return true;
-
-                }
-
-          
+                await _userRepository.AddUserAsync(newUser);
+                Log.Information("User with email {@email}  created successfully", newUser.Email);
+                return true;
+            }
         }
 
+        //change return guid
         public async Task<Guid> LoginAsync(string email, string password)
         {
             UserModel user = await _userRepository.GetUserAsync(email);
-
-            if (user == null)
-            {
-                Log.Information($"attemt to login for user with email:{email} failed!");
-                return Guid.Empty;
-            }
-
             if (!Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
             {
                 Log.Information($"attemt to login for user with email:{email} failed!");
                 return Guid.Empty;
             }
-
-            AccountModel userAccount = await _userRepository.GetAccountByUserIdAsync(user.Id);
-
-            return userAccount.Id;
-
+            AccountModel account = await _userRepository.GetAccountByUserIdAsync(user.Id);
+            return account.Id;
         }
 
         public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
         {
             AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
-
             return account;
         }
 
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
             UserModel user = await _userRepository.GetUserByIdAsync(id);
-
-
             return user;
         }
 
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
         {
-            bool isEmailExist = await _userRepository.CheckEmailExistsAsync(emailVerification.Email);
-
-            if (isEmailExist)
+            bool isUserExist = await _userRepository.CheckUserExistsAsync(emailVerification.Email);
+            if (isUserExist)
             {
                 Log.Information("User with email {@email} requested to create but already exists", emailVerification.Email);
                 throw new EmailExistsException(emailVerification.Email);
             }
             string vertificationCode = EmailVerification.GenerateVerificationCode();
             emailVerification.Code = vertificationCode;
-          await  _userRepository.AddVerificationAsync(emailVerification);
-            EmailVerification.SendEmail(emailVerification.Email, vertificationCode);
-
+            await _userRepository.AddVerificationAsync(emailVerification);
+            EmailVerification.SendVertificationEmail(emailVerification.Email, vertificationCode);
         }
-       
-        
+
+
     }
 }
 

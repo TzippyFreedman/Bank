@@ -8,6 +8,7 @@ using UserService.Data.Entities;
 //using UserService.Services;
 using UserService.Services.Models;
 using UserService.Services;
+using UserService.Data.Exceptions;
 
 namespace UserService.Data
 {
@@ -21,8 +22,8 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-      
-        public async Task<bool> CheckEmailExistsAsync(string email)
+
+        public async Task<bool> CheckUserExistsAsync(string email)
         {
             bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
             return isEmailExist;
@@ -33,21 +34,23 @@ namespace UserService.Data
             User user = await _userDbContext.Users
                .Where(user => user.Email == email)
                .FirstOrDefaultAsync();
-
             if (user == null)
             {
-                return null;
+                throw new UserNotFoundException();
             }
             return _mapper.Map<UserModel>(user);
-
         }
 
-        public async Task<AccountModel> GetAccountByUserIdAsync(Guid id)
+        public async Task<AccountModel> GetAccountByUserIdAsync(Guid accountId)
         {
-            Account userAccount = await _userDbContext.Accounts
-                      .Where(file => file.UserId == id)
+            Account account = await _userDbContext.Accounts
+                      .Where(file => file.UserId == accountId)
                       .FirstOrDefaultAsync();
-            return _mapper.Map<AccountModel>(userAccount);
+            if (account == null)
+            {
+                throw new AccountNotFoundException(accountId);
+            }
+            return _mapper.Map<AccountModel>(account);
         }
 
         public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
@@ -55,71 +58,60 @@ namespace UserService.Data
             Account account = await _userDbContext.Accounts
                   .Where(account => account.Id == accountId)
                   .FirstOrDefaultAsync();
-
             if (account == null)
             {
-                return null;
+                throw new AccountNotFoundException(accountId);
             }
             return _mapper.Map<AccountModel>(account);
         }
 
-        public async Task<UserModel> GetUserByIdAsync(Guid id)
+        public async Task<UserModel> GetUserByIdAsync(Guid userId)
         {
             User user = await _userDbContext.Users
-                  .Where(user => user.Id == id)?
+                  .Where(user => user.Id == userId)?
                   .FirstOrDefaultAsync();
-
+            if (user == null)
+            {
+                throw new UserNotFoundException(userId);
+            }
             return _mapper.Map<UserModel>(user);
         }
         public async Task AddUserAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
-
-
             newUser.Account = new Account();
             _userDbContext.Users.Add(newUser);
-
-          await  _userDbContext.SaveChangesAsync();
+            await _userDbContext.SaveChangesAsync();
         }
 
         public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
         {
             Entities.EmailVerification verification = _mapper.Map<Entities.EmailVerification>(emailVerification);
-            if(!_userDbContext.EmailVerifications.Any(v => v.Email == verification.Email))
+            bool isEmailExist = await _userDbContext.EmailVerifications.AnyAsync(v => v.Email == verification.Email);
+            if (isEmailExist == false)
             {
-               _userDbContext.EmailVerifications.Add(verification);
-
+                _userDbContext.EmailVerifications.Add(verification);
             }
             else
             {
-                Entities.EmailVerification verificationToUpdate = await  _userDbContext.EmailVerifications
+                Entities.EmailVerification verificationToUpdate = await _userDbContext.EmailVerifications
                     .Where(verification => verification.Email == emailVerification.Email)
                     .FirstOrDefaultAsync();
                 verificationToUpdate.Code = verification.Code;
                 verificationToUpdate.ExpirationTime = DateTime.Now.AddMinutes(5);
-                //_userDbContext.EmailVerifications.Update(verificationToUpdate);
-
             }
-
-            // db.SaveChanges();
-            //   _userDbContext.EmailVerifications.Add(verification);
-            await  _userDbContext.SaveChangesAsync();
+            await _userDbContext.SaveChangesAsync();
         }
-        public async  Task<EmailVerificationModel> GetVerificationAsync(string email)
+        public async Task<EmailVerificationModel> GetVerificationAsync(string email)
         {
-            Entities.EmailVerification emailVerification =await  _userDbContext.EmailVerifications
+            Entities.EmailVerification emailVerification = await _userDbContext.EmailVerifications
                 .Where(verification => verification.Email == email)
                 .FirstOrDefaultAsync();
-            if(emailVerification!=null)
+            if (emailVerification == null)
             {
+                throw new VerificationNotFoundException(email);
+            }
             return _mapper.Map<EmailVerificationModel>(emailVerification);
-
-            }
-            else
-            //throw exception??
-            {
-                return null;
-            }
         }
 
     }
