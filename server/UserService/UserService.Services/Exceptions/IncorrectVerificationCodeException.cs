@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UserService.Api.Exceptions
+namespace UserService.Services.Exceptions
 {
-    class IncorrectVerificationCodeException : Exception
+    class IncorrectVerificationCodeException : BadRequestException
     {
         public IncorrectVerificationCodeException()
         {

@@ -14,5 +14,9 @@ namespace UserService.Data.Exceptions
         {
 
         }
+        public UserNotFoundException(string email) : base($"User with email:{email} was not found")
+        {
+
+        }
     }
 }

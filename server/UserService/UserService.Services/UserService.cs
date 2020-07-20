@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using System;
 using System.Threading.Tasks;
-using UserService.Api.Exceptions;
 using UserService.Services.Exceptions;
 using UserService.Services.Models;
 
@@ -26,7 +25,7 @@ namespace UserService.Services
             }
             if (verification.Code != verificationCode)
             {
-                throw new IncorrectVerificationCodeException(verification.Code);
+                throw new IncorrectVerificationCodeException(verificationCode);
             }
 
             bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
