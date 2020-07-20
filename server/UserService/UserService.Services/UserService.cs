@@ -34,7 +34,6 @@ namespace UserService.Services
             }
            
                 bool isEmailExist = await _userRepository.CheckEmailExistsAsync(newUser.Email);
-
                 if (isEmailExist)
                 {
                     Log.Information("User with email {@email} requested to create but already exists", newUser.Email);
@@ -46,11 +45,9 @@ namespace UserService.Services
                     string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
                     newUser.PasswordHash = passwordHash;
                     newUser.PasswordSalt = passwordSalt;
-
                     await _userRepository.AddUserAsync(newUser);
                     Log.Information("User with email {@email}  created successfully", newUser.Email);
                     return true;
-
                 }
 
           
@@ -88,8 +85,6 @@ namespace UserService.Services
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
             UserModel user = await _userRepository.GetUserByIdAsync(id);
-
-
             return user;
         }
 

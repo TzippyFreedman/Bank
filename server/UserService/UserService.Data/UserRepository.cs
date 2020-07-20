@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
-//using UserService.Services;
 using UserService.Services.Models;
 using UserService.Services;
 
@@ -116,7 +115,6 @@ namespace UserService.Data
 
             }
             else
-            //throw exception??
             {
                 return null;
             }
