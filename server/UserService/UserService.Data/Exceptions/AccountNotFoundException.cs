@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserService.Data.Exceptions
 {
-   public class AccountNotFoundException : Exception
+   public class AccountNotFoundException :  DataNotFoundException
     {
         public AccountNotFoundException()
         {

@@ -15,25 +15,24 @@ namespace UserService.Services
         {
             _userRepository = userRepository;
         }
-        public async Task<bool> RegisterAsync(UserModel newUser, string password, string verificationCode)
+
+        public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
             EmailVerificationModel verification = await _userRepository.GetVerificationAsync(newUser.Email);
 
             if (verification.ExpirationTime > DateTime.Now)
             {
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
-                //return false
             }
             if (verification.Code != verificationCode)
             {
-                throw new InncorrectVerificationCodeException(verification.Code);
-                //return false
+                throw new IncorrectVerificationCodeException(verification.Code);
             }
 
             bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
             if (isUserExist)
             {
-                throw new UserWithRequestedEmailExistsException(newUser.Email);
+                throw new UserWithRequestedEmailAlreadyExistsException(newUser.Email);
             }
             else
             {
@@ -43,18 +42,16 @@ namespace UserService.Services
                 newUser.PasswordSalt = passwordSalt;
                 await _userRepository.AddUserAsync(newUser);
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
-                return true;
+               
             }
         }
 
-        //change return guid
         public async Task<Guid> LoginAsync(string email, string password)
         {
             UserModel user = await _userRepository.GetUserAsync(email);
             if (!Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
             {
-                Log.Information($"attemt to login for user with email:{email} failed!");
-                return Guid.Empty;
+                throw new IncorrectPasswordException(email);
             }
             AccountModel account = await _userRepository.GetAccountByUserIdAsync(user.Id);
             return account.Id;
@@ -77,7 +74,7 @@ namespace UserService.Services
             bool isUserExist = await _userRepository.CheckUserExistsAsync(emailVerification.Email);
             if (isUserExist)
             {
-                throw new UserWithRequestedEmailExistsException(emailVerification.Email);
+                throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);
             }
             string vertificationCode = EmailVerification.GenerateVerificationCode();
             emailVerification.Code = vertificationCode;
