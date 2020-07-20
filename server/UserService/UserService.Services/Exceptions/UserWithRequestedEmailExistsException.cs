@@ -4,13 +4,13 @@ using System.Text;
 
 namespace UserService.Services.Exceptions
 {
-    class EmailExistsException : Exception
+    class UserWithRequestedEmailExistsException : Exception
     {
-        public EmailExistsException()
+        public UserWithRequestedEmailExistsException()
         {
 
         }
-        public EmailExistsException(string email) : base($"Email:{email} already exists! please try again!")
+        public UserWithRequestedEmailExistsException(string email) : base($"Email:{email} already exists! please try again!")
         {
 
         }
