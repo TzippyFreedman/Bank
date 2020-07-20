@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace UserService.Api.Exceptions
+namespace UserService.Services.Exceptions
 {
-    class VerificationCodeExpiredException : Exception
+    class VerificationCodeExpiredException : BadRequestException
     {
         public VerificationCodeExpiredException()
         {

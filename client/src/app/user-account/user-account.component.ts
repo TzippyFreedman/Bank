@@ -34,3 +34,8 @@ export class UserAccountComponent implements OnInit {
 
 
 }
+
+// logOut:void()
+// {
+
+// }

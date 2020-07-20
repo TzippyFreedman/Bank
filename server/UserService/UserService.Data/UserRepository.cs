@@ -34,7 +34,7 @@ namespace UserService.Data
                .FirstOrDefaultAsync();
             if (user == null)
             {
-                throw new UserNotFoundException();
+                throw new UserNotFoundException(email);
             }
             return _mapper.Map<UserModel>(user);
         }
