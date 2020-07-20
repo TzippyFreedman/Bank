@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -113,6 +112,5 @@ namespace UserService.Data
             }
             return _mapper.Map<EmailVerificationModel>(emailVerification);
         }
-
     }
 }

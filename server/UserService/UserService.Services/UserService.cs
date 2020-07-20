@@ -81,8 +81,6 @@ namespace UserService.Services
             await _userRepository.AddVerificationAsync(emailVerification);
             EmailVerification.SendVertificationEmail(emailVerification.Email, vertificationCode);
         }
-
-
     }
 }
 

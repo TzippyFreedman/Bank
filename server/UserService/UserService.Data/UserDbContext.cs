@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.DataEncryption;
-using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UserService.Data.Entities;
 
 namespace UserService.Data
@@ -55,7 +50,6 @@ namespace UserService.Data
             modelBuilder.Entity<Account>()
                         .Property(account => account.Balance)
                         .HasDefaultValue(100000);
-
             modelBuilder.Entity<EmailVerification>()
                         .ToTable("EmailVerification");
             modelBuilder.Entity<EmailVerification>()
@@ -71,7 +65,6 @@ namespace UserService.Data
                           .Property(verification => verification.ExpirationTime)
                           .HasDefaultValueSql("dateadd(minute,5,getdate())")
                           .ValueGeneratedOnAdd();
-
         }
 
         public DbSet<User> Users { get; set; }
