@@ -47,6 +47,7 @@ namespace UserService.Data
                       .FirstOrDefaultAsync();
             if (account == null)
             {
+
                 throw new AccountNotFoundException(accountId);
             }
             return _mapper.Map<AccountModel>(account);

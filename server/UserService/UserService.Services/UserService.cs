@@ -23,12 +23,10 @@ namespace UserService.Services
             if (verification.ExpirationTime > DateTime.Now)
             {
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
-                //return false
             }
             if (verification.Code != verificationCode)
             {
                 throw new IncorrectVerificationCodeException(verification.Code);
-                //return false
             }
 
             bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
@@ -53,7 +51,6 @@ namespace UserService.Services
             UserModel user = await _userRepository.GetUserAsync(email);
             if (!Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
             {
-                Log.Information($"attemt to login for user with email:{email} failed!");
                 throw new IncorrectPasswordException(email);
             }
             AccountModel account = await _userRepository.GetAccountByUserIdAsync(user.Id);

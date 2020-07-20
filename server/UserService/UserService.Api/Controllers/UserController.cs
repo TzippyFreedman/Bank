@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
+using UserService.Data.Exceptions;
 using UserService.Services;
 using UserService.Services.Models;
 
@@ -44,6 +45,7 @@ namespace UserService.Api.Controllers
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
+            throw new AccountNotFoundException(Guid.NewGuid());
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             if (accountId == Guid.Empty)
             {
