@@ -20,7 +20,7 @@ namespace UserService.Services
         {
             EmailVerificationModel verification = await _userRepository.GetVerificationAsync(newUser.Email);
 
-            if (verification.ExpirationTime > DateTime.Now)
+            if (verification.ExpirationTime < DateTime.Now)
             {
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
             }
