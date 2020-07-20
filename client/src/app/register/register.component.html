@@ -1,25 +1,13 @@
-<h2>Register</h2>
-<form *ngIf="isVisibleVertificationForm" [formGroup]="verificationForm" (ngSubmit)="onVertificationSubmit()">
 
-    <!-- <div class="form-group">
-        <label for="verificationEmail">Email</label>
-        <input type="text" formControlName="verificationEmail" class="form-control"
-            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.verificationEmail.errors }" />
-        <!-- <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
-        </div> -->
-        <!-- <div *ngIf="verificationSubmitted && verificationFormControls.verificationEmail.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.verificationEmail.errors.pattern">Email is invalid</div>
-        </div>
-    </div> --> 
+<form *ngIf="isVisibleVertificationForm" [formGroup]="verificationForm" (ngSubmit)="onVerificationSubmit()">
     <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email">Enter your Email address</label>
         <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
         <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.required">email is required</div>
+            <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
         </div>
         <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.pattern"> email invalid</div>
+            <div *ngIf="verificationFormControls.email.errors.pattern"> Email is invalid</div>
         </div>
     </div>
     <div class="form-group">
@@ -29,61 +17,57 @@
         </button>
         <a routerLink="/login" class="btn btn-link">Cancel</a>
     </div>
-
 </form>
-<form *ngIf="isVisibleRegistrationForm" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+<form *ngIf="isVisibleRegistrationForm" [formGroup]="registrationForm" (ngSubmit)="onRegisterSubmit()">
 
     <div class="form-group">
-        <label for="verificationCode">Vertification Code</label>
+        <label for="verificationCode">Verification Code</label>
         <input type="text" formControlName="verificationCode" class="form-control"
-            [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.email.errors }" />
-        <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.required">Vertification Code is required</div>
+            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.verificationCode.errors }" />
+        <div *ngIf="registrationSubmitted && registrationFormControls.verificationCode.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.verificationCode.errors.required">Verification Code is required</div>
         </div>
-        <!-- <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
-        </div> -->
     </div>
     <div class="form-group">
-        <button (click)="showVertificationForm()" class="btn btn-primary">
-            Resend Vertification Code
+        <button (click)="showVerificationForm()" class="btn btn-link">
+            Resend Verification Code
         </button>
-        <a routerLink="/login" class="btn btn-link">Cancel</a>
+        
     </div>
     <div class="form-group">
         <label for="firstName">First Name</label>
         <input type="text" formControlName="firstName" class="form-control"
-            [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.firstName.errors }" />
-        <div *ngIf="registerationSubmitted && registerFormControls.firstName.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.firstName.errors.required"> First Name is required</div>
+            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.firstName.errors }" />
+        <div *ngIf="registrationSubmitted && registrationFormControls.firstName.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.firstName.errors.required"> First Name is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="lastName">Last Name</label>
         <input type="text" formControlName="lastName" class="form-control"
-            [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.lastName.errors }" />
-        <div *ngIf="registerationSubmitted && registerFormControls.lastName.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.lastName.errors.required">Last Name is required</div>
+            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.lastName.errors }" />
+        <div *ngIf="registrationSubmitted && registrationFormControls.lastName.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="email">Email</label>
         <input type="text" formControlName="email" class="form-control"
-            [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.email.errors }" />
-        <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.required">Email is required</div>
+            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.email.errors }" />
+        <div *ngIf="registrationSubmitted && registrationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.email.errors.required">Email is required</div>
         </div>
-        <div *ngIf="registerationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
+        <div *ngIf="registrationSubmitted && registrationFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.email.errors.pattern">Email is invalid</div>
         </div>
-    </div>
+    </div> -->
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': registerationSubmitted && registerFormControls.password.errors }" />
-            <div *ngIf="registerationSubmitted && registerFormControls.password.errors" class="invalid-feedback">
-                <div *ngIf="registerFormControls.password.errors.required">Password is required</div>
-                <div *ngIf="registerFormControls.password.errors.minlength">Password should contain at least 6
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.password.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.password.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.password.errors.required">Password is required</div>
+                <div *ngIf="registrationFormControls.password.errors.minlength">Password should contain at least 6
                     characters.</div>
             </div>
         </div>
