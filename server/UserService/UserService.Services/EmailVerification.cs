@@ -33,6 +33,7 @@ namespace UserService.Services
 
             }
         }
+
         public static string GenerateVerificationCode()
         {
             //Random rand = new Random();

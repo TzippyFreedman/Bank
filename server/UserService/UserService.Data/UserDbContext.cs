@@ -17,8 +17,6 @@ namespace UserService.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Entity<User>()
                 .ToTable("User");
             modelBuilder.Entity<User>()
@@ -34,7 +32,6 @@ namespace UserService.Data
             modelBuilder.Entity<User>()
                          .Property(user => user.FirstName)
                           .IsRequired();
-
             modelBuilder.Entity<User>()
                          .Property(user => user.LastName)
                           .IsRequired();
@@ -55,28 +52,25 @@ namespace UserService.Data
                          .Property(account => account.OpenDate)
                          .HasDefaultValueSql("getdate()")
                          .ValueGeneratedOnAdd();
-            /*            modelBuilder.Entity<Account>()
-                                    .Property(account => account.UserId)
-                                    .IsRequired();*/
             modelBuilder.Entity<Account>()
                         .Property(account => account.Balance)
                         .HasDefaultValue(1000);
 
             modelBuilder.Entity<EmailVerification>()
-              .ToTable("EmailVerification");
+                        .ToTable("EmailVerification");
             modelBuilder.Entity<EmailVerification>()
-                   .Property(verification => verification.Email)
-                   .IsRequired();
+                         .Property(verification => verification.Email)
+                         .IsRequired();
             modelBuilder.Entity<EmailVerification>()
-                 .Property(verification => verification.Code)
-                 .IsRequired();
+                        .Property(verification => verification.Code)
+                        .IsRequired();
             modelBuilder.Entity<EmailVerification>()
-                .Property(verification => verification.ExpirationTime)
-                .IsRequired();
+                          .Property(verification => verification.ExpirationTime)
+                          .IsRequired();
             modelBuilder.Entity<EmailVerification>()
-                 .Property(verification => verification.ExpirationTime)
-                  .HasDefaultValueSql("dateadd(minute,5,getdate())")
-                         .ValueGeneratedOnAdd();
+                          .Property(verification => verification.ExpirationTime)
+                          .HasDefaultValueSql("dateadd(minute,5,getdate())")
+                          .ValueGeneratedOnAdd();
 
         }
 

@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Serilog;
+﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using UserService.Api.Exceptions;
 using UserService.Services.Exceptions;
@@ -25,10 +22,12 @@ namespace UserService.Services
             if (verification.ExpirationTime > DateTime.Now)
             {
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
+                //return false
             }
             if (verification.Code != verificationCode)
             {
                 throw new InncorrectVerificationCodeException(verification.Code);
+                //return false
             }
 
             bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
