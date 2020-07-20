@@ -81,5 +81,12 @@ namespace UserService.Data
           await  _userDbContext.SaveChangesAsync();
         }
 
+        public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
+        {
+            EmailVerification verification= _mapper.Map<EmailVerification>(emailVerification);
+            _userDbContext.EmailVerifications.Add(verification);
+            await _userDbContext.SaveChangesAsync();
+        }
+
     }
 }

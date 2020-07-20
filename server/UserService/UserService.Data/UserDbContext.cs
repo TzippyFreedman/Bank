@@ -62,12 +62,28 @@ namespace UserService.Data
                         .Property(account => account.Balance)
                         .HasDefaultValue(1000);
 
-
+            modelBuilder.Entity<EmailVerification>()
+              .ToTable("EmailVerification");
+            modelBuilder.Entity<EmailVerification>()
+                   .Property(verification => verification.Email)
+                   .IsRequired();
+            modelBuilder.Entity<EmailVerification>()
+                 .Property(verification => verification.Code)
+                 .IsRequired();
+            modelBuilder.Entity<EmailVerification>()
+                .Property(verification => verification.ExpirationTime)
+                .IsRequired();
+            modelBuilder.Entity<EmailVerification>()
+                 .Property(verification => verification.ExpirationTime)
+                  .HasDefaultValueSql("dateadd(minute,5,getdate())")
+                         .ValueGeneratedOnAdd();
 
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<EmailVerification> EmailVerifications { get; set; }
+
 
     }
 }

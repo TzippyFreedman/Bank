@@ -2,6 +2,9 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +83,42 @@ namespace UserService.Services
             return user;
         }
 
+        public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
+        {
+           string vertificationCode = GenerateVerificationCode();
+            emailVerification.Code = vertificationCode;
+          await  _userRepository.AddVerificationAsync(emailVerification);
+            SendEmail(emailVerification.Email, vertificationCode);
+
+        }
+        private void SendEmail(string emailAddress,string vertificationCode)
+        {
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("tzippyfreedman1@gmail.com"); //enter whatever email you are sending from here 
+                mail.To.Add(emailAddress); //Text box that the user enters their email address 
+                mail.Subject = "Email Vertification"; //enter whatever subject you would like 
+                mail.Body = $"Your Activation Code is: {vertificationCode}";
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("tzippyfreedman1@gmail.com", 587)) //enter the same email that the message is sending from along with port 587
+                {
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = new NetworkCredential("tzippyfreedman1@gmail.com", "Tf0583265366"); //Enter email with password 
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                    smtp.Send(mail);
+                }
+
+
+            }
+        }
+        private string GenerateVerificationCode()
+        {
+            return Path.GetRandomFileName().Replace(".", "").Substring(0, 4); ;
+        }
     }
 }
 

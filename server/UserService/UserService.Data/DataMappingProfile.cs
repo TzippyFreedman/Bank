@@ -13,6 +13,8 @@ namespace UserService.Data
 
             CreateMap<AccountModel, Account>()
                 .ReverseMap();
+
+            CreateMap<EmailVerificationModel, EmailVerification>();
         }
     }
 }
