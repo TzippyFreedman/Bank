@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace UserService.Services.Exceptions
 {
-    class UserWithRequestedEmailAlreadyExistsException : Exception
+    class UserWithRequestedEmailAlreadyExistsException : BadRequestException
     {
         public UserWithRequestedEmailAlreadyExistsException()
         {

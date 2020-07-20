@@ -42,6 +42,10 @@ namespace UserService.Api.Middlewares
             {
                 code = HttpStatusCode.NotFound;
             }
+            if (ex is BadRequestException)
+            {
+                code = HttpStatusCode.BadRequest;
+            }
             if (ex is IncorrectPasswordException)
             {
                 code = HttpStatusCode.Unauthorized;
