@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
-using UserService.Api.Exceptions;
 using UserService.Services;
 using UserService.Services.Models;
 
@@ -24,9 +23,7 @@ namespace UserService.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
         {
-
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
-
             bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
             return isRegisterSuccess;
         }
@@ -39,7 +36,7 @@ namespace UserService.Api.Controllers
              await _userService.VerifyEmailAsync(emailVerification);
         }
 
-
+        //fix if empty
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
@@ -47,10 +44,8 @@ namespace UserService.Api.Controllers
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             if (accountId == Guid.Empty)
             {
-
                 return Unauthorized();
             }
-
             return accountId;
         }
 
@@ -59,18 +54,9 @@ namespace UserService.Api.Controllers
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
             AccountModel account = await _userService.GetAccountByIdAsync(accountId);
-
-            if (account == null)
-            {
-                throw new AccountNotFoundException(accountId);
-            }
-
             UserModel user = await _userService.GetUserByIdAsync(account.UserId);
-
             AccountDTO accountDTO = new AccountDTO();
-
             _mapper.Map(user, accountDTO);
-            //_mapper.Map(account, accountDTO);
             accountDTO.Balance = account.Balance;
             accountDTO.OpenDate = account.OpenDate;
             return accountDTO;

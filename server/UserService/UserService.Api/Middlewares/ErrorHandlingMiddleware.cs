@@ -8,6 +8,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using UserService.Api.Exceptions;
+using UserService.Data.Exceptions;
 
 namespace UserService.Api.Middlewares
 {

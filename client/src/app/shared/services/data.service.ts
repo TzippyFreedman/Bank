@@ -10,7 +10,7 @@ import { IAccount } from '../models/IAccount';
 const LOGIN_URL='user/login';
 const REGISTER_URL='user/';
 const ACCOUNT_URL='user/getAccountDetails/'
-const VERTIFICATION_URL= 'user/VerifyEmail';
+const VERIFICATION_URL= 'user/verifyEmail';
 @Injectable({
 
     providedIn: 'root',
@@ -51,7 +51,7 @@ const VERTIFICATION_URL= 'user/VerifyEmail';
     }
 
     public verifyEmail = (email:string) => {
-      return this.http.post<void>(this.createCompleteRoute(VERTIFICATION_URL, environment.baseURL), email, this.generateHeaders())
+      return this.http.post<void>(this.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.generateHeaders())
         .pipe(catchError(this.handleError));
   
     }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UserService.Api.Exceptions
+namespace UserService.Data.Exceptions
 {
-    class AccountNotFoundException : Exception
+   public class AccountNotFoundException : Exception
     {
         public AccountNotFoundException()
         {

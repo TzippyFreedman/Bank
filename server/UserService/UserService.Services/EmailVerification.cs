@@ -9,7 +9,7 @@ namespace UserService.Services
 {
   static public class EmailVerification
     {
-        static public void SendEmail(string emailAddress, string vertificationCode)
+        static public void SendVertificationEmail(string emailAddress, string vertificationCode)
         {
             using (MailMessage mail = new MailMessage())
             {
