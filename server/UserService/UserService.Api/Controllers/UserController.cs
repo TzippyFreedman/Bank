@@ -30,6 +30,15 @@ namespace UserService.Api.Controllers
             return isRegisterSuccess;
         }
 
+        [HttpPost]
+        [Route("[action]")]
+        public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
+        {
+            EmailVerificationModel emailVerification= _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
+             await _userService.VerifyEmailAsync(emailVerification);
+        }
+
+
         [HttpGet]
         [Route("[action]")]
 

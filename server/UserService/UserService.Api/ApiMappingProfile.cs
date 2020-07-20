@@ -14,7 +14,9 @@ namespace UserService.Api
         {
             CreateMap<RegisterDTO, UserModel>();
             CreateMap<UserModel, AccountDTO>();
-               
+            CreateMap<EmailVerificationDTO, EmailVerificationModel>();
+            
+
         }
     }
 }
