@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using UserService.Services.Models;
 
@@ -10,8 +8,7 @@ namespace UserService.Services
     {
         Task<UserModel> GetUserAsync(string email);
         Task<AccountModel> GetAccountByUserIdAsync(Guid id);
-        Task<bool> CheckUserExistsAsync(string email);
-      
+        Task<bool> CheckUserExistsAsync(string email);   
         Task<AccountModel> GetAccountByIdAsync(Guid accountId);
         Task<UserModel> GetUserByIdAsync(Guid id);
         Task AddUserAsync(UserModel userModel);

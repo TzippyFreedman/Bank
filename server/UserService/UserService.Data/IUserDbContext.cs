@@ -5,6 +5,7 @@ using UserService.Data.Entities;
 
 namespace UserService.Data
 {
+    //not used yet
     public interface IUserDbContext
     {
         DbSet<Account> Accounts { get; set; }
