@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
+using UserService.Data.Exceptions;
 using UserService.Services;
 using UserService.Services.Models;
 
@@ -24,8 +26,10 @@ namespace UserService.Api.Controllers
         public async Task<ActionResult<bool>> RegisterAsync(RegisterDTO userRegister)
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);
-            bool isRegisterSuccess = await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
-            return isRegisterSuccess;
+            await _userService.RegisterAsync(newUserModel, userRegister.Password, userRegister.VerificationCode);
+            return StatusCode(201);
+            //return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+
         }
 
         [HttpPost]
@@ -41,6 +45,7 @@ namespace UserService.Api.Controllers
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
+            throw new AccountNotFoundException(Guid.NewGuid());
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             if (accountId == Guid.Empty)
             {

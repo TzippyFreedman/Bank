@@ -36,15 +36,15 @@ namespace UserService.Api.Middlewares
 
         private async static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            
+            Log.Error(ex, "errot caught in ErrorHandlingMiddleware");
+
             var code = HttpStatusCode.InternalServerError;
 
-            if (ex is AccountNotFoundException)
+            if (ex is DataNotFoundException)
             {
                 code = HttpStatusCode.NotFound;
             }
 
-            Log.Error(ex, "errot caught in ErrorHandlingMiddleware");
 
             string result = JsonSerializer
                 .Serialize(new { errorMessage = ex.Message, statusCode = code });

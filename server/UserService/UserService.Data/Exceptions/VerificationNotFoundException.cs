@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserService.Data.Exceptions
 {
-   public class VerificationNotFoundException: Exception
+   public class VerificationNotFoundException: DataNotFoundException
     {
         public VerificationNotFoundException()
         {
