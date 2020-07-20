@@ -51,8 +51,7 @@ const VERTIFICATION_URL= 'user/VerifyEmail';
     }
 
     public verifyEmail = (email:string) => {
-      debugger;
-      return this.http.post<void>(this.createCompleteRoute(VERTIFICATION_URL, environment.baseURL), {email:email}, this.generateHeaders())
+      return this.http.post<void>(this.createCompleteRoute(VERTIFICATION_URL, environment.baseURL), email, this.generateHeaders())
         .pipe(catchError(this.handleError));
   
     }

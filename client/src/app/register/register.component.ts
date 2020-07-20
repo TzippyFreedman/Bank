@@ -16,8 +16,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   vertificationForm: FormGroup;
-  loading = false;
-  registerSubmitted = false;
+  vertificationLoading = false;
+  registrationLoading = false;
+  registerationSubmitted = false;
   vertificationSubmitted = false;
   email: string;
   isVisibleVertificationForm: boolean = true;
@@ -29,8 +30,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService
-
-
   ) {
 
     // redirect to home if already logged in
@@ -73,32 +72,34 @@ export class RegisterComponent implements OnInit {
   onVertificationSubmit() {
     this.vertificationSubmitted = true;
     // stop here if form is invalid
+    debugger;
     if (this.vertificationForm.invalid) {
       return;
     }
 
-    this.loading = true;
-    this.email = this.vertificationForm.value
+    this.vertificationLoading = true;
+    this.email = this.vertificationForm.value;
     this.dataService.verifyEmail(this.email)
       .pipe(first())
       .subscribe(
         data => {
-          alert("An Email with a vertification code will be sent to you shortly")
+          alert("An Email with a vertification code will be sent to you shortly");
+          this.vertificationLoading = false;
           this.showRegistrationForm();
         },
         error => {
           alert(error)
-          this.loading = false;
+          this.vertificationLoading = false;
         });
   }
 
   onRegisterSubmit() {
-    this.registerSubmitted = true;
+    this.registerationSubmitted = true;
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.registrationLoading = true;
     this.userToRegister = this.registerForm.value;
     this.dataService.register(this.userToRegister)
       .pipe(first())
@@ -111,14 +112,14 @@ export class RegisterComponent implements OnInit {
           }
           else {
             alert("Registration failed. A user with requested Email Address already Exists.")
-            this.loading = false;
+            this.registrationLoading = false;
           }
 
         },
         error => {
           // this.alertService.error(error);
           alert(error)
-          this.loading = false;
+          this.registrationLoading = false;
         });
   }
 
