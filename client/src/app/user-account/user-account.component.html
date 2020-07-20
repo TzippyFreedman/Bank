@@ -1,13 +1,11 @@
-<h2>hello! {{account.firstName}}</h2>
+<div *ngIf ="account">
+    Last Name: {{account.lastName}}
+    <br>
+    <h2>hello! {{account.firstName}}</h2>
 
-Last Name: {{account.lastName}}
-<br>
-Balance: {{account.balance}}
-<br>
-OpenDate: {{account.openDate}}
+    Balance: {{account.balance}}
+    <br>
+    OpenDate: {{account.openDate}}
 
-
-
-
-
-
+    <a routerLink="/login" class="btn btn-link">Log out</a>
+</div>
