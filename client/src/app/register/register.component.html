@@ -19,7 +19,6 @@
     </div>
 </form>
 <form *ngIf="isVisibleRegistrationForm" [formGroup]="registrationForm" (ngSubmit)="onRegisterSubmit()">
-
     <div class="form-group">
         <label for="verificationCode">Verification Code</label>
         <input type="text" formControlName="verificationCode" class="form-control"
@@ -50,17 +49,6 @@
             <div *ngIf="registrationFormControls.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
-    <!-- <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.email.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.email.errors.required">Email is required</div>
-        </div>
-        <div *ngIf="registrationSubmitted && registrationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.email.errors.pattern">Email is invalid</div>
-        </div>
-    </div> -->
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" formControlName="password" class="form-control"
