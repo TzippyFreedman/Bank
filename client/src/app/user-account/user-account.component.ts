@@ -19,32 +19,20 @@ export class UserAccountComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       this.accountId = paramMap.get('userFileId');
-      this.cookieService.set( 'userAccountId',  this.accountId   );
-      // this.cookieValue = this.cookieService.get('Test');
+      this.cookieService.set( 'userAccountId',  this.accountId );
   });
 
   this.http.getAccountDetails(this.accountId)
   .subscribe(
     result => {
-this.account = result;
-debugger;  },
-    error => {
-      debugger;
+    this.account = result;
+    debugger;  },
+        error => {
+          debugger;
         alert(error);
 
     });
   }
 
 
-  this.http.getAccountDetails(this.accountId)
-  .subscribe(
-    result => {
-this.account = result;
-debugger;  },
-    error => {
-      debugger;
-        alert(error);
-
-    });
-  }
 }

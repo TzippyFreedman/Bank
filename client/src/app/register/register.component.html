@@ -1,36 +1,80 @@
 <h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form *ngIf="isVisibleVertificationForm" [formGroup]="vertificationForm" (ngSubmit)="onVertificationSubmit()">
 
     <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': vertificationSubmitted && registerFormControls.email.errors }" />
+        <div *ngIf="vertificationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.required">Email is required</div>
+        </div>
+        <div *ngIf="vertificationSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Send me vertification code
+        </button>
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+    </div>
+
+</form>
+<form *ngIf="isVisibleRegistrationForm" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+
+    <div class="form-group">
+        <label for="vertificationCode">Vertification Code</label>
+        <input type="text" formControlName="vertificationCode" class="form-control"
+            [ngClass]="{ 'is-invalid': registerSubmitted && registerFormControls.email.errors }" />
+        <div *ngIf="registerSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.required">Vertification Code is required</div>
+        </div>
+        <!-- <div *ngIf="registerSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
+        </div> -->
+    </div>
+    <div class="form-group">
+        <button (click)="showVertificationForm()"class="btn btn-primary">
+           Resend Vertification Code
+        </button>
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+    </div>
+    <div class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }" />
-        <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.firstName.errors.required"> First Name is required</div>
+        <input type="text" formControlName="firstName" class="form-control"
+            [ngClass]="{ 'is-invalid': registerSubmitted && registerFormControls.firstName.errors }" />
+        <div *ngIf="registerSubmitted && registerFormControls.firstName.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.firstName.errors.required"> First Name is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }" />
-        <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
-            <div *ngIf="formControls.lastName.errors.required">Last Name is required</div>
+        <input type="text" formControlName="lastName" class="form-control"
+            [ngClass]="{ 'is-invalid': registerSubmitted && registerFormControls.lastName.errors }" />
+        <div *ngIf="registerSubmitted && registerFormControls.lastName.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
-        <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
-            <div *ngIf="formControls.email.errors.required">Email is required</div>
+        <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': registerSubmitted && registerFormControls.email.errors }" />
+        <div *ngIf="registerSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.required">Email is required</div>
         </div>
-        <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
-            <div *ngIf="formControls.email.errors.pattern">Email is invalid</div>
+        <div *ngIf="registerSubmitted && registerFormControls.email.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.email.errors.pattern">Email is invalid</div>
         </div>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" />
-        <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
-            <div *ngIf="formControls.password.errors.required">Password is required</div>
-            <div *ngIf="formControls.password.errors.minlength">Password should contain at least 6 characters.</div>
+        <input type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': registerSubmitted && registerFormControls.password.errors }" />
+        <div *ngIf="registerSubmitted && registerFormControls.password.errors" class="invalid-feedback">
+            <div *ngIf="registerFormControls.password.errors.required">Password is required</div>
+            <div *ngIf="registerFormControls.password.errors.minlength">Password should contain at least 6
+                characters.</div>
         </div>
     </div>
     <div class="form-group">
@@ -41,4 +85,3 @@
         <a routerLink="/login" class="btn btn-link">Cancel</a>
     </div>
 </form>
-

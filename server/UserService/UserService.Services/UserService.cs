@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Serilog;
+﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using UserService.Services.Models;
 

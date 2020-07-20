@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Api.Exceptions;
 using UserService.Services;

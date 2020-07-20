@@ -65,7 +65,7 @@ namespace UserService.Data
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
             User user = await _userDbContext.Users
-                  .Where(user => user.Id == id)
+                  .Where(user => user.Id == id)?
                   .FirstOrDefaultAsync();
 
             return _mapper.Map<UserModel>(user);

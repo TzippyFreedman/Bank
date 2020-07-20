@@ -10,6 +10,7 @@ import { IAccount } from '../models/IAccount';
 const LOGIN_URL='user/login';
 const REGISTER_URL='user/';
 const ACCOUNT_URL='user/getAccountDetails/'
+const VERTIFICATION_URL='a';
 @Injectable({
 
     providedIn: 'root',
@@ -35,15 +36,22 @@ const ACCOUNT_URL='user/getAccountDetails/'
       return throwError(
         'Something bad happened; please try again later.');
     };
-    public login = (loginObj:ILogin) => {
+
     
+    public login = (loginObj:ILogin) => {   
       return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
       {params: {email:loginObj.email, password: loginObj.password }})
         .pipe(catchError(this.handleError));
-    
     }
+
     public register = (user:IUser) => {
       return this.http.post<boolean>(this.createCompleteRoute(REGISTER_URL, environment.baseURL),user,this.generateHeaders())
+        .pipe(catchError(this.handleError));
+  
+    }
+
+    public verifyEmail = (email:string) => {
+      return this.http.post<void>(this.createCompleteRoute(VERTIFICATION_URL, environment.baseURL),this.generateHeaders())
         .pipe(catchError(this.handleError));
   
     }
