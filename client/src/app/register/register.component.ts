@@ -100,19 +100,11 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          //this.alertService.success('Registration successful', true);
-          // if (data.body == true) {
              alert("Registration completed. please login with your password and user name.")
              this.router.navigate(['/login']);
-          // }
-          // else {
-          //   alert("Registration failed. A user with requested Email Address already Exists.")
-          //   this.registrationLoading = false;
-          // }
 
         },
         error => {
-          // this.alertService.error(error);
           alert(error)
           this.registrationLoading = false;
         });
