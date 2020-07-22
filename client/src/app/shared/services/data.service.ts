@@ -19,7 +19,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  public a:number = 1;
+  private a:number = 1;
   public aa(){
     this.a = undefined;
   }
