@@ -31,7 +31,7 @@ namespace UserService.Services
 
         public static string GenerateVerificationCode()
         {
-            //digits or digits+letters
+            //digits or digits-letters
             //Random rand = new Random();
             //rand.Next(1000, 9999);
             //  return rand.ToString();
