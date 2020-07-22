@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 
@@ -6,6 +7,7 @@ namespace UserService.Services
 {
   static public class EmailVerification
     {
+       
         static public void SendVertificationEmail(string emailAddress, string vertificationCode)
         {
             using (MailMessage mail = new MailMessage())

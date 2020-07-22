@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.Threading.Tasks;
 using UserService.Services.Exceptions;
@@ -9,10 +10,12 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository,IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
