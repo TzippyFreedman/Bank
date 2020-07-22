@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../shared/services/data.service';
-import { IAccount } from '../shared/models/IAccount';
+import { IAccount } from './IAccount';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

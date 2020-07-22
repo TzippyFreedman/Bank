@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { DataService } from '../shared/services/data.service';
-import { IRegister } from '../shared/models/IRegister';
+import { IRegister } from './IRegister';
 
 @Component({
   selector: 'app-register',
