@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   
-  isLoggedIn$: Observable<boolean>;                  // {1}
+  isLoggedIn$: Observable<boolean>;               
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(){   
-    this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
+    this.isLoggedIn$ = this.authService.isLoggedIn; 
   }
   
   onLogout() {
