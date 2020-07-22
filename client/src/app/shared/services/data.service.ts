@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ILogin } from '../../login/ILogin';
+import { Login } from '../../login/login.model';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { IAccount } from '../../user-account/IAccount';
-import { IRegister } from '../../register/IRegister';
+import { Register } from '../../register/register.model';
+import { UserAccount } from 'src/app/user-account/user-account.model';
 
 const LOGIN_URL = 'user/login';
 const REGISTER_URL = 'user/';
@@ -40,12 +40,12 @@ export class DataService {
 
   
 
-  public register = (user: IRegister) => {
+  public register = (user: Register) => {
     return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
       .pipe(catchError(this.handleError));
 
   }
-  public login = (loginObj: ILogin) => {
+  public login = (loginObj: Login) => {
     return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
       { params: { email: loginObj.email, password: loginObj.password } })
       .pipe(catchError(this.handleError));
@@ -57,7 +57,7 @@ export class DataService {
   }
 
   public getAccountDetails = (userId: String) => {
-    return this.http.get<IAccount>(this.createCompleteRoute(ACCOUNT_URL + userId, environment.baseURL))
+    return this.http.get<UserAccount>(this.createCompleteRoute(ACCOUNT_URL + userId, environment.baseURL))
       .pipe(catchError(this.handleError));
 
   }

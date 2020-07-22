@@ -9,7 +9,7 @@ namespace UserService.Services
     static public class EmailVerification
     {
         //move configuration to appsettings.json
-        static public void SendVertificationEmail(string emailAddress, string verificationCode)
+        static public void SendVerificationEmail(string emailAddress, string verificationCode)
         {
             const string senderEmailAddress = "tzippyfreedman1@gmail.com";
             const string senderEmailPassword = "Tf0583265366";

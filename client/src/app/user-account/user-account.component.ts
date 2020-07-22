@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../shared/services/data.service';
-import { IAccount } from './IAccount';
+
 import { CookieService } from 'ngx-cookie-service';
+import { UserAccount } from './user-account.model';
 
 @Component({
   selector: 'app-user-account',
@@ -11,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserAccountComponent implements OnInit {
 
-  account: IAccount;
+  account: UserAccount;
   accountId: string;
 
   constructor(private route: ActivatedRoute, public http: DataService, private cookieService: CookieService) { }
