@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { ILogin } from '../shared/models/ILogin';
+import { ILogin } from './ILogin';
 import { DataService } from '../shared/services/data.service';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
     this.userToAuthenticate.email = this.formControls.username.value;
     this.http.login(this.userToAuthenticate)
       .subscribe(
-        result => {
-          this.authService.login(result);
-          this.router.navigate(['user', result]);
+        userAccountId => {
+          this.authService.setLoggedIn(userAccountId);
+          this.router.navigate(['user', userAccountId]);
         },
         error => {
           alert(error);

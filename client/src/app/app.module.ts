@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
-import { AuthGuard } from './shared/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
