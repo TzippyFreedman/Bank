@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ILogin } from '../models/ILogin';
+import { ILogin } from '../../login/ILogin';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { IAccount } from '../models/IAccount';
-import { IRegister } from '../models/IRegister';
+import { IAccount } from '../../user-account/IAccount';
+import { IRegister } from '../../register/IRegister';
 
 const LOGIN_URL = 'user/login';
 const REGISTER_URL = 'user/';
@@ -38,18 +38,18 @@ export class DataService {
   };
 
 
-  public login = (loginObj: ILogin) => {
-    return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
-      { params: { email: loginObj.email, password: loginObj.password } })
-      .pipe(catchError(this.handleError));
-  }
+  
 
   public register = (user: IRegister) => {
     return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
       .pipe(catchError(this.handleError));
 
   }
-
+  public login = (loginObj: ILogin) => {
+    return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
+      { params: { email: loginObj.email, password: loginObj.password } })
+      .pipe(catchError(this.handleError));
+  }
   public verifyEmail = (email: string) => {
     return this.http.post<void>(this.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.generateHeaders())
       .pipe(catchError(this.handleError));
