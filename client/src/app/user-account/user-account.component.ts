@@ -14,7 +14,7 @@ export class UserAccountComponent implements OnInit {
   account: IAccount;
   accountId: string;
 
-  constructor(private route: ActivatedRoute, private http: DataService, private cookieService: CookieService) { }
+  constructor(private route: ActivatedRoute, public http: DataService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
@@ -30,6 +30,9 @@ export class UserAccountComponent implements OnInit {
         error => {
           alert(error);
         });
+  }
+  trial(){
+this.http.aa();
   }
 
 

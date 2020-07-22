@@ -19,6 +19,10 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
+  public a:number = 1;
+  public aa(){
+    this.a = undefined;
+  }
   private handleError(error: HttpErrorResponse) {
     // A client-side or network error occurred. Handle it accordingly.
     if (error.error.errorMessage) {
