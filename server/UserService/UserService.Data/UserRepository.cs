@@ -79,7 +79,7 @@ namespace UserService.Data
         {
             User newUser = _mapper.Map<User>(newUserModel);
             newUser.Account = new Account();
-            _userDbContext.Users.Add(newUser);
+         await   _userDbContext.Users.AddAsync(newUser);
             await _userDbContext.SaveChangesAsync();
         }
 
@@ -89,7 +89,7 @@ namespace UserService.Data
             bool isEmailExist = await _userDbContext.EmailVerifications.AnyAsync(v => v.Email == verification.Email);
             if (isEmailExist == false)
             {
-                _userDbContext.EmailVerifications.Add(verification);
+              await  _userDbContext.EmailVerifications.AddAsync(verification);
             }
             else
             {
