@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { ILogin } from './ILogin';
+import { Login } from './login.model';
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../auth/auth.service';
 
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  userToAuthenticate = <ILogin>{};
+  userToAuthenticate = <Login>{};
 
   constructor(private router: Router, private http: DataService, private authService: AuthService) { }
 

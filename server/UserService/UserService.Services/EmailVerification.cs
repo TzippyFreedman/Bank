@@ -1,27 +1,40 @@
-﻿using System.IO;
+﻿using Serilog.Settings.Configuration;
+using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 
 namespace UserService.Services
 {
-  static public class EmailVerification
+    static public class EmailVerification
     {
-        static public void SendVertificationEmail(string emailAddress, string vertificationCode)
+        //move configuration to appsettings.json
+        static public void SendVerificationEmail(string emailAddress, string verificationCode)
         {
+            const string senderEmailAddress = "tzippyfreedman1@gmail.com";
+            const string senderEmailPassword = "Tf0583265366";
+            const string SMTPHost = "smtp.gmail.com";
+
+            /* var appSettings = ConfigurationManager.AppSettings;
+             string senderEmailAddress = appSettings.Get("EmailAddress");
+             string senderEmailPassword = appSettings.Get("EmailPassword");
+
+             string SMTPHost = appSettings.Get("SMTPHost");*/
+
             using (MailMessage mail = new MailMessage())
             {
                 //move hard code into config file!
-                mail.From = new MailAddress("tzippyfreedman1@gmail.com"); //enter whatever email you are sending from here 
-                mail.To.Add(emailAddress); //Text box that the user enters their email address 
-                mail.Subject = "Email Vertification"; //enter whatever subject you would like 
-                mail.Body = $"Your Activation Code is: {vertificationCode}";
+                mail.From = new MailAddress(senderEmailAddress);
+                mail.To.Add(emailAddress);
+                mail.Subject = "Verification Code";
+                mail.Body = $"Your Verification Code is: {verificationCode}";
                 mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient("tzippyfreedman1@gmail.com", 587)) //enter the same email that the message is sending from along with port 587
+                using (SmtpClient smtp = new SmtpClient(senderEmailAddress, 587))
                 {
-                    smtp.Host = "smtp.gmail.com";
+                    smtp.Host = SMTPHost;
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("tzippyfreedman1@gmail.com", "Tf0583265366"); //Enter email with password 
+                    smtp.Credentials = new NetworkCredential(senderEmailAddress, senderEmailPassword);
                     smtp.EnableSsl = true;
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtp.Send(mail);
@@ -31,7 +44,7 @@ namespace UserService.Services
 
         public static string GenerateVerificationCode()
         {
-            //digits or digits-letters
+            //check if digits or digits+letters
             //Random rand = new Random();
             //rand.Next(1000, 9999);
             //  return rand.ToString();
