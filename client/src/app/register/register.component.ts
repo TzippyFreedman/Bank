@@ -26,13 +26,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService
-  ) {
-
-    // redirect to home if already logged in
-    // if (this.authenticationService.currentUserValue) {
-    //     this.router.navigate(['/']);
-    // }
-  }
+  ) { }
 
   ngOnInit(): void {
 
@@ -94,7 +88,7 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          alert("Registration completed. please login with your password and user name.")
+          alert("Registration completed. please login with your email and password.")
           this.router.navigate(['/login']);
         },
         error => {

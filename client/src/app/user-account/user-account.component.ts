@@ -32,14 +32,7 @@ export class UserAccountComponent implements OnInit {
           alert(error);
         });
   }
-  trial(){
-this.http.aa();
-  }
+
 
 
 }
-
-// logOut:void()
-// {
-
-// }

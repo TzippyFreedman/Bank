@@ -9,15 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  isLoggedIn$: Observable<boolean>;               
 
-  constructor(private authService: AuthService,private router: Router) { }
+  private isLoggedIn$: Observable<boolean>;
 
-  ngOnInit(){   
-    this.isLoggedIn$ = this.authService.isLoggedIn; 
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
   }
-  
+
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);

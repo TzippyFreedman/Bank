@@ -1,7 +1,6 @@
 export interface UserAccount{
-    firstName:string,
-    lastName:string,
-    openDate:Date,
-   balance:number;
-         
+    firstName:string;
+    lastName:string;
+    openDate:Date;
+   balance:number;     
 }
