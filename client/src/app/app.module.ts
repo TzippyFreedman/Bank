@@ -6,12 +6,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
 import { UserAccountComponent } from './user-account/user-account.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
+import { AuthGuard } from './shared/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,17 +26,17 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     // CommonModule,
     ReactiveFormsModule,
-    
+
 
     HttpClientModule,
     RouterModule.forRoot([
-      {path:'register',component:RegisterComponent},
-     {path:'login',component:LoginComponent},
-     {path:'user/:userFileId',component:UserAccountComponent},
-     {path:"",redirectTo:'/login',pathMatch:"full"}
-]),
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'user/:userFileId', component: UserAccountComponent, canActivate: [AuthGuard] },
+      { path: "", redirectTo: '/login', pathMatch: "full" }
+    ]),
   ],
-  providers: [ CookieService ],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
