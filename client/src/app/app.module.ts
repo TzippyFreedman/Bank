@@ -24,7 +24,7 @@ import { AuthGuard } from './shared/auth.guard';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // CommonModule,
+    CommonModule,
     ReactiveFormsModule,
 
 
