@@ -10,6 +10,7 @@ namespace UserService.Services
         {
             using (MailMessage mail = new MailMessage())
             {
+                //move hard code into config file!
                 mail.From = new MailAddress("tzippyfreedman1@gmail.com"); //enter whatever email you are sending from here 
                 mail.To.Add(emailAddress); //Text box that the user enters their email address 
                 mail.Subject = "Email Vertification"; //enter whatever subject you would like 
