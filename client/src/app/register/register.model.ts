@@ -1,4 +1,4 @@
-export interface IRegister {
+export interface Register {
     verificationCode: string;
     firstName: string;
     lastName: string;

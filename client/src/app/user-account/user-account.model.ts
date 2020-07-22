@@ -1,4 +1,4 @@
-export interface IAccount{
+export interface UserAccount{
     firstName:string,
     lastName:string,
     openDate:Date,

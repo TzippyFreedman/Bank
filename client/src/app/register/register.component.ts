@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { DataService } from '../shared/services/data.service';
-import { IRegister } from './IRegister';
+import { Register } from './register.model';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   email: string;
   isVisibleVertificationForm: boolean = true;
   isVisibleRegistrationForm: boolean = false;
-  userToRegister = <IRegister>{};
+  userToRegister = <Register>{};
 
   constructor(
     private router: Router,

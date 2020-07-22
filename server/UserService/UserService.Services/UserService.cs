@@ -81,7 +81,7 @@ namespace UserService.Services
             string vertificationCode = EmailVerification.GenerateVerificationCode();
             emailVerification.Code = vertificationCode;
             await _userRepository.AddVerificationAsync(emailVerification);
-            EmailVerification.SendVertificationEmail(emailVerification.Email, vertificationCode);
+            EmailVerification.SendVerificationEmail(emailVerification.Email, vertificationCode);
         }
     }
 }
