@@ -8,7 +8,7 @@ namespace UserService.Services.Exceptions
         {
 
         }
-        public VerificationCodeExpiredException(DateTime time) : base($"The expiration time was:{time}")
+        public VerificationCodeExpiredException(DateTime time) : base($"The expiration time was:{time}.")
         {
 
         }

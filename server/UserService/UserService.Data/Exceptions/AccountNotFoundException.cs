@@ -10,7 +10,7 @@ namespace UserService.Data.Exceptions
         {
 
         }
-        public AccountNotFoundException(Guid accountId) : base($"Account with id:{accountId} was not found")
+        public AccountNotFoundException(Guid accountId) : base($"Account with id:{accountId} was not found.")
         {
 
         }

@@ -34,7 +34,7 @@ namespace UserService.Api.Middlewares
 
         private async static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            Log.Error(ex, "errot caught in ErrorHandlingMiddleware");
+            Log.Error(ex, "Exception caught in ErrorHandlingMiddleware");
 
             var code = HttpStatusCode.InternalServerError;
             string message = "something went wrong";
