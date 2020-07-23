@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
     this.dataService.verifyEmail(this.email)
       .pipe(first())
       .subscribe(
-        data => {
+        Response => {
           alert("An Email with a verification code will be sent to you shortly");
           this.verificationLoading = false;
           this.showRegistrationForm();
@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
     this.dataService.register(this.userToRegister)
       .pipe(first())
       .subscribe(
-        data => {
+        success => {
           alert("Registration completed. please login with your email and password.")
           this.router.navigate(['/login']);
         },
