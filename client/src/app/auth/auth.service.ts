@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { Login } from '../login/login.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
@@ -35,7 +34,7 @@ export class AuthService {
     sessionStorage.removeItem('userAccountId');
   }
 
-  public login = (loginObj: Login) => {
+  login(loginObj: Login){
     return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
       { params: { email: loginObj.email, password: loginObj.password } })
       .pipe(catchError(this.handleError));
