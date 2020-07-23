@@ -10,7 +10,7 @@ namespace UserService.Data.Exceptions
         {
 
         }
-        public VerificationNotFoundException(string email) : base($"Verification for email :{email} was not found")
+        public VerificationNotFoundException(string email) : base($"Verification for email :{email} was not found.")
         {
 
         }

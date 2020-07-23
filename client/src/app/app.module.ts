@@ -26,8 +26,6 @@ import { AuthGuard } from './auth/auth.guard';
     AppRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-
-
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'register', component: RegisterComponent },

@@ -7,12 +7,10 @@ import { catchError } from 'rxjs/operators';
 import { Register } from '../../register/register.model';
 import { UserAccount } from 'src/app/user-account/user-account.model';
 
-const LOGIN_URL = 'user/login';
 const REGISTER_URL = 'user/';
 const ACCOUNT_URL = 'user/getAccountDetails/'
 const VERIFICATION_URL = 'user/verifyEmail';
 @Injectable({
-
   providedIn: 'root',
 })
 export class DataService {
@@ -40,16 +38,20 @@ export class DataService {
 
   
 
-  public register = (user: Register) => {
-    return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
-      .pipe(catchError(this.handleError));
+  // public register = (user: Register) => {
+  //   return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
+  //     .pipe(catchError(this.handleError));
 
+  // }
+
+  public register(user: Register) {
+    return this.http.put<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders());
   }
-  public login = (loginObj: Login) => {
-    return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
-      { params: { email: loginObj.email, password: loginObj.password } })
-      .pipe(catchError(this.handleError));
-  }
+  // public login = (loginObj: Login) => {
+  //   return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
+  //     { params: { email: loginObj.email, password: loginObj.password } })
+  //     .pipe(catchError(this.handleError));
+  // }
   public verifyEmail = (email: string) => {
     return this.http.post<void>(this.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.generateHeaders())
       .pipe(catchError(this.handleError));

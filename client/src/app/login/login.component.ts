@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.userToAuthenticate.password = this.formControls.password.value;
     this.userToAuthenticate.email = this.formControls.username.value;
-    this.http.login(this.userToAuthenticate)
+    this.authService.login(this.userToAuthenticate)
       .subscribe(
         userAccountId => {
           this.authService.setLoggedIn(userAccountId);
