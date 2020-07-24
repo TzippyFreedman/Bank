@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using UserService.Services.Interfaces;
 
 namespace UserService.Services
 {
@@ -16,13 +17,12 @@ namespace UserService.Services
         //move configuration to appsettings.json
         public void SendVerificationEmail(string emailAddress, string verificationCode)
         {
-           
 
-             var appSettings = ConfigurationManager.AppSettings;
-             string senderEmailAddress = appSettings.Get("EmailAddress");
-             string senderEmailPassword = appSettings.Get("EmailPassword");
 
-             string SMTPHost = appSettings.Get("SMTPHost");
+            string senderEmailAddress = _smtpSettings.Address;
+            string senderEmailPassword = _smtpSettings.Password;
+
+            string SMTPHost = _smtpSettings.SMTPHost;
 
             using (MailMessage mail = new MailMessage())
             {

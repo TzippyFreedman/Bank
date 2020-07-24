@@ -3,6 +3,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 using UserService.Services.Exceptions;
+using UserService.Services.Interfaces;
 using UserService.Services.Models;
 
 namespace UserService.Services
