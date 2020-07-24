@@ -77,7 +77,6 @@ namespace UserService.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors("MyPolicy");
-
             }
             app.UseErrorHandlingMiddleware();
             app.UseHttpsRedirection();
