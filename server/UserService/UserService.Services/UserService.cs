@@ -10,12 +10,14 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _configuration;
+        private readonly IVerifyEmail _verifyEmail;
+        private readonly IHashPassword _hashPassword;
 
-        public UserService(IUserRepository userRepository,IConfiguration configuration)
+        public UserService(IUserRepository userRepository, IVerifyEmail verifyEmail, IHashPassword hashPassword)
         {
             _userRepository = userRepository;
-            _configuration = configuration;
+            _verifyEmail = verifyEmail;
+            _hashPassword = hashPassword;
         }
 
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
@@ -37,8 +39,8 @@ namespace UserService.Services
             }
             else
             {
-                string passwordSalt = Hash.CreateSalt();
-                string passwordHash = Hash.CreatePasswordHash(password, passwordSalt);
+                string passwordSalt = _hashPassword.CreateSalt();
+                string passwordHash = _hashPassword.CreatePasswordHash(password, passwordSalt);
                 newUser.PasswordHash = passwordHash;
                 newUser.PasswordSalt = passwordSalt;
                 await _userRepository.AddUserAsync(newUser);
@@ -50,7 +52,7 @@ namespace UserService.Services
         public async Task<Guid> LoginAsync(string email, string password)
         {
             UserModel user = await _userRepository.GetUserAsync(email);
-            bool isPasswordCorrect = Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
+            bool isPasswordCorrect = _hashPassword.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
             if (!isPasswordCorrect)
             {
                 throw new IncorrectPasswordException(email);
@@ -78,10 +80,10 @@ namespace UserService.Services
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);
             }
-            string vertificationCode = EmailVerification.GenerateVerificationCode();
+            string vertificationCode = _verifyEmail.GenerateVerificationCode();
             emailVerification.Code = vertificationCode;
             await _userRepository.AddVerificationAsync(emailVerification);
-            EmailVerification.SendVerificationEmail(emailVerification.Email, vertificationCode);
+            _verifyEmail.SendVerificationEmail(emailVerification.Email, vertificationCode);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace UserService.Services
 {
-    public static class Hash
+    public class HashPassword : IHashPassword
     {
-        public static string CreatePasswordHash(string value, string salt)
+        public string CreatePasswordHash(string value, string salt)
         {
             var valueBytes = KeyDerivation.Pbkdf2(
                                 password: value,
@@ -18,10 +18,10 @@ namespace UserService.Services
             return Convert.ToBase64String(valueBytes);
         }
 
-        public static bool VerifyPassword(string value, string salt, string hash)
+        public bool VerifyPassword(string value, string salt, string hash)
             => CreatePasswordHash(value, salt) == hash;
 
-        public static string CreateSalt()
+        public string CreateSalt()
         {
             byte[] randomBytes = new byte[128 / 8];
             using (var generator = RandomNumberGenerator.Create())
