@@ -6,10 +6,10 @@ using System.Net.Mail;
 
 namespace UserService.Services
 {
-    static public class EmailVerification
+    public class VerifyEmail : IVerifyEmail
     {
         //move configuration to appsettings.json
-        static public void SendVerificationEmail(string emailAddress, string verificationCode)
+        public void SendVerificationEmail(string emailAddress, string verificationCode)
         {
            
 
@@ -40,7 +40,7 @@ namespace UserService.Services
             }
         }
 
-        public static string GenerateVerificationCode()
+        public string GenerateVerificationCode()
         {
             //check if digits or digits+letters
             //Random rand = new Random();
