@@ -8,6 +8,11 @@ namespace UserService.Services
 {
     public class VerifyEmail : IVerifyEmail
     {
+        private readonly SmtpSettings _smtpSettings;
+        public VerifyEmail(SmtpSettings smtpSettings)
+        {
+            _smtpSettings = smtpSettings;
+        }
         //move configuration to appsettings.json
         public void SendVerificationEmail(string emailAddress, string verificationCode)
         {

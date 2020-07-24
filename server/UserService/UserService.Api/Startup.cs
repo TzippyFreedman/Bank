@@ -27,7 +27,7 @@ namespace UserService.Api
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
             services.AddScoped(typeof(IUserService), typeof(UserService.Services.UserService));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-            services.AddScoped(smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
+            services.AddScoped(smtpSender => Configuration.GetSection("AppSettings:SmtpSettings").Get<SmtpSettings>());
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
