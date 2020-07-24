@@ -22,7 +22,6 @@ export class DataService {
 
   }
 
-
   public verifyEmail = (email: string) => {
     return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.requestHandlerService.generateHeaders())
       .pipe(catchError(this.requestHandlerService.handleError));

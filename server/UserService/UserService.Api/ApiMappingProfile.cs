@@ -10,10 +10,11 @@ namespace UserService.Api
         public ApiMappingProfile()
         {
             CreateMap<RegisterDTO, UserModel>();
+
             CreateMap<UserModel, AccountDTO>();
+
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
             
-
         }
     }
 }

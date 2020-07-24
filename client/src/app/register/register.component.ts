@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   registrationSubmitted = false;
   verificationSubmitted = false;
   email: string;
-  isVisibleVertificationForm: boolean = true;
+  isVisibleVerificationForm: boolean = true;
   isVisibleRegistrationForm: boolean = false;
   userToRegister = <Register>{};
 
@@ -98,13 +98,13 @@ export class RegisterComponent implements OnInit {
 
   showVerificationForm() {
     this.isVisibleRegistrationForm = false;
-    this.isVisibleVertificationForm = true;
+    this.isVisibleVerificationForm = true;
 
   }
 
   showRegistrationForm() {
     this.isVisibleRegistrationForm = true;
-    this.isVisibleVertificationForm = false;
+    this.isVisibleVerificationForm = false;
   }
 
 }
