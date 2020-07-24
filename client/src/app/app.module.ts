@@ -9,10 +9,10 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './auth/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -17,10 +17,6 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  private a:number = 1;
-  public aa(){
-    this.a = undefined;
-  }
   private handleError(error: HttpErrorResponse) {
     // A client-side or network error occurred. Handle it accordingly.
     if (error.error.errorMessage) {
@@ -38,20 +34,18 @@ export class DataService {
 
   
 
-  // public register = (user: Register) => {
-  //   return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
-  //     .pipe(catchError(this.handleError));
+  public register = (user: Register) => {
+    return this.http.post<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders())
+      .pipe(catchError(this.handleError));
 
-  // }
-
-  public register(user: Register) {
-    return this.http.put<void>(this.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.generateHeaders());
   }
+
   // public login = (loginObj: Login) => {
   //   return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
   //     { params: { email: loginObj.email, password: loginObj.password } })
   //     .pipe(catchError(this.handleError));
   // }
+  
   public verifyEmail = (email: string) => {
     return this.http.post<void>(this.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.generateHeaders())
       .pipe(catchError(this.handleError));

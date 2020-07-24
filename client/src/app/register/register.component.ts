@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
     if (this.verificationForm.invalid) {
       return;
     }
-
     this.verificationLoading = true;
     this.email = this.verificationForm.value;
     this.dataService.verifyEmail(this.email)
