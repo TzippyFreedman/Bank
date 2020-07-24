@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using UserService.Api.Middlewares;
 using UserService.Data;
 using UserService.Services;
+using UserService.Services.Interfaces;
 
 namespace UserService.Api
 {
@@ -50,18 +51,18 @@ namespace UserService.Api
 
             });
 
-            var swaggerTitle = Configuration["AppSettings:Swagger:Title"];
-            var swaggerName = Configuration["AppSettings:Swagger:Name"];
+            var swaggerTitle = Configuration["Swagger:Title"];
+            var swaggerName = Configuration["Swagger:Name"];
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(swaggerName, new OpenApiInfo()
                 {
                     Title = swaggerTitle,
-                    Description = Configuration["AppSettings:Swagger:OpenApiContact:Description"],
+                    Description = Configuration["Swagger:OpenApiContact:Description"],
                     Contact = new OpenApiContact()
                     {
-                        Name = Configuration["AppSettings:Swagger:OpenApiContact:Name"],
-                        Email = Configuration["AppSettings:Swagger:OpenApiContact:Email"]
+                        Name = Configuration["Swagger:OpenApiContact:Name"],
+                        Email = Configuration["Swagger:OpenApiContact:Email"]
                     }
                 });
             });
@@ -70,7 +71,7 @@ namespace UserService.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var swaggerName = Configuration["AppSettings:Swagger:SwaggerName"];
+            var swaggerName = Configuration["Swagger:Name"];
 
             if (env.IsDevelopment())
             {

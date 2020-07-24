@@ -1,4 +1,4 @@
-﻿namespace UserService.Services
+﻿namespace UserService.Services.Interfaces
 {
     public interface IVerifyEmail
     {
