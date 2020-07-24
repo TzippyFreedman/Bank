@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UserService.Services.Models;
 
-namespace UserService.Services
+namespace UserService.Services.Interfaces
 {
     public interface IUserRepository
     {
