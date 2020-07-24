@@ -8,7 +8,7 @@ namespace UserService.Services
     {
         Task<UserModel> GetUserAsync(string email);
         Task<AccountModel> GetAccountByUserIdAsync(Guid id);
-        Task<bool> CheckUserExistsAsync(string email);   
+        Task<bool> IsUserExistsAsync(string email);   
         Task<AccountModel> GetAccountByIdAsync(Guid accountId);
         Task<UserModel> GetUserByIdAsync(Guid id);
         Task AddUserAsync(UserModel userModel);

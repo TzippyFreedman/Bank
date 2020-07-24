@@ -1,25 +1,23 @@
 <nav *ngIf="isLoggedIn$ | async as isLoggedIn" class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">Angular Bootstrap Demo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/user',1]" >Account Details</a>
-          </li>
-        
+  <a class="navbar-brand" href="#">Angular Bootstrap Demo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/user',1]">Account Details</a>
+      </li>
     </ul>
-        <ul class="navbar-nav ml-auto">
-            <div class="btn-group">
+    <ul class="navbar-nav ml-auto">
+      <div class="btn-group">
         <li class="nav-item">
-           <a class="nav-link"  *ngIf="isLoggedIn" (click)="onLogout()"><i class="fa fa-user" aria-hidden="true"></i>
-            Log out</a> 
-        </li> 
-        </div>
-      </ul>
-    </div>
-  </nav>
+          <a class="nav-link" *ngIf="isLoggedIn" (click)="onLogout()"><i class="fa fa-user" aria-hidden="true"></i>
+            Log out</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</nav>
 <br>
-

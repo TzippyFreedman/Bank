@@ -21,7 +21,7 @@ namespace UserService.Api.Controllers
             _mapper = mapper;
             _userService = userService;
         }
-        [HttpPut]
+        [HttpPost]
         public async Task<ActionResult> RegisterAsync(RegisterDTO userRegister)
         {
             UserModel newUserModel = _mapper.Map<UserModel>(userRegister);

@@ -21,7 +21,7 @@ namespace UserService.Data
             _mapper = mapper;
         }
 
-        public async Task<bool> CheckUserExistsAsync(string email)
+        public async Task<bool> IsUserExistsAsync(string email)
         {
             bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
             return isEmailExist;
