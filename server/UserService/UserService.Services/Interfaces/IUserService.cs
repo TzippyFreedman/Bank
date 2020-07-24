@@ -9,7 +9,7 @@ namespace UserService.Services
         Task<Guid> LoginAsync(string email, string password);
         Task RegisterAsync(UserModel newUserModel, string password, string verificationCode);
         Task<AccountModel> GetAccountByIdAsync(Guid accountId);
-        Task<UserModel> GetUserByIdAsync(Guid id);
+        Task<UserModel> GetUserByIdAsync(Guid userId);
         Task VerifyEmailAsync(EmailVerificationModel emailVerification);
 
     }

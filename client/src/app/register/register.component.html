@@ -1,8 +1,8 @@
-
-<form *ngIf="isVisibleVertificationForm" [formGroup]="verificationForm" (ngSubmit)="onVerificationSubmit()">
+<form *ngIf="isVisibleVerificationForm" [formGroup]="verificationForm" (ngSubmit)="onVerificationSubmit()">
     <div class="form-group">
         <label for="email">Enter your Email address</label>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
+        <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
         <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
             <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
         </div>
@@ -31,7 +31,6 @@
         <button (click)="showVerificationForm()" class="btn btn-link">
             Resend Verification Code
         </button>
-        
     </div>
     <div class="form-group">
         <label for="firstName">First Name</label>
@@ -49,21 +48,21 @@
             <div *ngIf="registrationFormControls.lastName.errors.required">Last Name is required</div>
         </div>
     </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.password.errors }" />
-            <div *ngIf="registrationSubmitted && registrationFormControls.password.errors" class="invalid-feedback">
-                <div *ngIf="registrationFormControls.password.errors.required">Password is required</div>
-                <div *ngIf="registrationFormControls.password.errors.minlength">Password should contain at least 6
-                    characters.</div>
-            </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control"
+            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.password.errors }" />
+        <div *ngIf="registrationSubmitted && registrationFormControls.password.errors" class="invalid-feedback">
+            <div *ngIf="registrationFormControls.password.errors.required">Password is required</div>
+            <div *ngIf="registrationFormControls.password.errors.minlength">Password should contain at least 6
+                characters.</div>
         </div>
-        <div class="form-group">
-            <button [disabled]="registrationLoading" class="btn btn-primary">
-                <span *ngIf="registrationLoading" class="spinner-border spinner-border-sm mr-1"></span>
-                Register
-            </button>
-            <a routerLink="/login" class="btn btn-link">Cancel</a>
-        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="registrationLoading" class="btn btn-primary">
+            <span *ngIf="registrationLoading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register
+        </button>
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+    </div>
 </form>

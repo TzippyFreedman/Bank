@@ -26,13 +26,7 @@ import { AuthGuard } from './auth/auth.guard';
     AppRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot([
-      { path: 'register', component: RegisterComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'user/:userFileId', component: UserAccountComponent, canActivate: [AuthGuard] },
-      { path: "", redirectTo: '/login', pathMatch: "full" }
-    ]),
+    HttpClientModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
