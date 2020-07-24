@@ -21,17 +21,16 @@ namespace UserService.Services
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
             EmailVerificationModel verification = await _userRepository.GetVerificationAsync(newUser.Email);
-
-            if (verification.ExpirationTime < DateTime.Now)
-            {
-                throw new VerificationCodeExpiredException(verification.ExpirationTime);
-            }
             if (verification.Code != verificationCode)
             {
                 throw new IncorrectVerificationCodeException(verificationCode);
             }
+            if (verification.ExpirationTime < DateTime.Now)
+            {
+                throw new VerificationCodeExpiredException(verification.ExpirationTime);
+            }
 
-            bool isUserExist = await _userRepository.CheckUserExistsAsync(newUser.Email);
+            bool isUserExist = await _userRepository.IsUserExistsAsync(newUser.Email);
             if (isUserExist)
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(newUser.Email);
@@ -51,7 +50,8 @@ namespace UserService.Services
         public async Task<Guid> LoginAsync(string email, string password)
         {
             UserModel user = await _userRepository.GetUserAsync(email);
-            if (!Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash))
+            bool isPasswordCorrect = Hash.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
+            if (!isPasswordCorrect)
             {
                 throw new IncorrectPasswordException(email);
             }
@@ -73,7 +73,7 @@ namespace UserService.Services
 
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
         {
-            bool isUserExist = await _userRepository.CheckUserExistsAsync(emailVerification.Email);
+            bool isUserExist = await _userRepository.IsUserExistsAsync(emailVerification.Email);
             if (isUserExist)
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);
