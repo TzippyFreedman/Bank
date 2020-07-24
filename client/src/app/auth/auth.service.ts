@@ -13,11 +13,11 @@ const LOGIN_URL = 'user/login';
 })
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>((this.userAccountAvailable()));
+  private loggedIn = new BehaviorSubject<boolean>((this.isUserAccountAvailable()));
 
   constructor(private http: HttpClient, private requestHandlerService: HttpRequestHandlerService) { }
 
-  private userAccountAvailable(): boolean {
+  private isUserAccountAvailable(): boolean {
     return !!sessionStorage.getItem('userAccountId');
   }
 
@@ -40,8 +40,4 @@ export class AuthService {
       { params: { email: loginObj.email, password: loginObj.password } })
       .pipe(catchError(this.requestHandlerService.handleError));
   }
-
-
-
-  
 }

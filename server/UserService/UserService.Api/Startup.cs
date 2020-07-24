@@ -25,12 +25,16 @@ namespace UserService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
-            services.AddScoped(typeof(IUserService), typeof(UserService.Services.UserService));
+            services.AddScoped(typeof(IUserService), typeof(Services.UserService));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IVerifyEmail), typeof(VerifyEmail));
+            services.AddScoped(typeof(IHashPassword), typeof(HashPassword));
             services.AddScoped(smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
+
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
+
             services.AddControllers();
             services.AddCors(options =>
             {
