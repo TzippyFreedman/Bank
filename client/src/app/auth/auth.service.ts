@@ -4,6 +4,7 @@ import { Login } from '../login/login.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { HttpRequestHandlerService } from '../shared/services/http-request-handler.service';
 
 const LOGIN_URL = 'user/login';
 
@@ -14,7 +15,7 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>((this.userAccountAvailable()));
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private requestHandlerService: HttpRequestHandlerService) { }
 
   private userAccountAvailable(): boolean {
     return !!sessionStorage.getItem('userAccountId');
@@ -35,26 +36,12 @@ export class AuthService {
   }
 
   login(loginObj: Login){
-    return this.http.get<string>(this.createCompleteRoute(LOGIN_URL, environment.baseURL),
+    return this.http.get<string>(this.requestHandlerService.createCompleteRoute(LOGIN_URL, environment.baseURL),
       { params: { email: loginObj.email, password: loginObj.password } })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.requestHandlerService.handleError));
   }
 
-  private createCompleteRoute = (route: string, envAddress: string) => {
-    return `${envAddress}/${route}`;
-  }
 
-  private handleError(error: HttpErrorResponse) {
-    // A client-side or network error occurred. Handle it accordingly.
-    if (error.error.errorMessage) {
-      return throwError(new Error(`An error occurred:${error.error.errorMessage}`));
-    }
-    else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    return throwError(
-      'An Error occured ; please try again later.');
-  };
+
+  
 }
