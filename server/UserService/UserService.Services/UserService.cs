@@ -10,12 +10,12 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IConfiguration _configuration;
+        private readonly SmtpSettings _smtpSettings;
 
-        public UserService(IUserRepository userRepository,IConfiguration configuration)
+        public UserService(IUserRepository userRepository,SmtpSettings smtpSettings)
         {
             _userRepository = userRepository;
-            _configuration = configuration;
+            _smtpSettings = smtpSettings;
         }
 
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
