@@ -11,15 +11,13 @@ namespace UserService.Services
         //move configuration to appsettings.json
         public void SendVerificationEmail(string emailAddress, string verificationCode)
         {
-            const string senderEmailAddress = "rivkifreedman1@gmail.com";
-            const string senderEmailPassword = "er0533150865";
-            const string SMTPHost = "smtp.gmail.com";
+           
 
-            /* var appSettings = ConfigurationManager.AppSettings;
+             var appSettings = ConfigurationManager.AppSettings;
              string senderEmailAddress = appSettings.Get("EmailAddress");
              string senderEmailPassword = appSettings.Get("EmailPassword");
 
-             string SMTPHost = appSettings.Get("SMTPHost");*/
+             string SMTPHost = appSettings.Get("SMTPHost");
 
             using (MailMessage mail = new MailMessage())
             {
