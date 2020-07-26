@@ -24,20 +24,20 @@ namespace UserService.NServiceBus.Handlers
         {
             bool isTransferDone = false;
             int amountForTransfer = (int)Math.Round(message.Amount * 100);
-            if (await _committransferHandlerRepository.CheckExists(message.SrcAccountId) == true)
+            if (await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId) == true)
             {
-                if (_committransferHandlerRepository.CheckBalance(message.SrcAccountId, amountForTransfer) == true)
+                if (await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer) == true)
                 {
-                    await _committransferHandlerRepository.Draw(message.SrcAccountId, amountForTransfer);
+                    await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
                     isTransferDone = true;
                 }
             }
 
-            if (await _committransferHandlerRepository.CheckExists(message.DestAccountId) == true)
+            if (await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
             {
-                if (_committransferHandlerRepository.CheckBalance(message.DestAccountId, amountForTransfer) == true)
+                if (await _committransferHandlerRepository.CheckBalanceAsync(message.DestAccountId, amountForTransfer) == true)
                 {
-                    await _committransferHandlerRepository.Deposit(message.DestAccountId, amountForTransfer);
+                    await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
                     isTransferDone = true;
                 }
             }
