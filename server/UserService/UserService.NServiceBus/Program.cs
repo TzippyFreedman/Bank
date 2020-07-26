@@ -77,15 +77,6 @@ namespace UserService.NServiceBus
             //var TrackingEndPoint = appSettings.Get("TrackingEndPoint");
 
             //routing.RouteToEndpoint(
-            //   messageType: typeof(IAddTracking),
-            //   destination: TrackingEndPoint
-            //   );
-            //var TransferEndPoint = appSettings.Get("TransferEndPoint");
-            //routing.RouteToEndpoint(
-            //   messageType: typeof(ITransferComplete),
-            //   destination: TransferEndPoint
-            //   );
-            //routing.RouteToEndpoint(
             //  messageType: typeof(ICancelTransfer),
             //  destination: TransferEndPoint
             //  );

@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Messages\Messages.csproj" />
     <ProjectReference Include="..\UserService.Data\UserService.Data.csproj" />
+    <ProjectReference Include="..\UserService.NServiceBus.Services\UserService.NServiceBus.Services.csproj" />
   </ItemGroup>
 
 </Project>

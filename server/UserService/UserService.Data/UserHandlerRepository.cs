@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
+using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.Data
 {
-   public class UserHandlerRepository /*: IUserHandlerRepository*/
+   public class UserHandlerRepository :IUserHandlerRepository
     { 
      private readonly UserDbContext _userDbContext;
     private readonly IMapper _mapper;
@@ -20,7 +21,7 @@ namespace UserService.Data
 
     }
 
-    public bool CheckBalance(Guid accountId, float amount)
+    public bool CheckBalance(Guid accountId, int amount)
     {
         Account user = _userDbContext.Accounts.Where(u => u.Id == accountId).FirstOrDefault();
         bool isBalanceOK = user.Balance >= amount ? true : false;
@@ -32,10 +33,8 @@ namespace UserService.Data
         return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
     }
 
-    public async Task Pull(Guid account, float amount)
+    public async Task Draw(Guid account, int amount)
     {
-        //include??
-        //User user=await _userDbContext.Users.Where(u => u.UserFile.Id == srcAccount).FirstOrDefaultAsync();
         Account userAccount = await _userDbContext.Accounts.Where(u => u.Id == account).FirstOrDefaultAsync();
         if (userAccount == null)
         {
@@ -43,14 +42,14 @@ namespace UserService.Data
         }
         else
         {
-            //userAccount.Balance -= amount;
-            //userAccount.UpdateDate = DateTime.Now;
-        }
+                userAccount.Balance -= amount;
+                //userAccount.UpdateDate = DateTime.Now;
+            }
         //    await _userDbContext.SaveChangesAsync();
 
     }
 
-    public async Task Push(Guid account, float amount)
+    public async Task Deposit(Guid account, int amount)
     {
         Account userAccount = await _userDbContext.Accounts.Where(u => u.Id == account).FirstOrDefaultAsync();
         if (userAccount == null)
@@ -59,10 +58,10 @@ namespace UserService.Data
         }
         else
         {
-            //userAccount.Balance += amount;
-            //userAccount.UpdateDate = DateTime.Now;
+                userAccount.Balance += amount;
+                //userAccount.UpdateDate = DateTime.Now;
 
-        }
+            }
 
         //    await _userDbContext.SaveChangesAsync();
     }
