@@ -18,10 +18,10 @@ namespace UserService.NServiceBus
         static async Task Main(string[] args)
         {
             var appSettings = ConfigurationManager.AppSettings;
-            var connection = ConfigurationManager.ConnectionStrings["userDBConnectionString"].ToString();
+            var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
             var schemaName = appSettings.Get("SchemaName");
             var tablePrefix = appSettings.Get("TablePrefix");
-            var RabbitmqConnection = ConfigurationManager.ConnectionStrings["localRabbitmqConnectionString"].ToString();
+            var transportConnection = ConfigurationManager.ConnectionStrings["transportConnection"].ToString();
             var auditQueue = appSettings.Get("auditQueue");
             var timeToBeReceivedSetting = appSettings.Get("timeToBeReceived");
 
@@ -67,7 +67,7 @@ namespace UserService.NServiceBus
 
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology()
-                .ConnectionString(RabbitmqConnection);
+                .ConnectionString(transportConnection);
 
             var routing = transport.Routing();
             //see successed messages in serviceInsight           
