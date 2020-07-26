@@ -77,7 +77,7 @@ namespace UserService.NServiceBus
             //    assembly: typeof(ICheckBalance).Assembly,
             //    destination: "UserService"
             //    );
-            var TrackingEndPoint = appSettings.Get("TrackingEndPoint");
+            //var TrackingEndPoint = appSettings.Get("TrackingEndPoint");
 
             //routing.RouteToEndpoint(
             //   messageType: typeof(IAddTracking),
@@ -119,6 +119,19 @@ serviceControlQueue: "Particular.Servicecontrol");
                 connectionBuilder: () =>
                 {
                     return new SqlConnection(connection);
+                });
+
+            var recoverability = endpointConfiguration.Recoverability();
+            recoverability.CustomPolicy(UserServiceRetryPolicy.UserServiceRetryPolicyInvoke);
+            recoverability.Immediate(
+                          immediate => {
+                              immediate.NumberOfRetries(1);
+                          });
+            recoverability.Delayed(
+                delayed =>
+                {
+                    var retries = delayed.NumberOfRetries(1);
+                    retries.TimeIncrease(TimeSpan.FromSeconds(2));
                 });
 
             var subscriptions = persistence.SubscriptionSettings();

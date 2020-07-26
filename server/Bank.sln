@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages", "Shared\Messages
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.NServiceBus", "UserService\UserService.NServiceBus\UserService.NServiceBus.csproj", "{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.NSeriveBus.Services", "UserService\UserService.NSeriveBus.Services\UserService.NSeriveBus.Services.csproj", "{A71FF6EC-1800-4837-8B71-799064C3A4A3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,10 +75,6 @@ Global
 		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A71FF6EC-1800-4837-8B71-799064C3A4A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A71FF6EC-1800-4837-8B71-799064C3A4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A71FF6EC-1800-4837-8B71-799064C3A4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A71FF6EC-1800-4837-8B71-799064C3A4A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,7 +90,6 @@ Global
 		{2BF434DE-7D34-48F6-88D8-4FDBF04359AE} = {FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}
 		{8268631E-1C0D-4361-9B83-D6D6C7273DDD} = {FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}
 		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74} = {B1E12D5E-3352-4001-A5FD-6FA14FB87F43}
-		{A71FF6EC-1800-4837-8B71-799064C3A4A3} = {B1E12D5E-3352-4001-A5FD-6FA14FB87F43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {605A1A43-FF3F-4AB1-9BA2-AFDCC6A0A7F4}
