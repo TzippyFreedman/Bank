@@ -30,6 +30,8 @@ namespace TransferService.NServiceBus
             var transportConnection = ConfigurationManager.ConnectionStrings["TransportConnection"].ToString();
             var auditQueue = appSettings.Get("AuditQueue");
             var userEndpoint = appSettings.Get("UserEndpoint");
+            var schemaName = appSettings.Get("SchemaName");
+            var tablePrefix = appSettings.Get("TablePrefix");
             var serviceControlQueue = appSettings.Get("ServiceControlQueue");
             var timeToBeReceivedSetting = appSettings.Get("TimeToBeReceived");
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
@@ -43,6 +45,7 @@ namespace TransferService.NServiceBus
             {
                 await transferDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
+          
 
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistence.SqlDialect<SqlDialect.MsSqlServer>();
@@ -51,6 +54,9 @@ namespace TransferService.NServiceBus
                 {
                     return new SqlConnection(transferConnection);
                 });
+
+            var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+            dialect.Schema(schemaName);
 
             var outboxSettings = endpointConfiguration.EnableOutbox();
             outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
