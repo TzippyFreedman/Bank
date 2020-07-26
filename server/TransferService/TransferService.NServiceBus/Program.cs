@@ -58,9 +58,6 @@ namespace TransferService.NServiceBus
 
 
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-            var tablePrefix = appSettings.Get("TablePrefix");
-
-            persistence.TablePrefix(tablePrefix);
 
             var persistenceConnection = transferConnection;
 
@@ -84,11 +81,6 @@ namespace TransferService.NServiceBus
 
             var subscriptions = persistence.SubscriptionSettings();
             subscriptions.CacheFor(TimeSpan.FromMinutes(10));
-
-            var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-            var schemaName = appSettings.Get("SchemaName");
-            dialect.Schema(schemaName);
-
 
             var recoverability = endpointConfiguration.Recoverability();
             recoverability.Delayed(
