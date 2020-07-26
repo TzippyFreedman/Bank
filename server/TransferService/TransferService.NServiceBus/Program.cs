@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using TransferService.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using NServiceBus.Persistence.Sql;
@@ -8,6 +6,7 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using TransferService.Data;
 
 
 namespace TransferService.NServiceBus
