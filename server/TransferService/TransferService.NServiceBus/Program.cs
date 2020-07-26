@@ -8,8 +8,7 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using UserService.NServiceBus.Services.Interfaces;
-using UserService.Data;
+
 
 namespace TransferService.NServiceBus
 {
