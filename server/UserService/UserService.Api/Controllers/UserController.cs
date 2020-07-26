@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Services;
+using UserService.Services.Interfaces;
 using UserService.Services.Models;
 
 namespace UserService.Api.Controllers
