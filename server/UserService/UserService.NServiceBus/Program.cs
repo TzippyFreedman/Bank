@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using UserService.Data;
 using UserService.NServiceBus.Services.Interfaces;
-using UserService.Services.Interfaces;
 
 namespace UserService.NServiceBus
 {

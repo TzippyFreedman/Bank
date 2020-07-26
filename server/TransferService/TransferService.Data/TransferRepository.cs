@@ -23,7 +23,7 @@ namespace TransferService.Data
         public async Task<TransferModel> Add(TransferModel transferModel)
         {
             Transfer measure = _mapper.Map<Transfer>(transferModel);
-            _transferDbContext.Measures.Add(measure);
+            _transferDbContext.Transfers.Add(measure);
             await _transferDbContext.SaveChangesAsync();
             return _mapper.Map<TransferModel>(measure);
         }
