@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Messages.Commands;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using NServiceBus.Persistence.Sql;
@@ -29,7 +30,7 @@ namespace TransferService.NServiceBus
           /*  //endpointConfiguration.AuditProcessedMessagesTo("audit");*/
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
 
-           containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
+            containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
 
            // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
 
@@ -42,7 +43,7 @@ namespace TransferService.NServiceBus
             }
             var appSettings = ConfigurationManager.AppSettings;
             var auditQueue = appSettings.Get("AuditQueue");
-            var subscriberEndpoint = appSettings.Get("UserEndpoint");
+            var userEndpoint = appSettings.Get("UserEndpoint");
 
             var serviceControlQueue = appSettings.Get("ServiceControlQueue");
             var timeToBeReceivedSetting = appSettings.Get("TimeToBeReceived");
@@ -100,14 +101,14 @@ namespace TransferService.NServiceBus
                 .ConnectionString(transportConnection);
 
             var routing = transport.Routing();
-
-         
+            routing.RouteToEndpoint(
+                        messageType: typeof(ICommitTransfer),
+                        destination: userEndpoint);
 
             var conventions = endpointConfiguration.Conventions();
             conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
             conventions.DefiningEventsAs(type => type.Namespace == "Messages.Events");
             conventions.DefiningMessagesAs(type => type.Namespace == "Messages.Messages");
-
 
             endpointConfiguration.RegisterComponents(c =>
             {
