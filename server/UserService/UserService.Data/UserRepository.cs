@@ -7,6 +7,7 @@ using UserService.Data.Entities;
 using UserService.Services.Models;
 using UserService.Services;
 using UserService.Data.Exceptions;
+using UserService.Services.Interfaces;
 
 namespace UserService.Data
 {
