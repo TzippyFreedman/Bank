@@ -25,7 +25,6 @@ namespace UserService.NServiceBus
 
             endpointConfiguration.EnableInstallers();
 
-            //endpointConfiguration.AuditProcessedMessagesTo("audit");
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
             var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
 
@@ -35,9 +34,7 @@ namespace UserService.NServiceBus
             var tablePrefix = appSettings.Get("TablePrefix");
             dialect.Schema(SchemaName);
             persistence.TablePrefix(tablePrefix);
-            //      endpointConfiguration.AuditSagaStateChanges(
-            //serviceControlQueue: "Particular.Servicecontrol");
-
+          
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
           .UseSqlServer(new SqlConnection(connection))
@@ -94,7 +91,6 @@ namespace UserService.NServiceBus
             //  );
 
             //see successed messages in serviceInsight
-            //endpointConfiguration.AuditProcessedMessagesTo("AuditQueue");
             var auditQueue = appSettings.Get("auditQueue");
             var timeToBeReceivedSetting = appSettings.Get("timeToBeReceived");
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
@@ -102,6 +98,8 @@ namespace UserService.NServiceBus
                 auditQueue: auditQueue,
                 timeToBeReceived: timeToBeReceived);
             //show the saga flow in serviceinsight
+
+
             endpointConfiguration.AuditSagaStateChanges(
 serviceControlQueue: "Particular.Servicecontrol");
             var conventions = endpointConfiguration.Conventions();

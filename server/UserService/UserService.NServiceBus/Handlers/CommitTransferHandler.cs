@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.NServiceBus.Handlers
 {
@@ -12,34 +13,35 @@ namespace UserService.NServiceBus.Handlers
     {
         //private readonly IUserService _userService;
 
-       // private readonly ITransferMoneyHandlerRepository _transferMoneyHandlerRepository;
+      private readonly ICommitTransferHandlerRepository _committransferHandlerRepository;
 
-        //public TransferMoneyHandler(ITransferMoneyHandlerRepository transferMoneyHandlerRepository)
-        //{
-        //    _transferMoneyHandlerRepository = transferMoneyHandlerRepository;
-        //}
+        public CommitTransferHandler(ICommitTransferHandlerRepository committransferHandlerRepository)
+        {
+            _committransferHandlerRepository = committransferHandlerRepository;
+
+        }
         public async Task Handle(ICommitTransfer message, IMessageHandlerContext context)
         {
             bool isTransferDone = false;
+          //  int amount = int(message.Amount * 100);
+            if (await _committransferHandlerRepository.CheckExists(message.SrcAccountId) == true)
+            {
+                if (_committransferHandlerRepository.CheckBalance(message.SrcAccountId, message.Amount) == true)
+                {
+                    await _committransferHandlerRepository.Pull(message.SrcAccountId, message.Amount);
+                    isTransferDone = true;
+                }
+            }
 
-            //if (await _transferMoneyHandlerRepository.CheckExists(message.SrcAccountId) == true)
-            //{
-            //    if (_transferMoneyHandlerRepository.CheckBalance(message.SrcAccountId, message.Amount) == true)
-            //    {
-            //        await _transferMoneyHandlerRepository.Pull(message.SrcAccountId, message.Amount);
-            //        isTransferDone = true;
-            //    }
-            //}
-
-            //if (await _transferMoneyHandlerRepository.CheckExists(message.DestAccountId) == true)
-            //{
-            //    if (_transferMoneyHandlerRepository.CheckBalance(message.DestAccountId, message.Amount) == true)
-            //    {
-            //        await _transferMoneyHandlerRepository.Push(message.DestAccountId, message.Amount);
-            //        isTransferDone = true;
-            //    }
-            //}
-            // await   _userService.AddMoney(message.AccountId, message.Amount);
+            if (await _committransferHandlerRepository.CheckExists(message.DestAccountId) == true)
+            {
+                if (_committransferHandlerRepository.CheckBalance(message.DestAccountId, message.Amount) == true)
+                {
+                    await _committransferHandlerRepository.Push(message.DestAccountId, message.Amount);
+                    isTransferDone = true;
+                }
+            }
+           // await _userService.AddMoney(message.AccountId, message.Amount);
             //    UserAccount userDestAccount = await _userDbContext.UserFiles.Where(u => u.UserId == message.SrcAccountId).FirstOrDefaultAsync();
             //if (userDestAccount != null)
             //{
