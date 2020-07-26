@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserService.NServiceBus.Services\UserService.NServiceBus.Services.csproj" />
     <ProjectReference Include="..\UserService.Services\UserService.Services.csproj" />
   </ItemGroup>
 

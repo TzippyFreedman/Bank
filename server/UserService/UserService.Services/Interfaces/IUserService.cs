@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UserService.Services.Models;
+using UserService.Contract.Models;
 
 namespace UserService.Services.Interfaces
 {

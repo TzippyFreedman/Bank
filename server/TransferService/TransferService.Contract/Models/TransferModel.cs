@@ -1,9 +1,7 @@
-﻿using Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using TransferService.Contract.Enums;
 
-namespace TransferService.Services.Models
+namespace TransferService.Contract.Models
 {
     public class TransferModel
     {

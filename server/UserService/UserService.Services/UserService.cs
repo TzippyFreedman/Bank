@@ -2,9 +2,10 @@
 using Serilog;
 using System;
 using System.Threading.Tasks;
+using UserService.Contract;
+using UserService.Contract.Models;
 using UserService.Services.Exceptions;
 using UserService.Services.Interfaces;
-using UserService.Services.Models;
 
 namespace UserService.Services
 {

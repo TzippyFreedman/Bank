@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UserService.Services.Models;
+using UserService.Contract.Models;
 
-namespace UserService.Services.Interfaces
+namespace UserService.Contract
 {
     public interface IUserRepository
     {
@@ -14,5 +14,9 @@ namespace UserService.Services.Interfaces
         Task AddUserAsync(UserModel userModel);
         Task AddVerificationAsync(EmailVerificationModel emailVerification);
         Task<EmailVerificationModel> GetVerificationAsync( string email);
+        Task DrawAsync(Guid srcAccount, int amount);
+        Task DepositAsync(Guid destAccount, int amount);
+        Task<bool> IsExistsAsync(Guid accountId);
+        Task<bool> IsBalanceOkAsync(Guid accountId, int amount);
     }
 }

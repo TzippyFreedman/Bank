@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TransferService.NServiceBus.Services\TransferService.NServiceBus.Services.csproj" />
+    <ProjectReference Include="..\TransferService.Contract\TransferService.Contract.csproj" />
     <ProjectReference Include="..\TransferService.Services\TransferService.Services.csproj" />
   </ItemGroup>
 

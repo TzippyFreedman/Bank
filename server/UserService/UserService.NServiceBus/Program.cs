@@ -7,17 +7,16 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using UserService.Contract;
 using UserService.Data;
-using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.NServiceBus
 {
     class Program
     {
+        const string EndPointName = "Bank.User";
         static async Task Main(string[] args)
         {
-            const string EndPointName = "Bank.User";
-
             var appSettings = ConfigurationManager.AppSettings;
             var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
             var schemaName = appSettings.Get("SchemaName");
@@ -44,16 +43,16 @@ namespace UserService.NServiceBus
             dialect.Schema(schemaName);
 
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+
+            containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+
+
             using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
-          .UseSqlServer(new SqlConnection(connection))
-          .Options))
+          .UseSqlServer(new SqlConnection(connection)).Options))
             {
                 await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
-           containerSettings.ServiceCollection.AddSingleton(typeof(IUserHandlerRepository), typeof(UserHandlerRepository));
-            //containerSettings.ServiceCollection.AddSingleton(typeof(IUserService), typeof(UserService.Services.UserService));
-            //containerSettings.ServiceCollection.AddSingleton(typeof(IUserRepository), typeof(UserRepository));
-           // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
 
             var outboxSettings = endpointConfiguration.EnableOutbox();
             outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
@@ -83,11 +82,12 @@ namespace UserService.NServiceBus
             conventions.DefiningEventsAs(type => type.Namespace == "Messages.Events");
             //var subscriptions = transport.SubscriptionSettings();
             //subscriptions.CacheSubscriptionInformationFor(TimeSpan.FromMinutes(1));        
-           
+
             var recoverability = endpointConfiguration.Recoverability();
             recoverability.CustomPolicy(UserServiceRetryPolicy.UserServiceRetryPolicyInvoke);
             recoverability.Immediate(
-                          immediate => {
+                          immediate =>
+                          {
                               immediate.NumberOfRetries(1);
                           });
             recoverability.Delayed(

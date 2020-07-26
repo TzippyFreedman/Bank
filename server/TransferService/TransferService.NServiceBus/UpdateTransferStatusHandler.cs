@@ -4,22 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TransferService.NServiceBus.Services.Interfaces;
+using TransferService.Contract;
 
 namespace TransferService.NServiceBus
 {
     public class UpdateTransferStatusHandler : IHandleMessages<IUpdateTransferStatus>
     {
 
-        private readonly ITransferHandlerRepository _transferHandlerRepository;
+        private readonly ITransferRepository _transferHandlerRepository;
 
-        public UpdateTransferStatusHandler(ITransferHandlerRepository transferHandlerRepository)
+        public UpdateTransferStatusHandler(ITransferRepository transferHandlerRepository)
         {
             _transferHandlerRepository = transferHandlerRepository;
         }
         public async Task Handle(IUpdateTransferStatus message, IMessageHandlerContext context)
         {
-            await _transferHandlerRepository.UpdateTransferStatus(message.TransferId, message.TransferStatus, message.FailureReason);
+            await _transferHandlerRepository.UpdateTransferStatus(message.TransferId, message.IsTransferSucceeded, message.FailureReason);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UserService.Services.Models
+namespace UserService.Contract.Models
 {
     public class UserModel
     {

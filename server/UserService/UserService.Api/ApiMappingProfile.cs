@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using UserService.Api.DTO;
-using UserService.Services.Models;
+using UserService.Contract.Models;
 
 namespace UserService.Api
 {

@@ -1,7 +1,7 @@
-﻿using Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TransferService.Contract.Enums;
 
 namespace TransferService.Data.Entities
 {
@@ -11,7 +11,7 @@ namespace TransferService.Data.Entities
         public Guid FromAccount { get; set; }
         public Guid ToAccount { get; set; }
         public int Amount { get; set; }
-        public TransferStatus Status { get; set; }
+       public TransferStatus Status { get; set; }
         public string FailureReason { get; set; }
     }
 }

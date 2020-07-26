@@ -9,6 +9,6 @@ namespace Messages.Events
          Guid TransferId { get; set; }
          Guid SrcAccountId { get; set; }
          Guid DestAccountId   { get; set; }
-         float Amount { get; set; }
+         int Amount { get; set; }
     }
 }
