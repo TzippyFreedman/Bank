@@ -5,10 +5,12 @@ import { catchError } from 'rxjs/operators';
 import { Register } from '../../register/register.model';
 import { UserAccount } from 'src/app/user-account/user-account.model';
 import { HttpRequestHandlerService } from './http-request-handler.service';
+import { Transfer } from 'src/app/transfer/transfer.model';
 
-const REGISTER_URL = 'user/';
+const REGISTER_URL = 'user';
 const ACCOUNT_URL = 'user/getAccountDetails/'
 const VERIFICATION_URL = 'user/verifyEmail';
+const TRANSFER_URL = 'transfer';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,6 +32,13 @@ export class DataService {
 
   public getAccountDetails = (userId: String) => {
     return this.http.get<UserAccount>(this.requestHandlerService.createCompleteRoute(ACCOUNT_URL + userId, environment.baseURL))
+      .pipe(catchError(this.requestHandlerService.handleError));
+
+  }
+
+  public transfer = (transfer: Transfer) => {
+    debugger;
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.baseURL), transfer, this.requestHandlerService.generateHeaders())
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }

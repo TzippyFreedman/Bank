@@ -1,25 +1,25 @@
 <p>transfer works!</p>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label for="username">Email</label>
-        <input type="text" formControlName="username" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" />
-        <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
-            <div *ngIf="formControls.username.errors.required">Username is required</div>
+        <label for="amount">Amount</label>
+        <input type="number" formControlName="amount" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.amount.errors }" />
+        <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.amount.errors.required">Username is required</div>
         </div>
-        <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
-            <div *ngIf="formControls.username.errors.pattern">Username email invalid</div>
+        <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.amount.errors.pattern">Username email invalid</div>
         </div>
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" />
-        <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
-            <div *ngIf="formControls.password.errors.required">Password is required</div>
+        <label for="destAccount">To Account</label>
+        <input type="destAccount" formControlName="destAccount" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.destAccount.errors }" />
+        <div *ngIf="submitted && formControls.destAccount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.destAccount.errors.required">Password is required</div>
         </div>
-        <div *ngIf="submitted && formControls.password.errors" class="invalid-feedback">
-            <div *ngIf="formControls.password.errors.minlength">Password should contain at least 6 characters.</div>
+        <div *ngIf="submitted && formControls.destAccount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.destAccount.errors.minlength">Password should contain at least 6 characters.</div>
         </div>
     </div>
     <div class="form-group">
