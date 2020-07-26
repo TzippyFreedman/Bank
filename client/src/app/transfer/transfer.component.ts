@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Transfer } from './transfer.model';
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../auth/auth.service';
-import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-transfer',

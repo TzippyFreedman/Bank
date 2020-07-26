@@ -35,8 +35,6 @@ namespace TransferService.Api
                 Log.Information("The program has started!!!");
 
                 CreateHostBuilder(args).Build().Run();
-
-
             }
             catch (Exception ex)
             {
@@ -101,7 +99,7 @@ namespace TransferService.Api
 
 
                       var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-                      var connection = Configuration.GetConnectionString("TransferConnectionString");
+                      var connection = Configuration.GetConnectionString("TransferDBConnectionString");
 
                       var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
                       dialect.Schema(schemaName);
@@ -117,11 +115,11 @@ namespace TransferService.Api
 
 
                       //in development
-                       endpointConfiguration.PurgeOnStartup(true);
+                      endpointConfiguration.PurgeOnStartup(true);
 
 
-/*                      endpointConfiguration.AuditSagaStateChanges(
-                          serviceControlQueue: "Particular.Servicecontrol");*/
+                      /*                      endpointConfiguration.AuditSagaStateChanges(
+                                                serviceControlQueue: "Particular.Servicecontrol");*/
 
                       var conventions = endpointConfiguration.Conventions();
                       conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
