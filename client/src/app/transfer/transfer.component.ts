@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-transfer',
@@ -15,6 +15,11 @@ export class TransferComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+    this.transferForm = new FormGroup({
+      'amount': new FormControl('', [
+        Validators.required,
+      ])
+    });
 
+  }
 }
