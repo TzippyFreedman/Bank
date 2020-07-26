@@ -55,28 +55,37 @@ namespace TransferService.Api
                       const string endpointName = "Bank.Transfer.Api";
                       var endpointConfiguration = new EndpointConfiguration(endpointName);
 
-                      endpointConfiguration.EnableInstallers();
-
-                      endpointConfiguration.SendOnly();
-
-                      var scanner = endpointConfiguration.AssemblyScanner();
-                      scanner.ExcludeAssemblies("TransferService.Data.dll");
-
-                      var outboxSettings = endpointConfiguration.EnableOutbox();
-
-                      outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
-                      outboxSettings.RunDeduplicationDataCleanupEvery(TimeSpan.FromMinutes(15));
-
                       var auditQueue = Configuration["AppSettings:auditQueue"];
                       var serviceControlQueue = Configuration["AppSettings:ServiceControlQueue"];
                       var timeToBeReceivedSetting = Configuration["AppSettings:timeToBeReceived"];
-                      var transportConnection = Configuration.GetConnectionString("transportConnection");
                       var schemaName = Configuration["AppSettings:SchemaName"];
+                      var transportConnection = Configuration.GetConnectionString("transportConnection");
                       var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
 
-                      endpointConfiguration.AuditProcessedMessagesTo(
-                          auditQueue: auditQueue,
-                          timeToBeReceived: timeToBeReceived);
+                      endpointConfiguration.EnableInstallers();
+                      //in development only!!
+                      endpointConfiguration.PurgeOnStartup(true);
+                      endpointConfiguration.SendOnly();
+
+                      var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+                      var connection = Configuration.GetConnectionString("TransferDBConnectionString");
+
+                      var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+                      dialect.Schema(schemaName);
+
+                      persistence.ConnectionBuilder(
+                          connectionBuilder: () =>
+                          {
+                              return new SqlConnection(connection);
+                          });
+
+                      var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+                      transport.UseConventionalRoutingTopology()
+                          .ConnectionString(transportConnection);
+
+                      var outboxSettings = endpointConfiguration.EnableOutbox();
+                      outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
+                      outboxSettings.RunDeduplicationDataCleanupEvery(TimeSpan.FromMinutes(15));
 
                       var recoverability = endpointConfiguration.Recoverability();
                       recoverability.Delayed(
@@ -92,40 +101,21 @@ namespace TransferService.Api
                               immidiate.NumberOfRetries(1);
 
                           });
-
-                      var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-                      transport.UseConventionalRoutingTopology()
-                          .ConnectionString(transportConnection);
-
-
-                      var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-                      var connection = Configuration.GetConnectionString("TransferDBConnectionString");
-
-                      var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-                      dialect.Schema(schemaName);
-
-                      persistence.ConnectionBuilder(
-                          connectionBuilder: () =>
-                          {
-                              return new SqlConnection(connection);
-                          });
-
+                   
                       var subscriptions = persistence.SubscriptionSettings();
                       subscriptions.CacheFor(TimeSpan.FromMinutes(10));
 
-
-                      //in development
-                      endpointConfiguration.PurgeOnStartup(true);
-
-
-                      /*                      endpointConfiguration.AuditSagaStateChanges(
-                                                serviceControlQueue: "Particular.Servicecontrol");*/
+                      var scanner = endpointConfiguration.AssemblyScanner();
+                      scanner.ExcludeAssemblies("TransferService.Data.dll");
 
                       var conventions = endpointConfiguration.Conventions();
                       conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
                       conventions.DefiningEventsAs(type => type.Namespace == "Messages.Events");
                       conventions.DefiningMessagesAs(type => type.Namespace == "Messages.Messages");
 
+                      endpointConfiguration.AuditProcessedMessagesTo(
+                          auditQueue: auditQueue,
+                          timeToBeReceived: timeToBeReceived);
 
                       return endpointConfiguration;
                   })
