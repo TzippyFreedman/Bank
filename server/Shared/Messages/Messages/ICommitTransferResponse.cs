@@ -6,7 +6,7 @@ namespace Messages.Messages
 {
     public interface ICommitTransferResponse
     {
-        public bool IsTransferCommited { get; set; }
+        public bool IsTransferSucceeded { get; set; }
         public string FailureReason { get; set; }
 
 

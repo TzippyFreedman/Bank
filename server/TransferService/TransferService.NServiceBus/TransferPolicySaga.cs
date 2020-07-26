@@ -1,5 +1,7 @@
-﻿using Messages.Commands;
+﻿using Enums;
+using Messages.Commands;
 using Messages.Events;
+using Messages.Messages;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,8 @@ using System.Threading.Tasks;
 namespace TransferService.NServiceBus
 {
     public class TransferPolicySaga : Saga<TransferPolicySagaData>,
-               IAmStartedByMessages<ITransferRequestAdded>
+               IAmStartedByMessages<ITransferRequestAdded>,
+        IHandleMessages<ICommitTransferResponse>
 
     {
         public async Task Handle(ITransferRequestAdded message, IMessageHandlerContext context)
@@ -22,6 +25,21 @@ namespace TransferService.NServiceBus
                  msg.Amount = message.Amount;
              })
                 .ConfigureAwait(false);
+        }
+
+        public async Task Handle(ICommitTransferResponse message, IMessageHandlerContext context)
+        {
+            TransferStatus transferStatus = message.IsTransferSucceeded ? TransferStatus.Succeeded : TransferStatus.Failed;
+
+            await context.Send<IUpdateTransferStatus>(msg =>
+             {
+                 msg.TransferId = Data.TransferId;
+                 msg.TransferStatus = transferStatus;
+                 msg.FailureReason = message.FailureReason;
+             })
+                 .ConfigureAwait(false);
+
+            MarkAsComplete();
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransferPolicySagaData> mapper)
