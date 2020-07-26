@@ -15,7 +15,7 @@ export class HttpRequestHandlerService {
 
    generateHeaders = () => {
     return {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Expose-Headers': '*', 'Access-Control-Allow-Credentials': 'true', 'withCredentials': 'true' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Expose-Headers': '*', 'Access-Control-Allow-Credentials': 'true', 'withCredentials': 'true','Access-Control-Allow-Origin':'*' }),
       observe: 'response' as 'response'
     }
   }

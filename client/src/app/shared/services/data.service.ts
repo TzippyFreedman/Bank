@@ -19,26 +19,26 @@ export class DataService {
   constructor(private http: HttpClient, private requestHandlerService: HttpRequestHandlerService) { }
 
   public register = (user: Register) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.baseURL), user, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.userServiceBaseURL), user, this.requestHandlerService.generateHeaders())
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }
 
   public verifyEmail = (email: string) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.baseURL), email, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.userServiceBaseURL), email, this.requestHandlerService.generateHeaders())
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }
 
   public getAccountDetails = (userId: String) => {
-    return this.http.get<UserAccount>(this.requestHandlerService.createCompleteRoute(ACCOUNT_URL + userId, environment.baseURL))
+    return this.http.get<UserAccount>(this.requestHandlerService.createCompleteRoute(ACCOUNT_URL + userId, environment.userServiceBaseURL))
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }
 
   public transfer = (transfer: Transfer) => {
     debugger;
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.baseURL), transfer, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.transferServiceBaseURL), transfer, this.requestHandlerService.generateHeaders())
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }

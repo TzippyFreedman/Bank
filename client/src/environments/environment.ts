@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseURL : "https://localhost:44334/api",
+  userServiceBaseURL : "https://localhost:44334/api",
+  transferServiceBaseURL : "https://localhost:44388/api"
 };
 /*
  * For easier debugging in development mode, you can import the following file
