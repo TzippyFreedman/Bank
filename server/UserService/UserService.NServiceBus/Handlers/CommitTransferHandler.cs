@@ -1,10 +1,10 @@
 ﻿using Messages.Commands;
 using Messages.Messages;
+using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NServiceBus;
 using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.NServiceBus.Handlers
@@ -23,56 +23,25 @@ namespace UserService.NServiceBus.Handlers
         public async Task Handle(ICommitTransfer message, IMessageHandlerContext context)
         {
             bool isTransferDone = false;
-           // int amount = int(message.Amount * 100);
-           /* if (await _committransferHandlerRepository.CheckExists(message.SrcAccountId) == true)
+            int amountForTransfer = (int)Math.Round(message.Amount * 100);
+            if (await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId) == true)
             {
-                if (_committransferHandlerRepository.CheckBalance(message.SrcAccountId, message.Amount) == true)
+                if (await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer) == true)
                 {
-                    await _committransferHandlerRepository.Draw(message.SrcAccountId, message.Amount);
+                    await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
                     isTransferDone = true;
                 }
             }
 
-            if (await _committransferHandlerRepository.CheckExists(message.DestAccountId) == true)
+            if (await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
             {
-                if (_committransferHandlerRepository.CheckBalance(message.DestAccountId, message.Amount) == true)
+                if (await _committransferHandlerRepository.CheckBalanceAsync(message.DestAccountId, amountForTransfer) == true)
                 {
-                    await _committransferHandlerRepository.Deposit(message.DestAccountId, message.Amount);
+                    await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
                     isTransferDone = true;
                 }
-            }*/
-           // await _userService.AddMoney(message.AccountId, message.Amount);
-            //    UserAccount userDestAccount = await _userDbContext.UserFiles.Where(u => u.UserId == message.SrcAccountId).FirstOrDefaultAsync();
-            //if (userDestAccount != null)
-            //{
-            //    userDestAccount.Balance += message.Amount;
-
-            //    // throw new AccountDoesntExistException(account);
-            //}
-            //    else
-            //    {
-            //        isTransferDone = false;
-            //    }
-            //UserAccount userSrcAccount = await _userDbContext.UserFiles.Where(u => u.UserId == message.DestAccountId).FirstOrDefaultAsync();
-            //if (userSrcAccount != null)
-            //{
-            //    userSrcAccount.Balance -= message.Amount;
-
-            //    // throw new AccountDoesntExistException(account);
-            //}
-            //    else
-            //    {
-            //        isTransferDone = false;
-            //    }
-            //bool  AccountExists = false;
-            //  //check if account x exists
-            //  if (_userService.CheckExists(message.AccountId))
-            //  {
-            //      AccountExists = true;
-            //  }
-
-            //  else
-            //  {
+            }
+           
             await context.Reply<ICommitTransferResponse>(message =>
             {
                 message.IsTransferCommited = isTransferDone;
