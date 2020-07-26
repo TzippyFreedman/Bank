@@ -13,27 +13,27 @@ namespace UserService.Data
    public class UserHandlerRepository :IUserHandlerRepository
     { 
      private readonly UserDbContext _userDbContext;
-    private readonly IMapper _mapper;
-    public UserHandlerRepository(UserDbContext userDbContext, IMapper mapper)
+    //private readonly IMapper _mapper;
+    public UserHandlerRepository(UserDbContext userDbContext/*, IMapper mapper*/)
     {
         _userDbContext = userDbContext;
-        _mapper = mapper;
+        //_mapper = mapper;
 
     }
 
-    public bool CheckBalance(Guid accountId, int amount)
+    public async Task<bool> CheckBalanceAsync(Guid accountId, int amount)
     {
-        Account user = _userDbContext.Accounts.Where(u => u.Id == accountId).FirstOrDefault();
+        Account user =await  _userDbContext.Accounts.Where(u => u.Id == accountId).FirstOrDefaultAsync();
         bool isBalanceOK = user.Balance >= amount ? true : false;
         return isBalanceOK;
     }
 
-    public async Task<bool> CheckExists(Guid accountId)
+    public async Task<bool> CheckExistsAsync(Guid accountId)
     {
         return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
     }
 
-    public async Task Draw(Guid account, int amount)
+    public async Task DrawAsync(Guid account, int amount)
     {
         Account userAccount = await _userDbContext.Accounts.Where(u => u.Id == account).FirstOrDefaultAsync();
         if (userAccount == null)
@@ -49,7 +49,7 @@ namespace UserService.Data
 
     }
 
-    public async Task Deposit(Guid account, int amount)
+    public async Task DepositAsync(Guid account, int amount)
     {
         Account userAccount = await _userDbContext.Accounts.Where(u => u.Id == account).FirstOrDefaultAsync();
         if (userAccount == null)
