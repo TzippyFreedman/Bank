@@ -29,31 +29,34 @@ namespace UserService.NServiceBus.Handlers
             bool isSrcAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId);
             if (isSrcAccountExists == true)
             {
-                bool isBalanceOK = await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer);
-                if (isBalanceOK == true)
+                bool isDestAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId);
+                if (isDestAccountExists == true)
                 {
-                    await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
-                    bool isDestAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId)
-                    if (isDestAccountExists == true)
+                    bool isBalanceOK = await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer);
+                    if (isBalanceOK == true)
                     {
-
+                        await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
                         await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
+
                     }
+             
+                  
                     else
                     {
-                        comment = "destination account doesnt exist.";
+                    comment = "balance in source account is too low.";
+
                         isTransferDone = false;
 
                     }
                 }
                 else
                 {
-                    comment = "balance in source account is too low.";
                     isTransferDone = false;
-
-                }
+                comment = "destination account doesnt exist.";
 
             }
+
+     
             else
             {
                 comment = "source account doesnt exist.";
