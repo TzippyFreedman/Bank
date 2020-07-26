@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Enums;
+using Messages.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using NServiceBus;
 using TransferService.Api.DTO;
 using TransferService.Services.Interfaces;
 using TransferService.Services.Models;
@@ -18,27 +21,30 @@ namespace TransferService.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ITransferService _transferService;
+        private readonly IMessageSession _messageSession;
 
-        public TransferController(IMapper mapper, ITransferService transferService)
+        public TransferController(IMapper mapper, ITransferService transferService, IMessageSession messageSession)
         {
             _mapper = mapper;
             _transferService = transferService;
+            _messageSession = messageSession;
         }
 
 
         [HttpPost]
-        public async Task Post(TransferDTO measure)
+        public async Task Post(TransferDTO transfer)
         {
-/*            TransferModel measureModel = _mapper.Map<TransferModel>(measure);
-            measureModel.Status = TransferStatus.Pending;
-            TransferModel newMeasureModel = await transferService.Add(measureModel);
+            TransferModel transferModel = _mapper.Map<TransferModel>(transfer);
+            transferModel.Status = TransferStatus.Pending;
+            TransferModel newTransferModel = await _transferService.Add(transferModel);
 
-            await _messageSession.Publish<IMeasureAdded>(message =>
+            await _messageSession.Publish<ITransferAdded>(message =>
             {
-                message.MeasureId = newMeasureModel.Id;
-                message.Weight = measure.Weight;
-                message.UserFileId = measure.UserFileId;
-            });*/
+                message.TransferId = newTransferModel.Id;
+                message.Amount = transfer.Amount;
+                message.FromAccount = transfer.FromAccount;
+                message.ToAccount = transfer.ToAccount;
+            });
 
 
         }

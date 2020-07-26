@@ -2,7 +2,10 @@
 
 namespace Enums
 {
-    public interface TransferStatus
+    public enum TransferStatus
     {
+        Pending,
+        Succeeded,
+        Failed
     }
 }
