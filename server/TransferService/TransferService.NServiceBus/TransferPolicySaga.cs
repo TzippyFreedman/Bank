@@ -31,7 +31,7 @@ namespace TransferService.NServiceBus
         {
             TransferStatus transferStatus = message.IsTransferSucceeded ? TransferStatus.Succeeded : TransferStatus.Failed;
 
-            await context.Send<IUpdateTransferStatus>(msg =>
+            await context.SendLocal<IUpdateTransferStatus>(msg =>
              {
                  msg.TransferId = Data.TransferId;
                  msg.TransferStatus = transferStatus;

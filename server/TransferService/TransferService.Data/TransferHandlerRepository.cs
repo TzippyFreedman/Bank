@@ -8,7 +8,7 @@ using TransferService.NServiceBus.Services.Interfaces;
 
 namespace TransferService.Data
 {
-    public class TransferHandlerRepository:ITransferHandlerRepository
+    public class TransferHandlerRepository : ITransferHandlerRepository
     {
         private readonly TransferDbContext _transferDbContext;
 
