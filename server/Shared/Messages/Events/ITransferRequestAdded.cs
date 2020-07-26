@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Messages.Events
 {
-    public interface ITransferAdded
+    public interface ITransferRequestAdded
     {
          Guid TransferId { get; set; }
          Guid FromAccount { get; set; }

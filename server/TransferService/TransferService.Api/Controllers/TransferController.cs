@@ -32,7 +32,7 @@ namespace TransferService.Api.Controllers
 
 
         [HttpPost]
-        public async Task Post(TransferDTO transfer)
+        public async Task<ActionResult> Post(TransferDTO transfer)
         {
             TransferModel transferModel = _mapper.Map<TransferModel>(transfer);
             transferModel.Status = TransferStatus.Pending;
@@ -46,7 +46,7 @@ namespace TransferService.Api.Controllers
                 message.ToAccount = transfer.ToAccount;
             });
 
-
+            return Ok();
         }
     }
 }
