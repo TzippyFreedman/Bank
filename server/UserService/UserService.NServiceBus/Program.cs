@@ -14,91 +14,68 @@ namespace UserService.NServiceBus
 {
     class Program
     {
-        const string EndPointName = "Bank.User";
         static async Task Main(string[] args)
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
-            var schemaName = appSettings.Get("SchemaName");
-            var tablePrefix = appSettings.Get("TablePrefix");
-            var transportConnection = ConfigurationManager.ConnectionStrings["transportConnection"].ToString();
-            var auditQueue = appSettings.Get("auditQueue");
-            var timeToBeReceivedSetting = appSettings.Get("timeToBeReceived");
-
+            const string EndPointName = "Bank.User";
             Console.Title = EndPointName;
 
             var endpointConfiguration = new EndpointConfiguration(EndPointName);
             endpointConfiguration.PurgeOnStartup(true);
             endpointConfiguration.EnableInstallers();
 
+            var appSettings = ConfigurationManager.AppSettings;
+            var userConnection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
+            var transportConnection = ConfigurationManager.ConnectionStrings["transportConnection"].ToString();
+            var schemaName = appSettings.Get("SchemaName");
+            var tablePrefix = appSettings.Get("TablePrefix");
+            var auditQueue = appSettings.Get("auditQueue");
+            var timeToBeReceivedSetting = appSettings.Get("timeToBeReceived");
+            var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
+
+            var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+            containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
+                .UseSqlServer(new SqlConnection(userConnection)).Options))
+            {
+                await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
+            }
+
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistence.TablePrefix(tablePrefix);
             persistence.ConnectionBuilder(
                connectionBuilder: () =>
                {
-                   return new SqlConnection(connection);
+                   return new SqlConnection(userConnection);
                });
 
             var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
             dialect.Schema(schemaName);
 
-            var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
-
-            containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-
-
-            using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
-          .UseSqlServer(new SqlConnection(connection)).Options))
-            {
-                await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
-            }
-
             var outboxSettings = endpointConfiguration.EnableOutbox();
             outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
             outboxSettings.RunDeduplicationDataCleanupEvery(TimeSpan.FromMinutes(15));
             SubscribeToNotifications.Subscribe(endpointConfiguration);
-            //var containerBuilder = new ContainerBuilder();
-            //containerBuilder.Register(_ => endpointInstance).InstancePerDependency();
-            //SubscribeToNotifications.Subscribe(endpointConfiguration);
-            //containerBuilder.Register(ctx => CreateMessageSession( ctx.Resolve<ILifetimeScope>()))
-            //       .As<IMessageSession>()
-            //       .SingleInstance();
 
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology()
                 .ConnectionString(transportConnection);
 
-            var routing = transport.Routing();
-            //see successed messages in serviceInsight           
-            var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
-            endpointConfiguration.AuditProcessedMessagesTo(
-                auditQueue: auditQueue,
-                timeToBeReceived: timeToBeReceived);
 
             var conventions = endpointConfiguration.Conventions();
             conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
             conventions.DefiningMessagesAs(type => type.Namespace == "Messages.Messages");
             conventions.DefiningEventsAs(type => type.Namespace == "Messages.Events");
-            //var subscriptions = transport.SubscriptionSettings();
-            //subscriptions.CacheSubscriptionInformationFor(TimeSpan.FromMinutes(1));        
 
             var recoverability = endpointConfiguration.Recoverability();
             recoverability.CustomPolicy(UserServiceRetryPolicy.UserServiceRetryPolicyInvoke);
-            recoverability.Immediate(
-                          immediate =>
-                          {
-                              immediate.NumberOfRetries(1);
-                          });
-            recoverability.Delayed(
-                delayed =>
-                {
-                    var retries = delayed.NumberOfRetries(1);
-                    retries.TimeIncrease(TimeSpan.FromSeconds(2));
-                });
 
             var subscriptions = persistence.SubscriptionSettings();
-            subscriptions.CacheFor(TimeSpan.FromMinutes(1));
+            subscriptions.CacheFor(TimeSpan.FromMinutes(10));
+
+            endpointConfiguration.AuditProcessedMessagesTo(
+                auditQueue: auditQueue,
+                timeToBeReceived: timeToBeReceived);
 
             endpointConfiguration.RegisterComponents(c =>
             {
