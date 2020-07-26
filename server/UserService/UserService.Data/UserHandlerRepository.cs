@@ -21,14 +21,14 @@ namespace UserService.Data
 
     }
 
-    public async Task<bool> CheckBalanceAsync(Guid accountId, int amount)
+    public async Task<bool> IsBalanceOkAsync(Guid accountId, int amount)
     {
         Account user =await  _userDbContext.Accounts.Where(u => u.Id == accountId).FirstOrDefaultAsync();
         bool isBalanceOK = user.Balance >= amount ? true : false;
         return isBalanceOK;
     }
 
-    public async Task<bool> CheckExistsAsync(Guid accountId)
+    public async Task<bool> IsExistsAsync(Guid accountId)
     {
         return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
     }

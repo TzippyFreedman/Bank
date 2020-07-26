@@ -26,7 +26,7 @@ namespace UserService.NServiceBus.Handlers
             string comment = null;
             int amountToTransfer = (int)Math.Round(message.Amount * 100);
 
-            bool isSrcAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId);
+            bool isSrcAccountExists = await _committransferHandlerRepository.IsExistsAsync(message.SrcAccountId);
             if (isSrcAccountExists == false)
             {
                 comment = "source account doesnt exist.";
@@ -34,7 +34,7 @@ namespace UserService.NServiceBus.Handlers
             }
             else
             {
-                bool isDestAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId);
+                bool isDestAccountExists = await _committransferHandlerRepository.IsExistsAsync(message.DestAccountId);
                 if (isDestAccountExists == false)
                 {
                     comment = "destination account doesnt exist.";
@@ -42,7 +42,7 @@ namespace UserService.NServiceBus.Handlers
                 }
                 else
                 {
-                    bool isBalanceOK = await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountToTransfer);
+                    bool isBalanceOK = await _committransferHandlerRepository.IsBalanceOkAsync(message.SrcAccountId, amountToTransfer);
                     if (isBalanceOK == false)
                     {
                         comment = "balance is too low.";
