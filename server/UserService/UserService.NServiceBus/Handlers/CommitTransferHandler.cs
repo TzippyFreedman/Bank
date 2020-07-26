@@ -33,7 +33,8 @@ namespace UserService.NServiceBus.Handlers
                 if (isBalanceOK == true)
                 {
                     await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
-                    if (await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
+                    bool isDestAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId)
+                    if (isDestAccountExists == true)
                     {
 
                         await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
