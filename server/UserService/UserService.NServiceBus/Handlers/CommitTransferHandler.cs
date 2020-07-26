@@ -1,5 +1,6 @@
 ﻿using Messages.Commands;
 using Messages.Messages;
+using Newtonsoft.Json.Linq;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -13,31 +14,38 @@ namespace UserService.NServiceBus.Handlers
     {
         //private readonly IUserService _userService;
 
-      private readonly IUserHandlerRepository _committransferHandlerRepository;
+      private readonly IUserHandlerRepository _commitTransferHandlerRepository;
 
-        public CommitTransferHandler(IUserHandlerRepository committransferHandlerRepository)
+        public CommitTransferHandler(IUserHandlerRepository commitTransferHandlerRepository)
         {
-            _committransferHandlerRepository = committransferHandlerRepository;
+            _commitTransferHandlerRepository = commitTransferHandlerRepository;
 
         }
         public async Task Handle(ICommitTransfer message, IMessageHandlerContext context)
         {
             bool isTransferDone = false;
+            string comment;
             int amountForTransfer = (int)Math.Round(message.Amount * 100);
-            if (await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId) == true)
+            bool isSrcAccountExists = await _commitTransferHandlerRepository.CheckExistsAsync(message.SrcAccountId);
+            if (isSrcAccountExists)
             {
-                if (await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer) == true)
+                bool isBalanceOK = await _commitTransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer);
+                if (isBalanceOK == true)
                 {
-                    await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
+                    await _commitTransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
                     isTransferDone = true;
+                }
+                else
+                {
+                    comment = "balance of source account is not enough";
                 }
             }
 
-            if (await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
+            if (await _commitTransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
             {
-                if (await _committransferHandlerRepository.CheckBalanceAsync(message.DestAccountId, amountForTransfer) == true)
+                if (await _commitTransferHandlerRepository.CheckBalanceAsync(message.DestAccountId, amountForTransfer) == true)
                 {
-                    await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
+                    await _commitTransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
                     isTransferDone = true;
                 }
             }
@@ -45,6 +53,7 @@ namespace UserService.NServiceBus.Handlers
             await context.Reply<ICommitTransferResponse>(message =>
             {
                 message.IsTransferCommited = isTransferDone;
+
             });
             //await context.Publish<IMoneyAdded>(command =>
             //{
