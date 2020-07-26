@@ -22,4 +22,10 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  onGoTOAccountDetails()
+  {
+    this.router.navigate(['/user',  this.authService.getUserAccountId()
+  ]);
+
+  }
 }

@@ -20,7 +20,9 @@ export class AuthService {
   private isUserAccountAvailable(): boolean {
     return !!sessionStorage.getItem('userAccountId');
   }
-
+   getUserAccountId(): string {
+    return window.sessionStorage.getItem('userAccountId');
+  }
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
@@ -36,7 +38,7 @@ export class AuthService {
   }
 
   login(loginObj: Login){
-    return this.http.get<string>(this.requestHandlerService.createCompleteRoute(LOGIN_URL, environment.baseURL),
+    return this.http.get<string>(this.requestHandlerService.createCompleteRoute(LOGIN_URL, environment.userServiceBaseURL),
       { params: { email: loginObj.email, password: loginObj.password } })
       .pipe(catchError(this.requestHandlerService.handleError));
   }

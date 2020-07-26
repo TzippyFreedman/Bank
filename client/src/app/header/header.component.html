@@ -7,7 +7,13 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/user',1]">Account Details</a>
+        <a class="nav-link"  (click)="onGoTOAccountDetails()">
+          Account Details</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/transfer']">Commit Transfer</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
