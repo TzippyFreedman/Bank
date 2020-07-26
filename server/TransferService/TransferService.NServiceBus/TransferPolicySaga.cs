@@ -1,4 +1,5 @@
-﻿using Messages.Events;
+﻿using Messages.Commands;
+using Messages.Events;
 using NServiceBus;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,14 @@ namespace TransferService.NServiceBus
     {
         public async Task Handle(ITransferRequestAdded message, IMessageHandlerContext context)
         {
-           // context.Send()
+            await context.Send<ICommitTransfer>(msg =>
+             {
+                 msg.TransferId = message.TransferId;
+                 msg.SrcAccountId = message.SrcAccountId;
+                 msg.DestAccountId = message.DestAccountId;
+                 msg.Amount = message.Amount;
+             })
+                .ConfigureAwait(false);
         }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransferPolicySagaData> mapper)

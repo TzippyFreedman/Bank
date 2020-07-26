@@ -42,8 +42,8 @@ namespace TransferService.Api.Controllers
             {
                 message.TransferId = newTransferModel.Id;
                 message.Amount = transfer.Amount;
-                message.FromAccount = transfer.FromAccount;
-                message.ToAccount = transfer.ToAccount;
+                message.SrcAccountId = transfer.FromAccount;
+                message.DestAccountId = transfer.ToAccount;
             });
 
             return Ok();

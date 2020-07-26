@@ -7,8 +7,8 @@ namespace Messages.Events
     public interface ITransferRequestAdded
     {
          Guid TransferId { get; set; }
-         Guid FromAccount { get; set; }
-         Guid ToAccount   { get; set; }
+         Guid SrcAccountId { get; set; }
+         Guid DestAccountId   { get; set; }
          float Amount { get; set; }
     }
 }

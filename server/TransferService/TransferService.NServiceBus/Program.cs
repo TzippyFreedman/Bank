@@ -45,6 +45,7 @@ namespace TransferService.NServiceBus
             var appSettings = ConfigurationManager.AppSettings;
             var auditQueue = appSettings.Get("AuditQueue");
             var subscriberEndpoint = appSettings.Get("UserEndpoint");
+
             var serviceControlQueue = appSettings.Get("ServiceControlQueue");
             var timeToBeReceivedSetting = appSettings.Get("TimeToBeReceived");
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
