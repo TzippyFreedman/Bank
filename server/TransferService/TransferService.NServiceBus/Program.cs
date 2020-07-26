@@ -1,11 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using TransferService.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using NServiceBus.Persistence.Sql;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using TransferService.Data;
+using UserService.NServiceBus.Services.Interfaces;
+using UserService.Data;
 
 namespace TransferService.NServiceBus
 {
@@ -24,23 +28,19 @@ namespace TransferService.NServiceBus
             endpointConfiguration.PurgeOnStartup(true);
 
 
-          /*  //endpointConfiguration.AuditProcessedMessagesTo("audit");
+          /*  //endpointConfiguration.AuditProcessedMessagesTo("audit");*/
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
 
-            containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlersRepository), typeof(TransferHandlerRepository));*/
+          //  containerSettings.ServiceCollection.AddScoped(typeof(IUserHandlerRepository), typeof(UserHandlerRepository));
 
-          //  containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+           // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
 
 
-            /* containerSettings.ServiceCollection.AddDbContext<MeasureDbContext>
-                (options => options
-                .UseSqlServer(ConfigurationManager.ConnectionStrings["weightMonitorMeasureDBConnectionString"].ToString()));*/
-
-            using (var receiverDataContext = new TransferDbContext(new DbContextOptionsBuilder<TransferDbContext>()
+            using (var transferDataContext = new TransferDbContext(new DbContextOptionsBuilder<TransferDbContext>()
                 .UseSqlServer(new SqlConnection(ConfigurationManager.ConnectionStrings["bankTransferDBConnectionString"].ToString()))
                 .Options))
             {
-              //  await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
+                await transferDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
             var appSettings = ConfigurationManager.AppSettings;
             var auditQueue = appSettings.Get("AuditQueue");
