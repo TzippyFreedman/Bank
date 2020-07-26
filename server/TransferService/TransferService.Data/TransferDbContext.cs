@@ -40,7 +40,7 @@ namespace TransferService.Data
                         .ValueGeneratedOnAdd();
         }
 
-        public DbSet<Transfer> Measures { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
     }
 }
 
