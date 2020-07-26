@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Transfer } from './transfer.model';
 import { DataService } from '../shared/services/data.service';
 import { AuthService } from '../auth/auth.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-transfer',
@@ -16,7 +17,7 @@ export class TransferComponent implements OnInit {
   submitted = false;
   transfer: Transfer;
 
-  constructor(private dataService: DataService, private authService: AuthService) { }
+  constructor(private dataService: DataService,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.transferForm = new FormGroup({
@@ -39,12 +40,15 @@ export class TransferComponent implements OnInit {
       return;
     }
     this.transfer = this.transferForm.value;
-    this.transfer.srcAccount = "69C4D04B-B73B-44CE-B765-884B0EC2E687";
-      this.loading = true;
+    // this.transfer.destAccountId=this.transferForm.value.destAccountId );
+    this.transfer.srcAccount=this.authService.getUserAccountId();
+    this.loading = true;
     this.dataService.transfer(this.transfer)
       .subscribe(
         result => {
-          alert(result)
+         alert("your request has been accepted!");
+         this.loading = false;
+
         },
         error => {
           alert(error);

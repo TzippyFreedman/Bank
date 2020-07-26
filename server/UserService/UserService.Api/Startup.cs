@@ -87,7 +87,7 @@ namespace UserService.Api
                 c.SwaggerEndpoint($"/swagger/{swaggerName}/swagger.json", swaggerName);
             });
             app.UseRouting();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

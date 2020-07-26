@@ -23,10 +23,10 @@ namespace TransferService.Data
                         .Property(transfer => transfer.Status)
                         .HasConversion<string>();
             modelBuilder.Entity<Transfer>()
-                        .Property(transfer => transfer.FromAccount)
+                        .Property(transfer => transfer.SrcAccount)
                         .IsRequired();
             modelBuilder.Entity<Transfer>()
-                       .Property(transfer => transfer.ToAccount)
+                       .Property(transfer => transfer.DestAccount)
                         .IsRequired();
             modelBuilder.Entity<Transfer>()
                          .Property(transfer => transfer.Status)

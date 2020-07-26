@@ -5,10 +5,13 @@
         <input type="number" formControlName="amount" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && formControls.amount.errors }" />
         <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.amount.errors.required">Username is required</div>
+            <div *ngIf="formControls.amount.errors.required">Amount is required</div>
         </div>
         <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.amount.errors.pattern">Username email invalid</div>
+            <div *ngIf="formControls.amount.errors.max">Amount should be in range 1-1,000,000,000</div>
+        </div>
+        <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
+            <div *ngIf="formControls.amount.errors.min">Amount should be in range 1-1,000,000,000</div>
         </div>
     </div>
     <div class="form-group">
@@ -16,17 +19,14 @@
         <input type="destAccount" formControlName="destAccount" class="form-control"
             [ngClass]="{ 'is-invalid': submitted && formControls.destAccount.errors }" />
         <div *ngIf="submitted && formControls.destAccount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.destAccount.errors.required">Password is required</div>
+            <div *ngIf="formControls.destAccount.errors.required">Destination Account is required</div>
         </div>
-        <div *ngIf="submitted && formControls.destAccount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.destAccount.errors.minlength">Password should contain at least 6 characters.</div>
-        </div>
+   
     </div>
     <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
+            Commit Transfer
         </button>
-        <a routerLink="/register" class="btn btn-link">Register</a>
     </div>
 </form>
