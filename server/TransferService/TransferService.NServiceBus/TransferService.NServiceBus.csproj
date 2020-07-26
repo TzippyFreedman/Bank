@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Messages\Messages.csproj" />
     <ProjectReference Include="..\TransferService.Data\TransferService.Data.csproj" />
+    <ProjectReference Include="..\TransferService.NServiceBus.Services\TransferService.NServiceBus.Services.csproj" />
   </ItemGroup>
 
 </Project>
