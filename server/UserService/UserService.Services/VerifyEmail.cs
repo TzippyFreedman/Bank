@@ -47,7 +47,7 @@ namespace UserService.Services
 
         public string GenerateVerificationCode()
         {
-            //check if digits or digits+letters
+            //check if to return digits or digits+letters
             //Random rand = new Random();
             //rand.Next(1000, 9999);
             //  return rand.ToString();
