@@ -14,9 +14,10 @@ namespace UserService.NServiceBus
 {
     class Program
     {
-        const string EndPointName = "Bank.User";
         static async Task Main(string[] args)
         {
+            const string EndPointName = "Bank.User";
+
             var appSettings = ConfigurationManager.AppSettings;
             var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
             var schemaName = appSettings.Get("SchemaName");
