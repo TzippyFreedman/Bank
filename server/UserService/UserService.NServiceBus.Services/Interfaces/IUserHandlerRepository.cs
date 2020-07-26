@@ -8,7 +8,7 @@ namespace UserService.NServiceBus.Services.Interfaces
    public interface IUserHandlerRepository
     {
         Task Draw(Guid srcAccount, int amount);
-        Task Deposit(Guid destAccount, int amount);
+        Task Deposit(Guid srcAccount, int amount);
         Task<bool> CheckExists(Guid accountId);
         bool CheckBalance(Guid accountId, int amount);
     }
