@@ -32,21 +32,21 @@ namespace TransferService.Api.Controllers
 
 
         [HttpPost]
-        public async Task Post(TransferDTO transfer)
+        public async Task<ActionResult> Post(TransferDTO transfer)
         {
             TransferModel transferModel = _mapper.Map<TransferModel>(transfer);
             transferModel.Status = TransferStatus.Pending;
             TransferModel newTransferModel = await _transferService.Add(transferModel);
 
-            await _messageSession.Publish<ITransferAdded>(message =>
+            await _messageSession.Publish<ITransferRequestAdded>(message =>
             {
                 message.TransferId = newTransferModel.Id;
                 message.Amount = transfer.Amount;
-                message.FromAccount = transfer.FromAccount;
-                message.ToAccount = transfer.ToAccount;
+                message.SrcAccountId = transfer.FromAccount;
+                message.DestAccountId = transfer.ToAccount;
             });
 
-
+            return Ok();
         }
     }
 }

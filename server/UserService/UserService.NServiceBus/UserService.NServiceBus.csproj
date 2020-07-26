@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="NServiceBus" Version="7.3.0" />
     <PackageReference Include="NServiceBus.Extensions.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="NServiceBus.Persistence.Sql" Version="6.0.2" />
     <PackageReference Include="NServiceBus.RabbitMQ" Version="6.0.0" />
@@ -19,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Messages\Messages.csproj" />
     <ProjectReference Include="..\UserService.Data\UserService.Data.csproj" />
-    <ProjectReference Include="..\UserService.NServiceBus.Services\UserService.NServiceBus.Services.csproj" />
   </ItemGroup>
 
 </Project>

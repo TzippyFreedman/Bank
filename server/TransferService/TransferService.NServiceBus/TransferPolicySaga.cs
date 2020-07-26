@@ -1,0 +1,41 @@
+﻿using Messages.Commands;
+using Messages.Events;
+using NServiceBus;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TransferService.NServiceBus
+{
+    public class TransferPolicySaga : Saga<TransferPolicySagaData>,
+               IAmStartedByMessages<ITransferRequestAdded>
+
+    {
+        public async Task Handle(ITransferRequestAdded message, IMessageHandlerContext context)
+        {
+            await context.Send<ICommitTransfer>(msg =>
+             {
+                 msg.TransferId = message.TransferId;
+                 msg.SrcAccountId = message.SrcAccountId;
+                 msg.DestAccountId = message.DestAccountId;
+                 msg.Amount = message.Amount;
+             })
+                .ConfigureAwait(false);
+        }
+
+        protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransferPolicySagaData> mapper)
+        {
+            mapper.ConfigureMapping<ITransferRequestAdded>(message => message.TransferId)
+             .ToSaga(sagaData => sagaData.TransferId);
+        }
+    }
+
+
+    public class TransferPolicySagaData : ContainSagaData
+    {
+        public Guid TransferId { get; set; }
+
+    }
+}
+
