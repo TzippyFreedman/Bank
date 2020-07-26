@@ -21,7 +21,7 @@ namespace TransferService.Data
             _transferDbContext = transferDbContext;
         }
 
-        public async Task<TransferModel> Add(TransferModel transferModel)
+        public async Task<TransferModel> AddAsync(TransferModel transferModel)
         {
             Transfer transfer = _mapper.Map<Transfer>(transferModel);
             _transferDbContext.Transfers.Add(transfer);
@@ -29,7 +29,7 @@ namespace TransferService.Data
             return _mapper.Map<TransferModel>(transfer);
         }
 
-        public async Task UpdateTransferStatus(Guid transferId, bool isTransferSuccess, string failureReason)
+        public async Task UpdateTransferStatusAsync(Guid transferId, bool isTransferSuccess, string failureReason)
         {
             Transfer transferToUpdate = await _transferDbContext.Transfers
                 .Where(transfer => transfer.Id == transferId)

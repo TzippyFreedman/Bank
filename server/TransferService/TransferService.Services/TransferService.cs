@@ -16,9 +16,9 @@ namespace TransferService.Services
         {
             _transferRepository = transferRepository;
         }
-        public async Task<TransferModel> Add(TransferModel transfer)
+        public async Task<TransferModel> AddAsync(TransferModel transfer)
         {
-         TransferModel newTransfer =   await _transferRepository.Add(transfer);
+         TransferModel newTransfer =   await _transferRepository.AddAsync(transfer);
             return newTransfer;
         }
     }
