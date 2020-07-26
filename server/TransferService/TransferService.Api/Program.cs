@@ -70,16 +70,12 @@ namespace TransferService.Api
                       outboxSettings.RunDeduplicationDataCleanupEvery(TimeSpan.FromMinutes(15));
 
                       var auditQueue = Configuration["AppSettings:auditQueue"];
-                      //var auditQueue = appSettings.Get("auditQueue");
-                      // var serviceControlQueue = appSettings.Get("ServiceControlQueue");
                       var serviceControlQueue = Configuration["AppSettings:ServiceControlQueue"];
-                      var measureEndpoint = Configuration["AppSettings:MeasureEndpoint"];
-
                       var timeToBeReceivedSetting = Configuration["AppSettings:timeToBeReceived"];
-                      var subscriberEndpoint = Configuration["AppSettings:SubscriberEndpoint"];
                       var transportConnection = Configuration.GetConnectionString("transportConnection");
                       var schemaName = Configuration["AppSettings:SchemaName"];
                       var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
+
                       endpointConfiguration.AuditProcessedMessagesTo(
                           auditQueue: auditQueue,
                           timeToBeReceived: timeToBeReceived);
@@ -105,7 +101,7 @@ namespace TransferService.Api
 
 
                       var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-                      var connection = Configuration.GetConnectionString("BankTransferDBConnectionString");
+                      var connection = Configuration.GetConnectionString("TransferDBConnectionString");
 
                       var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
                       dialect.Schema(schemaName);
@@ -121,7 +117,7 @@ namespace TransferService.Api
 
 
                       //in development
-                      // endpointConfiguration.PurgeOnStartup(true);
+                       endpointConfiguration.PurgeOnStartup(true);
 
 
 /*                      endpointConfiguration.AuditSagaStateChanges(

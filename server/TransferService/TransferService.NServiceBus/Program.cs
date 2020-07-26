@@ -27,16 +27,15 @@ namespace TransferService.NServiceBus
             endpointConfiguration.PurgeOnStartup(true);
 
 
-          /*  //endpointConfiguration.AuditProcessedMessagesTo("audit");*/
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
 
             containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
 
-           // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-
+            // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            string transferConnection = ConfigurationManager.ConnectionStrings["TransferDBConnectionString"].ToString();
 
             using (var transferDataContext = new TransferDbContext(new DbContextOptionsBuilder<TransferDbContext>()
-                .UseSqlServer(new SqlConnection(ConfigurationManager.ConnectionStrings["bankTransferDBConnectionString"].ToString()))
+                .UseSqlServer(new SqlConnection(transferConnection))
                 .Options))
             {
                 await transferDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
@@ -48,17 +47,19 @@ namespace TransferService.NServiceBus
             var serviceControlQueue = appSettings.Get("ServiceControlQueue");
             var timeToBeReceivedSetting = appSettings.Get("TimeToBeReceived");
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
+
             endpointConfiguration.AuditProcessedMessagesTo(
                 auditQueue: auditQueue,
                 timeToBeReceived: timeToBeReceived);
-            /*            endpointConfiguration.AuditSagaStateChanges(
-                                  serviceControlQueue: "Particular.Servicecontrol");*/
+
+            endpointConfiguration.AuditSagaStateChanges(
+                      serviceControlQueue: "Particular.Servicecontrol");
 
 
 
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
 
-            var persistenceConnection = ConfigurationManager.ConnectionStrings["persistenceConnection"].ToString();
+            var persistenceConnection = transferConnection;
 
             var transportConnection = ConfigurationManager.ConnectionStrings["transportConnection"].ToString();
 
