@@ -13,19 +13,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "UserServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TransferService", "TransferService", "{BE72C16D-1612-4B75-A5CA-94455E8523F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferService.Api", "TransferService\TransferService.Api\TransferService.Api.csproj", "{30F85535-F07F-4B76-8665-4CDEC0892797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferService.Api", "TransferService\TransferService.Api\TransferService.Api.csproj", "{30F85535-F07F-4B76-8665-4CDEC0892797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferService.Services", "TransferService\TransferService.Services\TransferService.Services.csproj", "{002E585A-BE16-4F98-A2F6-3980C17EF278}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferService.Services", "TransferService\TransferService.Services\TransferService.Services.csproj", "{002E585A-BE16-4F98-A2F6-3980C17EF278}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferService.Data", "TransferService\TransferService.Data\TransferService.Data.csproj", "{7ACEA2BC-42D3-482E-A080-975EDCA85C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferService.Data", "TransferService\TransferService.Data\TransferService.Data.csproj", "{7ACEA2BC-42D3-482E-A080-975EDCA85C50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferService.NServiceBus", "TransferService\TransferService.NServiceBus\TransferService.NServiceBus.csproj", "{967F1E63-5203-40FF-BFA1-8E3294B68BB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferService.NServiceBus", "TransferService\TransferService.NServiceBus\TransferService.NServiceBus.csproj", "{967F1E63-5203-40FF-BFA1-8E3294B68BB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enums", "Shared\Enums\Enums.csproj", "{2BF434DE-7D34-48F6-88D8-4FDBF04359AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enums", "Shared\Enums\Enums.csproj", "{2BF434DE-7D34-48F6-88D8-4FDBF04359AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "Shared\Messages\Messages.csproj", "{8268631E-1C0D-4361-9B83-D6D6C7273DDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages", "Shared\Messages\Messages.csproj", "{8268631E-1C0D-4361-9B83-D6D6C7273DDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.NServiceBus", "UserService\UserService.NServiceBus\UserService.NServiceBus.csproj", "{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService.NServiceBus.Services", "UserService\UserService.NServiceBus.Services\UserService.NServiceBus.Services.csproj", "{3A867182-C6D0-4EED-B5E0-F4115CABD38B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,14 @@ Global
 		{8268631E-1C0D-4361-9B83-D6D6C7273DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8268631E-1C0D-4361-9B83-D6D6C7273DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8268631E-1C0D-4361-9B83-D6D6C7273DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A867182-C6D0-4EED-B5E0-F4115CABD38B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A867182-C6D0-4EED-B5E0-F4115CABD38B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A867182-C6D0-4EED-B5E0-F4115CABD38B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A867182-C6D0-4EED-B5E0-F4115CABD38B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +95,8 @@ Global
 		{967F1E63-5203-40FF-BFA1-8E3294B68BB9} = {BE72C16D-1612-4B75-A5CA-94455E8523F1}
 		{2BF434DE-7D34-48F6-88D8-4FDBF04359AE} = {FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}
 		{8268631E-1C0D-4361-9B83-D6D6C7273DDD} = {FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}
+		{3E38E9C2-5C87-44E9-9CAC-EF073232CD74} = {B1E12D5E-3352-4001-A5FD-6FA14FB87F43}
+		{3A867182-C6D0-4EED-B5E0-F4115CABD38B} = {B1E12D5E-3352-4001-A5FD-6FA14FB87F43}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {605A1A43-FF3F-4AB1-9BA2-AFDCC6A0A7F4}
