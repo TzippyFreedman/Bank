@@ -4,10 +4,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TransferService.Data.Entities;
+using TransferService.NServiceBus.Services.Interfaces;
 
 namespace TransferService.Data
 {
-    public class TransferHandlerRepository
+    public class TransferHandlerRepository:ITransferHandlerRepository
     {
         private readonly TransferDbContext _transferDbContext;
 

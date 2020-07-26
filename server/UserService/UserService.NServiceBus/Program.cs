@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using UserService.Data;
+using UserService.NServiceBus.Services.Interfaces;
 using UserService.Services.Interfaces;
 
 namespace UserService.NServiceBus
@@ -42,14 +43,12 @@ namespace UserService.NServiceBus
             {
                 await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
-            //containerSettings.ServiceCollection.AddDbContext<UserDbContext>
-            //(options => options
-            //.UseSqlServer(connection));
-         //   containerSettings.ServiceCollection.AddSingleton(typeof(ITransferMoneyHandlerRepository), typeof(UserAccountHandlerRepository));
+           
+           containerSettings.ServiceCollection.AddSingleton(typeof(IUserHandlerRepository), typeof(UserHandlerRepository));
 
             //containerSettings.ServiceCollection.AddSingleton(typeof(IUserService), typeof(UserService.Services.UserService));
             //containerSettings.ServiceCollection.AddSingleton(typeof(IUserRepository), typeof(UserRepository));
-            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+           // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
             var outboxSettings = endpointConfiguration.EnableOutbox();
 
             outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
@@ -70,16 +69,7 @@ namespace UserService.NServiceBus
             transport.UseConventionalRoutingTopology()
                 .ConnectionString(RabbitmqConnection);
             var routing = transport.Routing();
-            //routing.RouteToEndpoint(
-            //    assembly: typeof(ICheckBalance).Assembly,
-            //    destination: "UserService"
-            //    );
-            //var TrackingEndPoint = appSettings.Get("TrackingEndPoint");
-
-            //routing.RouteToEndpoint(
-            //  messageType: typeof(ICancelTransfer),
-            //  destination: TransferEndPoint
-            //  );
+        
 
             //see successed messages in serviceInsight
             var auditQueue = appSettings.Get("auditQueue");
@@ -101,9 +91,7 @@ serviceControlQueue: "Particular.Servicecontrol");
             //var subscriptions = transport.SubscriptionSettings();
             //subscriptions.CacheSubscriptionInformationFor(TimeSpan.FromMinutes(1));
 
-            //subscriptions.SubscriptionTableName(
-            //    tableName: "Subscriptions",
-            //    schemaName: "dbo");
+         
             persistence.ConnectionBuilder(
                 connectionBuilder: () =>
                 {
