@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Enums;
 using Messages.Events;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using NServiceBus;
 using TransferService.Api.DTO;
+using TransferService.Contract.Enums;
+using TransferService.Contract.Models;
 using TransferService.Services.Interfaces;
-using TransferService.Services.Models;
 
 namespace TransferService.Api.Controllers
 {
@@ -38,10 +38,11 @@ namespace TransferService.Api.Controllers
             transferModel.Status = TransferStatus.Pending;
             TransferModel newTransferModel = await _transferService.Add(transferModel);
 
+            int amountToTransferInCents = (int)Math.Round(transfer.Amount * 100);
             await _messageSession.Publish<ITransferRequestAdded>(message =>
             {
                 message.TransferId = newTransferModel.Id;
-                message.Amount = transfer.Amount;
+                message.Amount = amountToTransferInCents;
                 message.SrcAccountId = transfer.SrcAccount;
                 message.DestAccountId = transfer.DestAccount;
             });

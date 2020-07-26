@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using UserService.Contract;
+using UserService.Contract.Models;
 using UserService.Data.Entities;
-using UserService.Services.Models;
-using UserService.Services;
 using UserService.Data.Exceptions;
-using UserService.Services.Interfaces;
 
 namespace UserService.Data
 {
@@ -80,21 +79,22 @@ namespace UserService.Data
         {
             User newUser = _mapper.Map<User>(newUserModel);
             newUser.Account = new Account();
-         await   _userDbContext.Users.AddAsync(newUser);
+            await _userDbContext.Users.AddAsync(newUser);
             await _userDbContext.SaveChangesAsync();
         }
 
         public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
         {
-            Entities.EmailVerification verification = _mapper.Map<Entities.EmailVerification>(emailVerification);
-            bool isEmailExist = await _userDbContext.EmailVerifications.AnyAsync(v => v.Email == verification.Email);
+            EmailVerification verification = _mapper.Map<EmailVerification>(emailVerification);
+            bool isEmailExist = await _userDbContext.EmailVerifications
+                .AnyAsync(v => v.Email == verification.Email);
             if (isEmailExist == false)
             {
-              await  _userDbContext.EmailVerifications.AddAsync(verification);
+                await _userDbContext.EmailVerifications.AddAsync(verification);
             }
             else
             {
-                Entities.EmailVerification verificationToUpdate = await _userDbContext.EmailVerifications
+                EmailVerification verificationToUpdate = await _userDbContext.EmailVerifications
                     .Where(verification => verification.Email == emailVerification.Email)
                     .FirstOrDefaultAsync();
                 verificationToUpdate.Code = verification.Code;
@@ -104,7 +104,7 @@ namespace UserService.Data
         }
         public async Task<EmailVerificationModel> GetVerificationAsync(string email)
         {
-            Entities.EmailVerification emailVerification = await _userDbContext.EmailVerifications
+            EmailVerification emailVerification = await _userDbContext.EmailVerifications
                 .Where(verification => verification.Email == email)
                 .FirstOrDefaultAsync();
             if (emailVerification == null)
@@ -113,5 +113,49 @@ namespace UserService.Data
             }
             return _mapper.Map<EmailVerificationModel>(emailVerification);
         }
+        public async Task<bool> IsBalanceOkAsync(Guid accountId, int amount)
+        {
+            Account user = await _userDbContext.Accounts
+                .Where(u => u.Id == accountId)
+                .FirstOrDefaultAsync();
+            bool isBalanceOK = user.Balance >= amount ? true : false;
+            return isBalanceOK;
+        }
+
+        public async Task<bool> IsExistsAsync(Guid accountId)
+        {
+            return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
+        }
+
+        public async Task DrawAsync(Guid accountId, int amount)
+        {
+            Account userAccount = await _userDbContext.Accounts
+                .Where(u => u.Id == accountId)
+                .FirstOrDefaultAsync();
+            if (userAccount == null)
+            {
+                throw new AccountNotFoundException(accountId);
+            }
+            if (userAccount.Balance < amount)
+            {
+                throw new InsufficientBalanceForTransactionException(accountId, amount);
+            }
+            userAccount.Balance -= amount;
+            //userAccount.UpdateDate = DateTime.Now;
+        }
+
+        public async Task DepositAsync(Guid accountId, int amount)
+        {
+            Account userAccount = await _userDbContext.Accounts
+                .Where(u => u.Id == accountId)
+                .FirstOrDefaultAsync();
+            if (userAccount == null)
+            {
+                throw new AccountNotFoundException(accountId);
+            }
+            userAccount.Balance += amount;
+            //userAccount.UpdateDate = DateTime.Now;
+        }
+
     }
 }

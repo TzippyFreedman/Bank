@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using UserService.Contract.Models;
 using UserService.Data.Entities;
-using UserService.Services.Models;
 
 namespace UserService.Data
 {

@@ -1,5 +1,4 @@
-﻿using Enums;
-using Messages.Commands;
+﻿using Messages.Commands;
 using Messages.Events;
 using Messages.Messages;
 using NServiceBus;
@@ -29,12 +28,11 @@ namespace TransferService.NServiceBus
 
         public async Task Handle(ICommitTransferResponse message, IMessageHandlerContext context)
         {
-            TransferStatus transferStatus = message.IsTransferSucceeded ? TransferStatus.Succeeded : TransferStatus.Failed;
 
             await context.SendLocal<IUpdateTransferStatus>(msg =>
              {
                  msg.TransferId = Data.TransferId;
-                 msg.TransferStatus = transferStatus;
+                 msg.IsTransferSucceeded = message.IsTransferSucceeded;
                  msg.FailureReason = message.FailureReason;
              })
                  .ConfigureAwait(false);

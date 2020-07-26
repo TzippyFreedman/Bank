@@ -1,4 +1,5 @@
-﻿using Messages.Commands;
+﻿using AutoMapper;
+using Messages.Commands;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
@@ -7,8 +8,8 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using TransferService.Contract;
 using TransferService.Data;
-using TransferService.NServiceBus.Services.Interfaces;
 
 namespace TransferService.NServiceBus
 {
@@ -29,9 +30,9 @@ namespace TransferService.NServiceBus
 
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
 
-            containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
+            containerSettings.ServiceCollection.AddScoped(typeof(ITransferRepository), typeof(TransferRepository));
 
-            // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
             string transferConnection = ConfigurationManager.ConnectionStrings["TransferConnectionString"].ToString();
 
             using (var transferDataContext = new TransferDbContext(new DbContextOptionsBuilder<TransferDbContext>()

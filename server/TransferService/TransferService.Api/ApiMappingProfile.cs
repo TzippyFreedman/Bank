@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransferService.Api.DTO;
-using TransferService.Services.Models;
+using TransferService.Contract.Models;
 
 namespace TransferService.Api
 {
@@ -12,7 +12,9 @@ namespace TransferService.Api
     {
         public ApiMappingProfile()
         {
-            CreateMap<TransferDTO, TransferModel>();
+            CreateMap<TransferDTO, TransferModel>()
+                    .ForMember(dest => dest.Amount, opt => opt.MapFrom(m => m.Amount * 100));
+
         }
     }
 }

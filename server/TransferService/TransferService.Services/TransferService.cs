@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TransferService.Contract;
+using TransferService.Contract.Models;
 using TransferService.Services.Interfaces;
-using TransferService.Services.Models;
 
 namespace TransferService.Services
 {

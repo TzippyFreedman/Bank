@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UserService.Api.Middlewares;
+using UserService.Contract;
 using UserService.Data;
 using UserService.Services;
 using UserService.Services.Interfaces;
@@ -30,7 +31,7 @@ namespace UserService.Api
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IVerifyEmail), typeof(VerifyEmail));
             services.AddScoped(typeof(IHashPassword), typeof(HashPassword));
-            services.AddScoped(smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
+            services.AddScoped(typeof(ISmtpSettings),smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
 
             services.AddDbContext<UserDbContext>
               (options => options

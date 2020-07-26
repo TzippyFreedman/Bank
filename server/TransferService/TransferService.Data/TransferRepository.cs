@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
+using TransferService.Contract;
+using TransferService.Contract.Enums;
+using TransferService.Contract.Models;
 using TransferService.Data.Entities;
-using TransferService.Services.Interfaces;
-using TransferService.Services.Models;
 
 namespace TransferService.Data
 {
@@ -26,6 +27,16 @@ namespace TransferService.Data
             _transferDbContext.Transfers.Add(transfer);
             await _transferDbContext.SaveChangesAsync();
             return _mapper.Map<TransferModel>(transfer);
+        }
+
+        public async Task UpdateTransferStatus(Guid transferId, bool isTransferSuccess, string failureReason)
+        {
+            Transfer transferToUpdate = await _transferDbContext.Transfers
+                .Where(transfer => transfer.Id == transferId)
+                .FirstOrDefaultAsync();
+
+            transferToUpdate.Status = isTransferSuccess ? TransferStatus.Succeeded : TransferStatus.Failed;
+            transferToUpdate.FailureReason = failureReason;
         }
     }
 }
