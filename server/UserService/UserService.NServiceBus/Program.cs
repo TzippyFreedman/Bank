@@ -18,7 +18,7 @@ namespace UserService.NServiceBus
         static async Task Main(string[] args)
         {
             var appSettings = ConfigurationManager.AppSettings;
-            var connection = ConfigurationManager.ConnectionStrings["userConnectionString"].ToString();
+            var connection = ConfigurationManager.ConnectionStrings["userDBConnectionString"].ToString();
             var schemaName = appSettings.Get("SchemaName");
             var tablePrefix = appSettings.Get("TablePrefix");
             var RabbitmqConnection = ConfigurationManager.ConnectionStrings["localRabbitmqConnectionString"].ToString();
@@ -26,13 +26,22 @@ namespace UserService.NServiceBus
             var timeToBeReceivedSetting = appSettings.Get("timeToBeReceived");
 
             Console.Title = EndPointName;
+
             var endpointConfiguration = new EndpointConfiguration(EndPointName);
             endpointConfiguration.PurgeOnStartup(true);
             endpointConfiguration.EnableInstallers();
+
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+            persistence.TablePrefix(tablePrefix);
+            persistence.ConnectionBuilder(
+               connectionBuilder: () =>
+               {
+                   return new SqlConnection(connection);
+               });
+
             var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
             dialect.Schema(schemaName);
-            persistence.TablePrefix(tablePrefix);  
+
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
           .UseSqlServer(new SqlConnection(connection))
@@ -44,6 +53,7 @@ namespace UserService.NServiceBus
             //containerSettings.ServiceCollection.AddSingleton(typeof(IUserService), typeof(UserService.Services.UserService));
             //containerSettings.ServiceCollection.AddSingleton(typeof(IUserRepository), typeof(UserRepository));
            // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+
             var outboxSettings = endpointConfiguration.EnableOutbox();
             outboxSettings.KeepDeduplicationDataFor(TimeSpan.FromDays(6));
             outboxSettings.RunDeduplicationDataCleanupEvery(TimeSpan.FromMinutes(15));
@@ -54,26 +64,25 @@ namespace UserService.NServiceBus
             //containerBuilder.Register(ctx => CreateMessageSession( ctx.Resolve<ILifetimeScope>()))
             //       .As<IMessageSession>()
             //       .SingleInstance();
+
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology()
                 .ConnectionString(RabbitmqConnection);
+
             var routing = transport.Routing();
             //see successed messages in serviceInsight           
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
             endpointConfiguration.AuditProcessedMessagesTo(
                 auditQueue: auditQueue,
                 timeToBeReceived: timeToBeReceived);
+
             var conventions = endpointConfiguration.Conventions();
             conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
             conventions.DefiningMessagesAs(type => type.Namespace == "Messages.Messages");
             conventions.DefiningEventsAs(type => type.Namespace == "Messages.Events");
             //var subscriptions = transport.SubscriptionSettings();
             //subscriptions.CacheSubscriptionInformationFor(TimeSpan.FromMinutes(1));        
-            persistence.ConnectionBuilder(
-                connectionBuilder: () =>
-                {
-                    return new SqlConnection(connection);
-                });
+           
             var recoverability = endpointConfiguration.Recoverability();
             recoverability.CustomPolicy(UserServiceRetryPolicy.UserServiceRetryPolicyInvoke);
             recoverability.Immediate(
@@ -86,8 +95,10 @@ namespace UserService.NServiceBus
                     var retries = delayed.NumberOfRetries(1);
                     retries.TimeIncrease(TimeSpan.FromSeconds(2));
                 });
+
             var subscriptions = persistence.SubscriptionSettings();
             subscriptions.CacheFor(TimeSpan.FromMinutes(1));
+
             endpointConfiguration.RegisterComponents(c =>
             {
                 c.ConfigureComponent(b =>
@@ -103,6 +114,7 @@ namespace UserService.NServiceBus
                     return context;
                 }, DependencyLifecycle.InstancePerUnitOfWork);
             });
+
             var endpointInstance = await Endpoint.Start(endpointConfiguration)
              .ConfigureAwait(false);
             Console.WriteLine("Press Enter to exit.");
