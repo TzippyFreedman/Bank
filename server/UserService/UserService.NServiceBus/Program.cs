@@ -14,7 +14,7 @@ namespace UserService.NServiceBus
 {
     class Program
     {
-        const string EndPointName = "Bank.UserService";
+        const string EndPointName = "Bank.User";
         static async Task Main(string[] args)
         {
             var appSettings = ConfigurationManager.AppSettings;
