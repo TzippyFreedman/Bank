@@ -101,7 +101,7 @@ namespace TransferService.Api
 
 
                       var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
-                      var connection = Configuration.GetConnectionString("TransferDBConnectionString");
+                      var connection = Configuration.GetConnectionString("TransferConnectionString");
 
                       var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
                       dialect.Schema(schemaName);

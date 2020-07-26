@@ -32,7 +32,7 @@ namespace TransferService.NServiceBus
             containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
 
             // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-            string transferConnection = ConfigurationManager.ConnectionStrings["TransferDBConnectionString"].ToString();
+            string transferConnection = ConfigurationManager.ConnectionStrings["TransferConnectionString"].ToString();
 
             using (var transferDataContext = new TransferDbContext(new DbContextOptionsBuilder<TransferDbContext>()
                 .UseSqlServer(new SqlConnection(transferConnection))

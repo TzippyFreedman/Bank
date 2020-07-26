@@ -13,7 +13,7 @@ namespace UserService.NServiceBus.Handlers
     {
         //private readonly IUserService _userService;
 
-      private readonly IUserHandlerRepository _committransferHandlerRepository;
+        private readonly IUserHandlerRepository _committransferHandlerRepository;
 
         public CommitTransferHandler(IUserHandlerRepository committransferHandlerRepository)
         {
@@ -22,29 +22,51 @@ namespace UserService.NServiceBus.Handlers
         }
         public async Task Handle(ICommitTransfer message, IMessageHandlerContext context)
         {
-            bool isTransferDone = false;
+            bool isTransferDone = true;
+            string comment = null;
             int amountForTransfer = (int)Math.Round(message.Amount * 100);
-            if (await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId) == true)
+
+            bool isSrcAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.SrcAccountId);
+            if (isSrcAccountExists == true)
             {
-                if (await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer) == true)
+                bool isBalanceOK = await _committransferHandlerRepository.CheckBalanceAsync(message.SrcAccountId, amountForTransfer);
+                if (isBalanceOK == true)
                 {
                     await _committransferHandlerRepository.DrawAsync(message.SrcAccountId, amountForTransfer);
-                    isTransferDone = true;
+                    bool isDestAccountExists = await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId)
+                    if (isDestAccountExists == true)
+                    {
+
+                        await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
+                    }
+                    else
+                    {
+                        comment = "destination account doesnt exist.";
+                        isTransferDone = false;
+
+                    }
                 }
+                else
+                {
+                    comment = "balance in source account is too low.";
+                    isTransferDone = false;
+
+                }
+
+            }
+            else
+            {
+                comment = "source account doesnt exist.";
+                isTransferDone = false;
+
             }
 
-            if (await _committransferHandlerRepository.CheckExistsAsync(message.DestAccountId) == true)
-            {
-                if (await _committransferHandlerRepository.CheckBalanceAsync(message.DestAccountId, amountForTransfer) == true)
-                {
-                    await _committransferHandlerRepository.DepositAsync(message.DestAccountId, amountForTransfer);
-                    isTransferDone = true;
-                }
-            }
-           
+
+
             await context.Reply<ICommitTransferResponse>(message =>
             {
                 message.IsTransferSucceeded = isTransferDone;
+                message.FailureReason = comment;
             });
             //await context.Publish<IMoneyAdded>(command =>
             //{

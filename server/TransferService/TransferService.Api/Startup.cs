@@ -27,7 +27,7 @@ namespace TransferService.Api
             services.AddScoped(typeof(ITransferRepository), typeof(TransferRepository));
             services.AddDbContext<TransferDbContext>
              (options => options
-             .UseSqlServer(Configuration.GetConnectionString("BankTransferServiceConnectionString")));
+             .UseSqlServer(Configuration.GetConnectionString("TransferConnectionString")));
             services.AddControllers();
         }
 
