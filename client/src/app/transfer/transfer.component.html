@@ -8,10 +8,10 @@
             <div *ngIf="formControls.amount.errors.required">Amount is required</div>
         </div>
         <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.amount.errors.max">Amount should be in range 1-1,000,000,000</div>
+            <div *ngIf="formControls.amount.errors.max">Amount should be in range 1-1,000,000</div>
         </div>
         <div *ngIf="submitted && formControls.amount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.amount.errors.min">Amount should be in range 1-1,000,000,000</div>
+            <div *ngIf="formControls.amount.errors.min">Amount should be in range 1-1,000,000</div>
         </div>
     </div>
     <div class="form-group">
