@@ -36,7 +36,7 @@ namespace TransferService.Api.Controllers
         {
             TransferModel transferModel = _mapper.Map<TransferModel>(transfer);
             transferModel.Status = TransferStatus.Pending;
-            TransferModel newTransferModel = await _transferService.Add(transferModel);
+            TransferModel newTransferModel = await _transferService.AddAsync(transferModel);
 
             int amountToTransferInCents = (int)Math.Round(transfer.Amount * 100);
             await _messageSession.Publish<ITransferRequestAdded>(message =>

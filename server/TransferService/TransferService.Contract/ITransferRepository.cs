@@ -7,8 +7,8 @@ namespace TransferService.Contract
 {
     public  interface ITransferRepository
     {
-        Task<TransferModel> Add(TransferModel newTransfer);
-        Task UpdateTransferStatus(Guid transferId, bool isTransferSuccess, string failureReason);
+        Task<TransferModel> AddAsync(TransferModel newTransfer);
+        Task UpdateTransferStatusAsync(Guid transferId, bool isTransferSuccess, string failureReason);
 
     }
 }
