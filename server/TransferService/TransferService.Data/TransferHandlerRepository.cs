@@ -1,9 +1,7 @@
 ﻿using Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TransferService.Data.Entities;
 
@@ -17,7 +15,7 @@ namespace TransferService.Data
         {
             _transferDbContext = transferDbContext;
         }
-        async Task UpdateTransferStatus(Guid transferId, TransferStatus transferStatus, string failureReason)
+        public async Task UpdateTransferStatus(Guid transferId, TransferStatus transferStatus, string failureReason)
         {
             Transfer transferToUpdate = await _transferDbContext.Transfers
                 .Where(transfer => transfer.Id == transferId)
