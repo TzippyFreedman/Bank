@@ -8,6 +8,6 @@ namespace TransferService.Services.Interfaces
 {
    public interface ITransferService
     {
-        Task<TransferModel> Add(TransferModel newTransfer);
+        Task<TransferModel> AddAsync(TransferModel newTransfer);
     }
 }
