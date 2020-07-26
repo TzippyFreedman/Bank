@@ -38,7 +38,7 @@ namespace TransferService.Api.Controllers
             transferModel.Status = TransferStatus.Pending;
             TransferModel newTransferModel = await _transferService.Add(transferModel);
 
-            await _messageSession.Publish<ITransferAdded>(message =>
+            await _messageSession.Publish<ITransferRequestAdded>(message =>
             {
                 message.TransferId = newTransferModel.Id;
                 message.Amount = transfer.Amount;

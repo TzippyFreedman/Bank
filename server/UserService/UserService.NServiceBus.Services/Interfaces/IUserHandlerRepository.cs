@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserService.NServiceBus.Services.Interfaces
 {
-   public interface ICommitTransferHandlerRepository
+   public interface IUserHandlerRepository
     {
         Task Pull(Guid srcAccount, float amount);
         Task Push(Guid srcAccount, float amount);

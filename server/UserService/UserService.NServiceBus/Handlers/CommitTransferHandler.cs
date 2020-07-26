@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.NServiceBus.Handlers
 {
@@ -13,9 +12,9 @@ namespace UserService.NServiceBus.Handlers
     {
         //private readonly IUserService _userService;
 
-      private readonly ICommitTransferHandlerRepository _committransferHandlerRepository;
+      private readonly IUserHandlerRepository _committransferHandlerRepository;
 
-        public CommitTransferHandler(ICommitTransferHandlerRepository committransferHandlerRepository)
+        public CommitTransferHandler(IUserHandlerRepository committransferHandlerRepository)
         {
             _committransferHandlerRepository = committransferHandlerRepository;
 

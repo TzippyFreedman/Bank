@@ -6,15 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserService.Data.Entities;
-using UserService.NServiceBus.Services.Interfaces;
 
 namespace UserService.Data
 {
-   public class UserAccountHandlerRepository :ICommitTransferHandlerRepository
+   public class UserHandlerRepository /*: IUserHandlerRepository*/
     { 
      private readonly UserDbContext _userDbContext;
     private readonly IMapper _mapper;
-    public UserAccountHandlerRepository(UserDbContext userDbContext, IMapper mapper)
+    public UserHandlerRepository(UserDbContext userDbContext, IMapper mapper)
     {
         _userDbContext = userDbContext;
         _mapper = mapper;
