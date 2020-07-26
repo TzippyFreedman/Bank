@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using TransferService.Data;
-
+using TransferService.NServiceBus.Services.Interfaces;
 
 namespace TransferService.NServiceBus
 {
@@ -29,7 +29,7 @@ namespace TransferService.NServiceBus
           /*  //endpointConfiguration.AuditProcessedMessagesTo("audit");*/
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
 
-          //  containerSettings.ServiceCollection.AddScoped(typeof(IUserHandlerRepository), typeof(UserHandlerRepository));
+           containerSettings.ServiceCollection.AddScoped(typeof(ITransferHandlerRepository), typeof(TransferHandlerRepository));
 
            // containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
 
