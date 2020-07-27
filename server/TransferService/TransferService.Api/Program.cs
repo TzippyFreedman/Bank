@@ -17,7 +17,6 @@ namespace TransferService.Api
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
                .Build();
-
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
@@ -51,7 +50,6 @@ namespace TransferService.Api
             Host.CreateDefaultBuilder(args)
                   .UseNServiceBus(context =>
                   {
-
                       const string endpointName = "Bank.Transfer.Api";
                       var endpointConfiguration = new EndpointConfiguration(endpointName);
 

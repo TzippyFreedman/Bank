@@ -74,7 +74,6 @@ namespace TransferService.Api
 
             }
             //app.UseErrorHandlingMiddleware();
-
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
