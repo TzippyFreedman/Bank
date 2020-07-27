@@ -33,7 +33,6 @@ namespace TransferService.Api
             try
             {
                 Log.Information("The program has started!!!");
-
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
@@ -42,7 +41,6 @@ namespace TransferService.Api
             }
             finally
             {
-
                 Log.CloseAndFlush();
             }
         }
@@ -51,7 +49,6 @@ namespace TransferService.Api
             Host.CreateDefaultBuilder(args)
                   .UseNServiceBus(context =>
                   {
-
                       const string endpointName = "Bank.Transfer.Api";
                       var endpointConfiguration = new EndpointConfiguration(endpointName);
 

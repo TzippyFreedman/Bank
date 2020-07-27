@@ -2,16 +2,14 @@
 using Messages.Messages;
 using NServiceBus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using UserService.Contract;
+using UserService.Data.Exceptions;
 
 namespace UserService.NServiceBus
 {
     class CommitTransferHandler : IHandleMessages<ICommitTransfer>
     {
-
         private readonly IUserRepository _userRepository;
 
         public CommitTransferHandler(IUserRepository userRepository)
@@ -27,7 +25,7 @@ namespace UserService.NServiceBus
                 await _userRepository.DrawAsync(message.SrcAccountId, message.Amount);
                 await _userRepository.DepositAsync(message.DestAccountId, message.Amount);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is DataNotFoundException || ex is InsufficientBalanceForTransactionException)
             {
                 isTransferSucceeded = false;
                 failureReason = ex.Message;
