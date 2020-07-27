@@ -21,26 +21,22 @@ export class DataService {
   public register = (user: Register) => {
     return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.userServiceBaseURL), user)
       .pipe(catchError(this.requestHandlerService.handleError));
-
   }
 
   public verifyEmail = (email: string) => {
     return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.userServiceBaseURL), email)
       .pipe(catchError(this.requestHandlerService.handleError));
-
   }
 
   public getAccountDetails = (userId: String) => {
     return this.http.get<UserAccount>(this.requestHandlerService.createCompleteRoute(ACCOUNT_URL + userId, environment.userServiceBaseURL))
       .pipe(catchError(this.requestHandlerService.handleError));
-
   }
 
   public transfer = (transfer: Transfer) => {
     debugger;
     return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.transferServiceBaseURL), transfer)
       .pipe(catchError(this.requestHandlerService.handleError));
-
   }
 
 }
