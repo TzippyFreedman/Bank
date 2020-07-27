@@ -16,8 +16,8 @@ namespace TransferService.NServiceBus
         }
         public async Task Handle(IUpdateTransferStatus message, IMessageHandlerContext context)
         {
-            await _transferHandlerRepository.UpdateTransferStatusAsync(message.TransferId, message.IsTransferSucceeded, message.FailureReason)
-                .ConfigureAwait(false);
+            await _transferHandlerRepository.UpdateTransferStatusAsync(message.TransferId, message.IsTransferSucceeded, message.FailureReason);
+                
         }
     }
 }
