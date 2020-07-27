@@ -1,5 +1,5 @@
 export interface Transfer{
     amount: number,
-    srcAccount: string,
-    destAccount : string
+    srcAccountId: string,
+    destAccountId : string
 }

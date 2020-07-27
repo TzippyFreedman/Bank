@@ -15,11 +15,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="destAccount">To Account</label>
-        <input type="destAccount" formControlName="destAccount" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && formControls.destAccount.errors }" />
-        <div *ngIf="submitted && formControls.destAccount.errors" class="invalid-feedback">
-            <div *ngIf="formControls.destAccount.errors.required">Destination Account is required</div>
+        <label for="destAccountId">To Account</label>
+        <input type="destAccountId" formControlName="destAccountId" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && formControls.destAccountId.errors }" />
+        <div *ngIf="submitted && formControls.destAccountId.errors" class="invalid-feedback">
+            <div *ngIf="formControls.destAccountId.errors.required">Destination Account is required</div>
         </div>
    
     </div>
