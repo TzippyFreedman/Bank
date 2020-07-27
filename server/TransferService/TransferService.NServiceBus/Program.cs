@@ -43,7 +43,7 @@ namespace TransferService.NServiceBus
                 .UseSqlServer(new SqlConnection(transferConnection))
                 .Options))
             {
-                await transferDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
+                await transferDataContext.Database.EnsureCreatedAsync();
             }
 
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
@@ -121,15 +121,13 @@ namespace TransferService.NServiceBus
                 }, DependencyLifecycle.InstancePerUnitOfWork);
             });
 
-            var endpointInstance = await Endpoint.Start(endpointConfiguration)
-                .ConfigureAwait(false);
+            var endpointInstance = await Endpoint.Start(endpointConfiguration);
+               
 
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
-            await endpointInstance.Stop()
-                .ConfigureAwait(false);
-
+            await endpointInstance.Stop();
         }
     }
 }

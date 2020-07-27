@@ -19,8 +19,7 @@ namespace TransferService.NServiceBus
                  msg.SrcAccountId = message.SrcAccountId;
                  msg.DestAccountId = message.DestAccountId;
                  msg.Amount = message.Amount;
-             })
-                .ConfigureAwait(false);
+             });
         }
 
         public async Task Handle(ICommitTransferResponse message, IMessageHandlerContext context)
@@ -30,8 +29,7 @@ namespace TransferService.NServiceBus
                  msg.TransferId = Data.TransferId;
                  msg.IsTransferSucceeded = message.IsTransferSucceeded;
                  msg.FailureReason = message.FailureReason;
-             })
-                 .ConfigureAwait(false);
+             });
             MarkAsComplete();
         }
 
