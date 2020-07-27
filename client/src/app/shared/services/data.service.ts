@@ -19,13 +19,13 @@ export class DataService {
   constructor(private http: HttpClient, private requestHandlerService: HttpRequestHandlerService) { }
 
   public register = (user: Register) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.userServiceBaseURL), user, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.userServiceBaseURL), user)
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }
 
   public verifyEmail = (email: string) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.userServiceBaseURL), email, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.userServiceBaseURL), email)
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }
@@ -38,7 +38,7 @@ export class DataService {
 
   public transfer = (transfer: Transfer) => {
     debugger;
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.transferServiceBaseURL), transfer, this.requestHandlerService.generateHeaders())
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSFER_URL, environment.transferServiceBaseURL), transfer)
       .pipe(catchError(this.requestHandlerService.handleError));
 
   }

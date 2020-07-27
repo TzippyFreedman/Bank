@@ -13,12 +13,6 @@ export class HttpRequestHandlerService {
     return `${envAddress}/${route}`;
   }
 
-   generateHeaders = () => {
-    return {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Expose-Headers': '*', 'Access-Control-Allow-Credentials': 'true', 'withCredentials': 'true','Access-Control-Allow-Origin':'*' }),
-      observe: 'response' as 'response'
-    }
-  }
 
    handleError(error: HttpErrorResponse) {
     // A client-side or network error occurred. Handle it accordingly.
