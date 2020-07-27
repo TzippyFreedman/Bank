@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using TransferService.Data.Exceptions;
 
 namespace TransferService.Api.Middlewares
 {
@@ -35,7 +36,11 @@ namespace TransferService.Api.Middlewares
 
             HttpStatusCode code = HttpStatusCode.InternalServerError;
             string message = "something went wrong";
-
+            if(ex is TransferNotFoundException)
+            {
+                code = HttpStatusCode.NotFound;
+                message = ex.Message;
+            }
             string result = JsonSerializer
             .Serialize(new { errorMessage = message, statusCode = code });
 

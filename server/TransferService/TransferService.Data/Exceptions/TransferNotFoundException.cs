@@ -14,6 +14,6 @@ namespace TransferService.Data.Exceptions
         {
 
         }
-        public
+        
     }
 }
