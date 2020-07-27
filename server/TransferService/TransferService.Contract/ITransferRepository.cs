@@ -9,6 +9,5 @@ namespace TransferService.Contract
     {
         Task<TransferModel> AddAsync(TransferModel newTransfer);
         Task UpdateTransferStatusAsync(Guid transferId, bool isTransferSuccess, string failureReason);
-
     }
 }

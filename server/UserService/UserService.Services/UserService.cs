@@ -47,7 +47,6 @@ namespace UserService.Services
                 newUser.PasswordSalt = passwordSalt;
                 await _userRepository.AddUserAsync(newUser);
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
-               
             }
         }
 

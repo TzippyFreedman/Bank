@@ -27,7 +27,6 @@ namespace TransferService.NServiceBus
 
         public async Task Handle(ICommitTransferResponse message, IMessageHandlerContext context)
         {
-
             await context.SendLocal<IUpdateTransferStatus>(msg =>
              {
                  msg.TransferId = Data.TransferId;
@@ -35,7 +34,6 @@ namespace TransferService.NServiceBus
                  msg.FailureReason = message.FailureReason;
              })
                  .ConfigureAwait(false);
-
             MarkAsComplete();
         }
 
@@ -50,7 +48,6 @@ namespace TransferService.NServiceBus
     public class TransferPolicySagaData : ContainSagaData
     {
         public Guid TransferId { get; set; }
-
     }
 }
 

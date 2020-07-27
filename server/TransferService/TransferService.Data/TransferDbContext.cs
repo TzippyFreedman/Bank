@@ -8,15 +8,10 @@ namespace TransferService.Data
 {
   public  class TransferDbContext : DbContext
     {
+        public TransferDbContext(DbContextOptions options) : base(options) {}
 
-        public TransferDbContext(DbContextOptions options) : base(options)
-        {
-
-
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Transfer>()
                          .ToTable("Transfer");
             modelBuilder.Entity<Transfer>()
@@ -39,7 +34,6 @@ namespace TransferService.Data
                        .HasDefaultValueSql("NEWID()")
                         .ValueGeneratedOnAdd();
         }
-
         public DbSet<Transfer> Transfers { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace TransferService.Data
             CreateMap<TransferModel, Transfer>()
                 .ReverseMap()
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(m => m.Amount / 100));
-
         }
     }
 }
