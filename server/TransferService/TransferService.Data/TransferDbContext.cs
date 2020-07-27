@@ -18,11 +18,16 @@ namespace TransferService.Data
                         .Property(transfer => transfer.Status)
                         .HasConversion<string>();
             modelBuilder.Entity<Transfer>()
-                        .Property(transfer => transfer.SrcAccount)
+                        .Property(transfer => transfer.SrcAccountId)
                         .IsRequired();
             modelBuilder.Entity<Transfer>()
-                       .Property(transfer => transfer.DestAccount)
+                       .Property(transfer => transfer.DestAccountId)
                         .IsRequired();
+            modelBuilder.Entity<Transfer>()
+                        .Property(transfer => transfer.Date)
+                        .HasDefaultValueSql("getdate()")
+                        .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Transfer>()
                          .Property(transfer => transfer.Status)
                         .IsRequired();

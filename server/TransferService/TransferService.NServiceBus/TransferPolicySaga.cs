@@ -3,8 +3,6 @@ using Messages.Events;
 using Messages.Messages;
 using NServiceBus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TransferService.NServiceBus

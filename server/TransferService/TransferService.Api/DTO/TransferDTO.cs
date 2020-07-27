@@ -7,9 +7,9 @@ namespace TransferService.Api.DTO
     public class TransferDTO
     {
         [Required]
-        public Guid SrcAccount { get; set; }
+        public Guid SrcAccountId { get; set; }
         [Required]
-        public Guid DestAccount { get; set; }
+        public Guid DestAccountId { get; set; }
         [Required]
         [Range(1,1000000)]
         [RegularExpression(@"^\d+.?\d{0,2}$",

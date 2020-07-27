@@ -37,8 +37,8 @@ namespace TransferService.Api.Controllers
             {
                 message.TransferId = newTransferModel.Id;
                 message.Amount = amountToTransferInCents;
-                message.SrcAccountId = transfer.SrcAccount;
-                message.DestAccountId = transfer.DestAccount;
+                message.SrcAccountId = transfer.SrcAccountId;
+                message.DestAccountId = transfer.DestAccountId;
             });
             return Ok();
         }
