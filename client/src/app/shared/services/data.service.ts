@@ -10,7 +10,7 @@ import { Transfer } from 'src/app/transfer/transfer.model';
 const REGISTER_URL = 'user';
 const ACCOUNT_URL = 'user/getAccountDetails/'
 const VERIFICATION_URL = 'user/verifyEmail';
-const TRANSFER_URL = 'transfer';
+const TRANSFER_URL = 'transaction';
 @Injectable({
   providedIn: 'root',
 })
