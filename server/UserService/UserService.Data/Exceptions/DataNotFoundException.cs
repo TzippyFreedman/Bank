@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserService.Data.Exceptions
 {
@@ -10,9 +8,9 @@ namespace UserService.Data.Exceptions
         {
 
         }
-        public DataNotFoundException(string errorMessage): base(errorMessage)
+        public DataNotFoundException(string errorMessage) : base(errorMessage)
         {
-            
+
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Messages.Messages
+﻿namespace Messages.Messages
 {
     public interface ICommitTransferResponse
     {

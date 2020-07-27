@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 using UserService.Api.DTO;
 using UserService.Contract.Models;
 
@@ -14,7 +13,7 @@ namespace UserService.Api
             CreateMap<UserModel, AccountDTO>();
 
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
-            
+
         }
     }
 }

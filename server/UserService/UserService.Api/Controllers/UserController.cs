@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Contract.Models;
-using UserService.Services;
 using UserService.Services.Interfaces;
 
 namespace UserService.Api.Controllers
@@ -34,8 +33,8 @@ namespace UserService.Api.Controllers
         [Route("[action]")]
         public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
         {
-            EmailVerificationModel emailVerification= _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
-             await _userService.VerifyEmailAsync(emailVerification);
+            EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
+            await _userService.VerifyEmailAsync(emailVerification);
         }
 
         [HttpGet]

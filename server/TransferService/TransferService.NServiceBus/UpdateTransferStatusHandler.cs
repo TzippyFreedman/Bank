@@ -1,8 +1,5 @@
 ﻿using Messages.Commands;
 using NServiceBus;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TransferService.Contract;
 
@@ -18,7 +15,7 @@ namespace TransferService.NServiceBus
             _transferHandlerRepository = transferHandlerRepository;
         }
         public async Task Handle(IUpdateTransferStatus message, IMessageHandlerContext context)
-        { 
+        {
             await _transferHandlerRepository.UpdateTransferStatusAsync(message.TransferId, message.IsTransferSucceeded, message.FailureReason)
                 .ConfigureAwait(false);
         }

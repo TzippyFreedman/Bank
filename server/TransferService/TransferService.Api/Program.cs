@@ -97,7 +97,7 @@ namespace TransferService.Api
                               immidiate.NumberOfRetries(1);
 
                           });
-                   
+
                       var subscriptions = persistence.SubscriptionSettings();
                       subscriptions.CacheFor(TimeSpan.FromMinutes(10));
 

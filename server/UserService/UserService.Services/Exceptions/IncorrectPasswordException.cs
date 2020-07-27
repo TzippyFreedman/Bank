@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserService.Services.Exceptions
 {
-   public class IncorrectPasswordException :Exception
+    public class IncorrectPasswordException : Exception
     {
         public IncorrectPasswordException()
         {

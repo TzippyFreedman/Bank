@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserService.Data.Exceptions
 {
-   public class AccountNotFoundException :  DataNotFoundException
+    public class AccountNotFoundException : DataNotFoundException
     {
         public AccountNotFoundException()
         {

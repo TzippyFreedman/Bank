@@ -61,7 +61,7 @@ namespace TransferService.Api
                 });
             });
         }
-    
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -84,7 +84,7 @@ namespace TransferService.Api
             //app.UseAuthentication();
 
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

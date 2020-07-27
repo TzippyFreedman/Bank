@@ -32,7 +32,7 @@ namespace UserService.NServiceBus
             }
             finally
             {
-              await SendResponse(isTransferSucceeded, failureReason, context);
+                await SendResponse(isTransferSucceeded, failureReason, context);
             }
         }
 
