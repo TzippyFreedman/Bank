@@ -42,7 +42,8 @@ namespace UserService.NServiceBus
             {
                 message.IsTransferSucceeded = isTransferSucceeded;
                 message.FailureReason = failureReason;
-            }).ConfigureAwait(false);
+            })
+                .ConfigureAwait(false);
         }
     }
 }
