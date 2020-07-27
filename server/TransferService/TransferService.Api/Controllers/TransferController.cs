@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Messages.Events;
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
+using System;
+using System.Threading.Tasks;
 using TransferService.Api.DTO;
 using TransferService.Contract.Enums;
 using TransferService.Contract.Models;

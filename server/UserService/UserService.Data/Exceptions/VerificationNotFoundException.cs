@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserService.Data.Exceptions
+﻿namespace UserService.Data.Exceptions
 {
-   public class VerificationNotFoundException: DataNotFoundException
+    public class VerificationNotFoundException : DataNotFoundException
     {
         public VerificationNotFoundException()
         {

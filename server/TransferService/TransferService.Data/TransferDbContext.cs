@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TransferService.Data.Entities;
 
 namespace TransferService.Data
 {
-  public  class TransferDbContext : DbContext
+    public class TransferDbContext : DbContext
     {
-        public TransferDbContext(DbContextOptions options) : base(options) {}
+        public TransferDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

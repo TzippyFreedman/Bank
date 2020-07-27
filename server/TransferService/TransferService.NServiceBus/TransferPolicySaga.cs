@@ -10,7 +10,6 @@ namespace TransferService.NServiceBus
     public class TransferPolicySaga : Saga<TransferPolicySagaData>,
                IAmStartedByMessages<ITransferRequestAdded>,
         IHandleMessages<ICommitTransferResponse>
-
     {
         public async Task Handle(ITransferRequestAdded message, IMessageHandlerContext context)
         {

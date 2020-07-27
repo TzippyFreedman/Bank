@@ -141,7 +141,6 @@ namespace UserService.Data
                 throw new InsufficientBalanceForTransactionException(accountId, amount);
             }
             userAccount.Balance -= amount;
-            //userAccount.UpdateDate = DateTime.Now;
         }
 
         public async Task DepositAsync(Guid accountId, int amount)
@@ -154,7 +153,6 @@ namespace UserService.Data
                 throw new AccountNotFoundException(accountId);
             }
             userAccount.Balance += amount;
-            //userAccount.UpdateDate = DateTime.Now;
         }
 
     }

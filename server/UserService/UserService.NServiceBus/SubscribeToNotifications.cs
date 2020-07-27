@@ -8,7 +8,7 @@ namespace UserService.NServiceBus
 {
     public static class SubscribeToNotifications
     {
-        static ILog log = LogManager.GetLogger(typeof(SubscribeToNotifications));
+        static readonly ILog log = LogManager.GetLogger(typeof(SubscribeToNotifications));
 
         public static void Subscribe(EndpointConfiguration endpointConfiguration)
         {

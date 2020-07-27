@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TransferService.Contract.Models;
 using TransferService.Data.Entities;
 
