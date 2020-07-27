@@ -7,6 +7,7 @@ using TransferService.Contract;
 using TransferService.Contract.Enums;
 using TransferService.Contract.Models;
 using TransferService.Data.Entities;
+using TransferService.Data.Exceptions;
 
 namespace TransferService.Data
 {
@@ -34,6 +35,10 @@ namespace TransferService.Data
             Transfer transferToUpdate = await _transferDbContext.Transfers
                 .Where(transfer => transfer.Id == transferId)
                 .FirstOrDefaultAsync();
+            if (transferToUpdate == null)
+            {
+                throw new TransferNotFoundException(transferId);
+            }
             transferToUpdate.Status = isTransferSuccess ? TransferStatus.Succeeded : TransferStatus.Failed;
             transferToUpdate.FailureReason = failureReason;
         }
