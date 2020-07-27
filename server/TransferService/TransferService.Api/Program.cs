@@ -32,7 +32,6 @@ namespace TransferService.Api
             try
             {
                 Log.Information("The program has started!!!");
-
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
@@ -41,7 +40,6 @@ namespace TransferService.Api
             }
             finally
             {
-
                 Log.CloseAndFlush();
             }
         }
@@ -99,7 +97,7 @@ namespace TransferService.Api
                               immidiate.NumberOfRetries(1);
 
                           });
-                   
+
                       var subscriptions = persistence.SubscriptionSettings();
                       subscriptions.CacheFor(TimeSpan.FromMinutes(10));
 

@@ -3,8 +3,6 @@ using Messages.Events;
 using Messages.Messages;
 using NServiceBus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TransferService.NServiceBus
@@ -12,7 +10,6 @@ namespace TransferService.NServiceBus
     public class TransferPolicySaga : Saga<TransferPolicySagaData>,
                IAmStartedByMessages<ITransferRequestAdded>,
         IHandleMessages<ICommitTransferResponse>
-
     {
         public async Task Handle(ITransferRequestAdded message, IMessageHandlerContext context)
         {

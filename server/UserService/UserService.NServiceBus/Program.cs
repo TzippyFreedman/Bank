@@ -35,10 +35,10 @@ namespace UserService.NServiceBus
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
-            using (var receiverDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
+            using (var userDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
                 .UseSqlServer(new SqlConnection(userConnection)).Options))
             {
-                await receiverDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
+                await userDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
 
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
@@ -60,7 +60,6 @@ namespace UserService.NServiceBus
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
             transport.UseConventionalRoutingTopology()
                 .ConnectionString(transportConnection);
-
 
             var conventions = endpointConfiguration.Conventions();
             conventions.DefiningCommandsAs(type => type.Namespace == "Messages.Commands");
@@ -95,8 +94,10 @@ namespace UserService.NServiceBus
 
             var endpointInstance = await Endpoint.Start(endpointConfiguration)
              .ConfigureAwait(false);
+
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
+
             await endpointInstance.Stop()
                 .ConfigureAwait(false);
         }

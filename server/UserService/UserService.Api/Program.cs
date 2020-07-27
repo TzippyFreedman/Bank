@@ -34,7 +34,6 @@ namespace UserService.Api
 
                 CreateHostBuilder(args).Build().Run();
 
-
             }
             catch (Exception ex)
             {

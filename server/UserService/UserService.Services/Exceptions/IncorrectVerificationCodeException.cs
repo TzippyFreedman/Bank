@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserService.Services.Exceptions
+﻿namespace UserService.Services.Exceptions
 {
     class IncorrectVerificationCodeException : BadRequestException
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TransferService.Contract;
 using TransferService.Contract.Models;
 using TransferService.Services.Interfaces;
@@ -18,7 +15,7 @@ namespace TransferService.Services
         }
         public async Task<TransferModel> AddAsync(TransferModel transfer)
         {
-         TransferModel newTransfer =   await _transferRepository.AddAsync(transfer);
+            TransferModel newTransfer = await _transferRepository.AddAsync(transfer);
             return newTransfer;
         }
     }

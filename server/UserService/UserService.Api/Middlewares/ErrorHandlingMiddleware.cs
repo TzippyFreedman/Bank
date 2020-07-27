@@ -14,7 +14,6 @@ namespace UserService.Api.Middlewares
     {
         private readonly RequestDelegate _next;
 
-
         public ErrorHandlingMiddleware(RequestDelegate next)
         {
             _next = next;

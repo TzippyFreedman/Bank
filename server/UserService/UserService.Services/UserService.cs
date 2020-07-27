@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.Threading.Tasks;
 using UserService.Contract;
