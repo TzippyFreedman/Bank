@@ -35,26 +35,48 @@ namespace UserService.Api.Middlewares
         {
             Log.Error(ex, "Exception caught in ErrorHandlingMiddleware");
 
-            var code = HttpStatusCode.InternalServerError;
-            string message = "something went wrong";
+            HttpStatusCode code;
+            string message;
 
-            if (ex is DataNotFoundException)
+            switch (ex)
             {
-                code = HttpStatusCode.NotFound;
-                message = ex.Message;
+                case DataNotFoundException dataNotFoundException:
+                    code = HttpStatusCode.NotFound;
+                    message = ex.Message;
+                    break;
+                case BadRequestException badRequestException:
+                    code = HttpStatusCode.BadRequest;
+                    message = ex.Message;
+                    break;
+                case IncorrectPasswordException incorrectPasswordException:
+                    code = HttpStatusCode.Unauthorized;
+                    message = ex.Message;
+                    break;
+                default:
+                    code = HttpStatusCode.InternalServerError;
+                    message = "something went wrong";
+                    break;
+
             }
-            if (ex is BadRequestException)
-            {
-                code = HttpStatusCode.BadRequest;
-                message = ex.Message;
-            }
-            if (ex is IncorrectPasswordException)
-            {
-                code = HttpStatusCode.Unauthorized;
-                message = ex.Message;
-            }
+
+            /*            if (ex is DataNotFoundException)
+                        {
+                            code = HttpStatusCode.NotFound;
+                            message = ex.Message;
+                        }
+                        if (ex is BadRequestException)
+                        {
+                            code = HttpStatusCode.BadRequest;
+                            message = ex.Message;
+                        }
+                        if (ex is IncorrectPasswordException)
+                        {
+                            code = HttpStatusCode.Unauthorized;
+                            message = ex.Message;
+                        }*/
+
             string result = JsonSerializer
-                .Serialize(new { errorMessage = message, statusCode = code });
+            .Serialize(new { errorMessage = message, statusCode = code });
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
