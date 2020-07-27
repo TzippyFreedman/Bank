@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Messages.Events;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using NServiceBus;
 using TransferService.Api.DTO;
 using TransferService.Contract.Enums;
@@ -30,14 +26,12 @@ namespace TransferService.Api.Controllers
             _messageSession = messageSession;
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Post(TransferDTO transfer)
         {
             TransferModel transferModel = _mapper.Map<TransferModel>(transfer);
             transferModel.Status = TransferStatus.Pending;
             TransferModel newTransferModel = await _transferService.AddAsync(transferModel);
-
             int amountToTransferInCents = (int)Math.Round(transfer.Amount * 100);
             await _messageSession.Publish<ITransferRequestAdded>(message =>
             {
@@ -46,7 +40,6 @@ namespace TransferService.Api.Controllers
                 message.SrcAccountId = transfer.SrcAccount;
                 message.DestAccountId = transfer.DestAccount;
             });
-
             return Ok();
         }
     }

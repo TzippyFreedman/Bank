@@ -1,6 +1,4 @@
-﻿using Serilog.Settings.Configuration;
-using System.Configuration;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Net.Mail;
 using UserService.Services.Interfaces;

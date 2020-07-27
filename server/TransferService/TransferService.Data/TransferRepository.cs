@@ -34,7 +34,6 @@ namespace TransferService.Data
             Transfer transferToUpdate = await _transferDbContext.Transfers
                 .Where(transfer => transfer.Id == transferId)
                 .FirstOrDefaultAsync();
-
             transferToUpdate.Status = isTransferSuccess ? TransferStatus.Succeeded : TransferStatus.Failed;
             transferToUpdate.FailureReason = failureReason;
         }

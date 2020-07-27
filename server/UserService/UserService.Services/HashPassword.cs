@@ -18,10 +18,8 @@ namespace UserService.Services
                                 numBytesRequested: 256 / 8);
             return Convert.ToBase64String(valueBytes);
         }
-
         public bool VerifyPassword(string value, string salt, string hash)
             => CreatePasswordHash(value, salt) == hash;
-
         public string CreateSalt()
         {
             byte[] randomBytes = new byte[128 / 8];

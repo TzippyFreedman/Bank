@@ -46,7 +46,6 @@ namespace TransferService.NServiceBus
                 await transferDataContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
             }
           
-
             var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
             persistence.SqlDialect<SqlDialect.MsSqlServer>();
             persistence.ConnectionBuilder(
