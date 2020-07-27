@@ -47,7 +47,6 @@ export class TransferComponent implements OnInit {
         result => {
          alert("your request has been accepted!");
          this.loading = false;
-
         },
         error => {
           alert(error);
