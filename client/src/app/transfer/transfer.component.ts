@@ -25,7 +25,7 @@ export class TransferComponent implements OnInit {
         Validators.min(1),
         Validators.max(1000000)
       ]),
-      'destAccount': new FormControl('', [
+      'destAccountId': new FormControl('', [
         Validators.required,
       ])
     });
@@ -40,7 +40,7 @@ export class TransferComponent implements OnInit {
     }
     this.transfer = this.transferForm.value;
     // this.transfer.destAccountId=this.transferForm.value.destAccountId );
-    this.transfer.srcAccount=this.authService.getUserAccountId();
+    this.transfer.srcAccountId=this.authService.getUserAccountId();
     this.loading = true;
     this.dataService.transfer(this.transfer)
       .subscribe(
