@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using TransferService.Api.Middlewares;
 using TransferService.Contract;
 using TransferService.Data;
 using TransferService.Services.Interfaces;
@@ -73,7 +74,7 @@ namespace TransferService.Api
                 app.UseCors("MyPolicy");
 
             }
-            //app.UseErrorHandlingMiddleware();
+            app.UseErrorHandlingMiddleware();
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -81,7 +82,7 @@ namespace TransferService.Api
                 c.SwaggerEndpoint($"/swagger/{swaggerName}/swagger.json", swaggerName);
             });
             app.UseRouting();
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
