@@ -7,21 +7,25 @@
     <mat-table [dataSource]="dataSource" matSort matSortDisableClear="true" [matSortActive]="defaultSort.active"
         [matSortDirection]="defaultSort.direction">
 
-        <ng-container matColumnDef="city">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>City</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row">{{row.city}} </mat-cell>
+        <ng-container matColumnDef="transactionId">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Id</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.transactionId}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="startDate">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row">{{row.startDate | date:'shortDate'}} </mat-cell>
+        <ng-container matColumnDef="operationTime">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Operation Time</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.operationTime | date:'shortDate'}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="endDate">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row"> {{ row.endDate | date:'shortDate' }} </mat-cell>
+        <ng-container matColumnDef="transactionAmount">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Amount</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row"> {{row.transactionAmount}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="location">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row">{{row.location}} </mat-cell>
+        <ng-container matColumnDef="balance">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Balance After Operation</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.balance}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="isDebit">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Direction</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.isDebit}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
@@ -29,6 +33,6 @@
 
     </mat-table>
 
-    <mat-paginator [length]="operationTotal" [pageSize]="9" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
+    <mat-paginator [length]="operationTotal" [pageSize]="2" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
 
 </div>

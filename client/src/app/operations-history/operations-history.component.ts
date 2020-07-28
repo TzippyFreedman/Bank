@@ -17,11 +17,11 @@ import { HistoryResponse } from './history-response.model';
 export class OperationsHistoryComponent implements OnInit {
 
   public columnHeaders: string[] = [
-    "TransactionId",
-    "OperationTime",
-    "Amount",
-    "Balance",
-    "TransactionDirection"
+    "transactionId",
+    "operationTime",
+    "balance",
+    "isDebit",
+    "transactionAmount"
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
@@ -33,7 +33,7 @@ export class OperationsHistoryComponent implements OnInit {
   private filter: string = "";
   //dont forget to unsubscribe!!
   private subscription: Subscription = new Subscription();
-  public defaultSort: Sort = { active: 'city', direction: 'asc' };
+  public defaultSort: Sort = { active: 'operationTime', direction: 'asc' };
   public pathRequestParams: HistoryRequestParams = new HistoryRequestParams();
 
 
@@ -52,8 +52,8 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
 
-  public loadPaths(): Observable<HistoryResponse> {
-  
+  public loadOperations(): Observable<HistoryResponse> {
+  debugger;
     this.pathRequestParams = {
       filter:  this.filter.toLocaleLowerCase(),
       isFilterChanged: this.pathRequestParams.filter?.toLocaleLowerCase()== this.filter.toLocaleLowerCase()? false : true,
@@ -67,7 +67,7 @@ export class OperationsHistoryComponent implements OnInit {
 
   public ngAfterViewInit(): void {
 
-    this.loadPaths().subscribe(res => {
+    this.loadOperations().subscribe(res => {
       this.initializeData(res);
     });
 
@@ -84,15 +84,13 @@ export class OperationsHistoryComponent implements OnInit {
     let sort$ = this.sort.sortChange.pipe(tap(() => this.paginator.pageIndex = 0));
 
     this.subscription.add(merge(filter$, sort$, this.paginator.page).pipe(
-      tap(() => this.loadPaths().subscribe(res => {
+      tap(() => this.loadOperations().subscribe(res => {
           
         this.initializeData(res);
       }))
     ).subscribe());
 
   }
-
-
 
   initializeData(historyResponse: HistoryResponse): void {
     this.operationTotal = historyResponse.operationCount;

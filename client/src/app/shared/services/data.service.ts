@@ -13,7 +13,7 @@ const REGISTER_URL = 'user';
 const ACCOUNT_URL = 'user/getAccountDetails/'
 const VERIFICATION_URL = 'user/verifyEmail';
 const TRANSACTION_URL = 'transaction';
-const OPERATIONS_HISTORY_URL = 'transaction';
+const OPERATIONS_HISTORY_URL = 'operationsHistory';
 
 @Injectable({
   providedIn: 'root',

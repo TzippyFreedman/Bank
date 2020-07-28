@@ -15,6 +15,9 @@ import { OperationsHistoryComponent } from './operations-history/operations-hist
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input'
+
 
 
 @NgModule({
@@ -35,7 +38,9 @@ import { MatTableModule } from '@angular/material/table';
     HttpClientModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatInputModule,
+    MatSortModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
