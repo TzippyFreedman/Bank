@@ -8,6 +8,7 @@ import { DataService } from '../shared/services/data.service';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { HistoryRequestParams } from './history-request-params.model';
 import { HistoryResponse } from './history-response.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-operations-history',
@@ -15,6 +16,7 @@ import { HistoryResponse } from './history-response.model';
   styleUrls: ['./operations-history.component.css']
 })
 export class OperationsHistoryComponent implements OnInit {
+
 
   public columnHeaders: string[] = [
     "transactionId",
@@ -41,7 +43,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,private authService: AuthService) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
@@ -53,10 +55,11 @@ export class OperationsHistoryComponent implements OnInit {
 
 
   public loadOperations(): Observable<HistoryResponse> {
-  debugger;
+    debugger;
     this.pathRequestParams = {
-      filter:  this.filter.toLocaleLowerCase(),
-      isFilterChanged: this.pathRequestParams.filter?.toLocaleLowerCase()== this.filter.toLocaleLowerCase()? false : true,
+      accountId: this.authService.getUserAccountId(),
+      filter: this.filter.toLocaleLowerCase(),
+      isFilterChanged: this.pathRequestParams.filter?.toLocaleLowerCase() == this.filter.toLocaleLowerCase() ? false : true,
       pageIndex: this.paginator.pageIndex,
       pageSize: this.paginator.pageSize,
       sortDirection: this.sort.direction,
@@ -85,7 +88,7 @@ export class OperationsHistoryComponent implements OnInit {
 
     this.subscription.add(merge(filter$, sort$, this.paginator.page).pipe(
       tap(() => this.loadOperations().subscribe(res => {
-          
+
         this.initializeData(res);
       }))
     ).subscribe());
@@ -94,14 +97,14 @@ export class OperationsHistoryComponent implements OnInit {
 
   initializeData(historyResponse: HistoryResponse): void {
     this.operationTotal = historyResponse.operationCount;
-    this.dataSource.data = historyResponse.operationList.length? historyResponse.operationList: this.noData;
+    this.dataSource.data = historyResponse.operationList.length ? historyResponse.operationList : this.noData;
   }
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   public retry(): void {
-     
+
     //this.loadPaths();
 
   }
