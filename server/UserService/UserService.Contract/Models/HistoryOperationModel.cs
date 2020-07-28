@@ -12,7 +12,7 @@ namespace UserService.Contract.Models
         public bool IsCredit { get; set; }
 
         public int TransactionAmount { get; set; }
-        public int Balance { get; set; }
+  
         public DateTime OperationTime { get; set; }
     }
 }
