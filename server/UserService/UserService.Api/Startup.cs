@@ -28,6 +28,8 @@ namespace UserService.Api
         {
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
             services.AddScoped(typeof(IUserService), typeof(Services.UserService));
+            services.AddScoped(typeof(IOperationsHistoryService), typeof(OperationsHistoryService));
+            services.AddScoped(typeof(IOperationsHistoryRepository), typeof(OperationsHistoryRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IVerifyEmail), typeof(VerifyEmail));
             services.AddScoped(typeof(IHashPassword), typeof(HashPassword));

@@ -25,13 +25,11 @@ namespace UserService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<PaginationResultDTO<HistoryOperationDTO>> Get()
+        public async Task<PaginationResultDTO> Get([FromQuery] PaginationParamsDTO paginationParamsDTO)
         {
-
-
-            PaginationResultModel<HistoryOperationModel> results=await _operationsHistoryService.Get();
-
-
+            PaginationParamsModel paginationParams = _mapper.Map<PaginationParamsModel>(paginationParamsDTO);
+            PaginationResultModel operationList = await _operationsHistoryService.GetByFilter(paginationParams);
+            return _mapper.Map<PaginationResultDTO>(operationList);
         }
     }
 }
