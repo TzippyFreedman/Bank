@@ -48,7 +48,7 @@ export class DataService {
     debugger;
     let params = new HttpParams();
     params = params.append('accountId', operationRequestParams.accountId.toString());
-    params = params.append('pageNumber', operationRequestParams.pageIndex.toString());
+    params = params.append('pageIndex', operationRequestParams.pageIndex.toString());
     params = params.append('pageSize', operationRequestParams.pageSize.toString());
     params = params.append('sortField', operationRequestParams.sortField.toString());
     params = params.append('searchString', operationRequestParams.filter.toString());
