@@ -91,16 +91,40 @@ namespace UserService.Data
                       .Property(operation => operation.Id)
                       .HasDefaultValueSql("NEWID()")
                       .ValueGeneratedOnAdd();
-            modelBuilder.Entity<HistoryOperation>()
-                        .HasIndex(operation => operation.AccountId)
-                        .IsUnique();
+            
+            
 
+            modelBuilder.Entity<FailedHistoryOperation>()
+                           .ToTable("FailedHistoryOperation");
+            modelBuilder.Entity<FailedHistoryOperation>()
+                       .Property(operation => operation.TransactionId)
+                       .IsRequired();
+            modelBuilder.Entity<FailedHistoryOperation>()
+                        .Property(operation => operation.AccountId)
+                        .IsRequired();
+            modelBuilder.Entity<FailedHistoryOperation>()
+                  .Property(operation => operation.TransactionAmount)
+                  .IsRequired();
+            modelBuilder.Entity<FailedHistoryOperation>()
+            .Property(operation => operation.IsCredit)
+            .IsRequired();
+            modelBuilder.Entity<FailedHistoryOperation>()
+                        .Property(operation => operation.OperationTime)
+                        .IsRequired();
+            modelBuilder.Entity<FailedHistoryOperation>()
+                     .Property(operation => operation.Id)
+                     .HasDefaultValueSql("NEWID()")
+                     .ValueGeneratedOnAdd();
+         
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<EmailVerification> EmailVerifications { get; set; }
         public DbSet<HistoryOperation> HistoryOperations { get; set; }
+
+        public DbSet<FailedHistoryOperation> FailedHistoryOperations { get; set; }
+
 
 
     }

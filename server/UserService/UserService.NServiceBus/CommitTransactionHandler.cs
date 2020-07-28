@@ -20,18 +20,34 @@ namespace UserService.NServiceBus
         {
             bool isTransactionSucceeded = true;
             string failureReason = null;
+            int destAccountBalance=0;
+            int srcAccountBalance=0;
             try
             {
-                await _userRepository.DrawAsync(message.SrcAccountId, message.Amount);
-                await _userRepository.DepositAsync(message.DestAccountId, message.Amount);
+               srcAccountBalance=  await _userRepository.DrawAsync(message.SrcAccountId, message.Amount);
+               destAccountBalance=  await _userRepository.DepositAsync(message.DestAccountId, message.Amount);
+              
             }
             catch (Exception ex) when (ex is DataNotFoundException || ex is InsufficientBalanceForTransactionException)
             {
                 isTransactionSucceeded = false;
                 failureReason = ex.Message;
+               
             }
             finally
             {
+                await context.SendLocal<IUpdateHistory>(command =>
+                {
+                    command.IsTransactionSucceeded = isTransactionSucceeded;
+                    command.TransactionId = message.TransactionId;
+                    command.TransactionAmount = message.Amount;
+                    command.SrcAccountId = message.SrcAccountId;
+                    command.DestAccountId = message.DestAccountId;
+                    command.SrcBalance = srcAccountBalance;
+                    command.DestBalance = srcAccountBalance;
+                    command.OperationTime = message.OperationTime;
+
+                });
                 await SendResponse(isTransactionSucceeded, failureReason, context);
             }
         }

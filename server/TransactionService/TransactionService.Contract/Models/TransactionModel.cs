@@ -9,6 +9,8 @@ namespace TransactionService.Contract.Models
         public TransactionStatus Status { get; set; }
         public Guid SrcAccountId { get; set; }
         public Guid DestAccountId { get; set; }
+        public DateTime Date { get; set; }
+
         public float Amount { get; set; }
         public string FailureReason { get; set; }
     }

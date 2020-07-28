@@ -14,8 +14,8 @@ namespace UserService.Contract
         Task AddUserAsync(UserModel userModel);
         Task AddVerificationAsync(EmailVerificationModel emailVerification);
         Task<EmailVerificationModel> GetVerificationAsync(string email);
-        Task DrawAsync(Guid srcAccount, int amount);
-        Task DepositAsync(Guid destAccount, int amount);
+        Task<int> DrawAsync(Guid srcAccount, int amount);
+        Task<int> DepositAsync(Guid destAccount, int amount);
         Task<bool> IsExistsAsync(Guid accountId);
         Task<bool> IsBalanceOkAsync(Guid accountId, int amount);
     }
