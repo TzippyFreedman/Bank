@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TransactionService.Contract;
 using TransactionService.Contract.Models;
 using TransactionService.Services.Interfaces;
@@ -18,6 +19,12 @@ namespace TransactionService.Services
         {
             TransactionModel newTransaction = await _transactionRepository.AddAsync(transaction);
             return newTransaction;
+        }
+
+        public async Task<TransactionModel> GetByIdAsync(Guid transactionId)
+        {
+            TransactionModel transaction = await _transactionRepository.GetByIdAsync(transactionId);
+            return transaction;
         }
     }
 }
