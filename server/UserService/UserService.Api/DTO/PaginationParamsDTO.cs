@@ -10,7 +10,7 @@ namespace UserService.Api.DTO
     public class PaginationParamsDTO
     {
         [Required]
-        public Guid AccountId { get; set; }
+        public Guid? AccountId { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }       
         public string SearchString { get; set; }
