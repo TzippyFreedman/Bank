@@ -14,6 +14,9 @@ namespace UserService.Api
 
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
 
+            CreateMap<PaginationParamsDTO, PaginationParamsModel>();
+            CreateMap<PaginationResultModel, PaginationResultDTO>();
+
         }
     }
 }

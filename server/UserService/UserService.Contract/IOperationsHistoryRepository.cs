@@ -9,5 +9,7 @@ namespace UserService.Contract
    public interface IOperationsHistoryRepository
     {
         Task Add(HistoryOperationModel operation);
+        Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams);
+
     }
 }

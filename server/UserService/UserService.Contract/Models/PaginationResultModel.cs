@@ -6,9 +6,9 @@ using UserService.Contract.Models;
 
 namespace UserService.Contract.Models
 {
-    public class PaginationResultModel<T>
+    public class PaginationResultModel
     {
-      public  List<HistoryOperationModel> operations {get; set;}
-        public int Total { get; set; }
+      public  List<HistoryOperationModel> OperationList {get; set;}
+      public int OperationsTotal { get; set; }
     }
 }

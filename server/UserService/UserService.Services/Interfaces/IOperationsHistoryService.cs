@@ -8,6 +8,7 @@ namespace UserService.Services.Interfaces
 {
     public interface IOperationsHistoryService
     {
-        Task<PaginationResultModel<HistoryOperationModel>> Get()
+        Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams);
+
     }
 }
