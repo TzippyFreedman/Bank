@@ -13,7 +13,7 @@
         </ng-container>
         <ng-container matColumnDef="operationTime">
             <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Operation Time</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row">{{row.operationTime | date:'shortDate'}} </mat-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.operationTime | date:'short'}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="transactionAmount">
             <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Amount</mat-header-cell>
@@ -23,9 +23,9 @@
             <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Balance After Operation</mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.balance}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="isDebit">
+        <ng-container matColumnDef="IsCredit">
             <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Direction</mat-header-cell>
-            <mat-cell class="dc-content" *matCellDef="let row">{{row.isDebit}} </mat-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.isCredit}} </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnHeaders;" (click)="selectRow(mytemplate, row)"> </mat-row>

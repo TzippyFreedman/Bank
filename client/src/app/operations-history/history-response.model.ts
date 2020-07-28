@@ -1,5 +1,5 @@
 import { HistoryOperation } from './history-operation.model';
-export interface HistoryResponse{
+export interface HistoryResponse {
     operationsList: HistoryOperation[];
     operationsTotal: number;
     filter: string;

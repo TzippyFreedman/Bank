@@ -39,7 +39,6 @@ export class DataService {
   }
 
   public transfer = (transfer: Transfer) => {
-    debugger;
     return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSACTION_URL, environment.transferServiceBaseURL), transfer)
       .pipe(catchError(this.requestHandlerService.handleError));
   }
@@ -51,12 +50,12 @@ export class DataService {
   }
 
   public getOperationsHistory = (operationRequestParams: HistoryRequestParams) => {
-    debugger;
     let params = new HttpParams();
     params = params.append('accountId', operationRequestParams.accountId.toString());
     params = params.append('pageIndex', operationRequestParams.pageIndex.toString());
     params = params.append('pageSize', operationRequestParams.pageSize.toString());
     params = params.append('sortField', operationRequestParams.sortField.toString());
+    params = params.append('sortDirection', operationRequestParams.sortDirection.toString());
     params = params.append('searchString', operationRequestParams.filter.toString());
     params = params.append('isFilterChanged', operationRequestParams.isFilterChanged.toString());
     return this.http.get<HistoryResponse>(this.requestHandlerService.createCompleteRoute(OPERATIONS_HISTORY_URL, environment.userServiceBaseURL) , { params: params })
