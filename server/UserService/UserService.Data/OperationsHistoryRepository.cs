@@ -34,6 +34,7 @@ namespace UserService.Data
         public async Task AddFailedOperation(FailedHistoryOperationModel operationModel)
         {
 
+            
             FailedHistoryOperation operation = _mapper.Map<FailedHistoryOperation>(operationModel);
             await _userDbContext.FailedHistoryOperations.AddAsync(operation);
 
@@ -71,7 +72,7 @@ namespace UserService.Data
                 .Skip((paginationParams.PageIndex) * paginationParams.PageSize).Take(paginationParams.PageSize)
                 .ToListAsync();
 
-            response.OperationList = _mapper.Map<List<HistoryOperationModel>>(operationList);
+            response.OperationsList = _mapper.Map<List<HistoryOperationModel>>(operationList);
             return response;
         }
     }

@@ -6,10 +6,13 @@ namespace UserService.Contract.Models
 {
     public enum SortField
     {
-        Location,
-        City,
-        StartDate,
-        EndDate,
+       
+        OperationTime,
+        TransactionAmount,
+        Balance,
+        IsDebit,
+        TransactionId
+     
     }
     public enum SortDirection
     {

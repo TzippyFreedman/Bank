@@ -9,7 +9,7 @@ namespace UserService.Api.DTO
     {
         public Guid TransactionId { get; set; }
         public DateTime OperationTime { get; set; }
-        public float Amount { get; set; }
+        public float TransactionAmount { get; set; }
         public float Balance { get; set; }
         public bool IsDebit { get; set; }
         public Guid AccountId { get; set; }
