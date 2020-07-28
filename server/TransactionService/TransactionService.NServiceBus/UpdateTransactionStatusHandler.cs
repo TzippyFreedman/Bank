@@ -16,8 +16,7 @@ namespace TransactionService.NServiceBus
         }
         public async Task Handle(IUpdateTransactionStatus message, IMessageHandlerContext context)
         {
-            await _transactionHandlerRepository.UpdateTransactionStatusAsync(message.TransactionId, message.IsTransactionSucceeded, message.FailureReason);
-                
+            await _transactionHandlerRepository.UpdateTransactionStatusAsync(message.TransactionId, message.IsTransactionSucceeded, message.FailureReason);               
         }
     }
 }
