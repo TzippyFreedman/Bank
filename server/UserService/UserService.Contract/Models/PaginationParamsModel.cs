@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UserService.Contract.Models
 {
     public enum SortField
     {
-       
         OperationTime,
         TransactionAmount,
         Balance,
         IsDebit,
         TransactionId
-     
     }
     public enum SortDirection
     {
