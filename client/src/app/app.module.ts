@@ -19,6 +19,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input'
 
 
+import {  MatDialogModule } from "@angular/material/dialog";
+import {DataSource} from '@angular/cdk/table';
+import { CdkTableModule } from '@angular/cdk/table';
+
+
 
 @NgModule({
   declarations: [
@@ -41,6 +46,7 @@ import { MatInputModule } from '@angular/material/input'
     MatTableModule,
     MatInputModule,
     MatSortModule,
+    MatDialogModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
