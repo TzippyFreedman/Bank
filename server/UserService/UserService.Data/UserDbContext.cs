@@ -50,6 +50,7 @@ namespace UserService.Data
             modelBuilder.Entity<Account>()
                         .Property(account => account.Balance)
                         .HasDefaultValue(100000);
+
             modelBuilder.Entity<EmailVerification>()
                         .ToTable("EmailVerification");
             modelBuilder.Entity<EmailVerification>()
@@ -65,11 +66,41 @@ namespace UserService.Data
                           .Property(verification => verification.ExpirationTime)
                           .HasDefaultValueSql("dateadd(minute,5,getdate())")
                           .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<HistoryOperation>()
+                .ToTable("HistoryOperation");
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.TransactionId)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.AccountId)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.Balance)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.TransactionAmount)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.IsCredit)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                        .Property(operation => operation.OperationTime)
+                        .IsRequired();
+            modelBuilder.Entity<HistoryOperation>()
+                      .Property(operation => operation.Id)
+                      .HasDefaultValueSql("NEWID()")
+                      .ValueGeneratedOnAdd();
+            modelBuilder.Entity<HistoryOperation>()
+                        .HasIndex(operation => operation.AccountId)
+                        .IsUnique();
+
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<EmailVerification> EmailVerifications { get; set; }
+        public DbSet<HistoryOperation> HistoryOperations { get; set; }
 
 
     }

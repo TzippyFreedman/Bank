@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 
-namespace UserService.Contract.Models
+namespace UserService.Data.Entities
 {
-   public class HistoryOperationModel
+    public class HistoryOperation
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
@@ -13,5 +14,6 @@ namespace UserService.Contract.Models
         public int TransactionAmount { get; set; }
         public int Balance { get; set; }
         public DateTime OperationTime { get; set; }
+
     }
 }

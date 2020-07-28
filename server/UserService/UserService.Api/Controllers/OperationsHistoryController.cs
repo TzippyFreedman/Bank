@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
+using UserService.Contract.Models;
 using UserService.Services;
 using UserService.Services.Interfaces;
 
@@ -24,11 +25,11 @@ namespace UserService.Api.Controllers
         }
 
         [HttpGet]
-        public Task<PaginationResult<HistoryOperationDTO>> Get()
+        public async Task<PaginationResultDTO<HistoryOperationDTO>> Get()
         {
 
 
-            PaginationResult<HistoryOperationDTO> result= _operationsHistoryService.Get();
+            PaginationResultModel<HistoryOperationModel> results=await _operationsHistoryService.Get();
 
 
         }

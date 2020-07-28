@@ -9,7 +9,7 @@ namespace UserService.Services
 {
     public class OperationsHistoryService : IOperationsHistoryService
     {
-        public Task<PaginationResultModel<HistoryOperationModel>> Get()
+        public async Task<PaginationResultModel<HistoryOperationModel>> Get()
         {
             throw new NotImplementedException();
         }
