@@ -1,5 +1,5 @@
 export class HistoryRequestParams{
-
+    accountId: string;
     pageIndex: number;
     pageSize: number;
     filter: string;
