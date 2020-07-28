@@ -24,14 +24,14 @@ namespace UserService.Api.Controllers
             _operationsHistoryService = operationsHistoryService;
         }
 
-        [HttpGet]
-        public async Task<PaginationResultDTO<HistoryOperationDTO>> Get()
-        {
+        //[HttpGet]
+        //public async Task<PaginationResultDTO<HistoryOperationDTO>> Get()
+        //{
 
 
-            PaginationResultModel<HistoryOperationModel> results=await _operationsHistoryService.Get();
+        //    PaginationResultModel<HistoryOperationModel> results=await _operationsHistoryService.Get();
+        //    return results;
 
-
-        }
+        //}
     }
 }

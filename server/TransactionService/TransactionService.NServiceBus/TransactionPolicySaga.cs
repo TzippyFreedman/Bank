@@ -16,6 +16,7 @@ namespace TransactionService.NServiceBus
             await context.Send<ICommitTransaction>(msg =>
              {
                  msg.TransactionId = message.TransactionId;
+                 msg.OperationTime = message.OperationTime;
                  msg.SrcAccountId = message.SrcAccountId;
                  msg.DestAccountId = message.DestAccountId;
                  msg.Amount = message.Amount;

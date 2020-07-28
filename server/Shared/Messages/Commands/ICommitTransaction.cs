@@ -8,5 +8,7 @@ namespace Messages.Commands
         Guid SrcAccountId { get; set; }
         Guid DestAccountId { get; set; }
         int Amount { get; set; }
+        DateTime OperationTime { get; set; }
+
     }
 }

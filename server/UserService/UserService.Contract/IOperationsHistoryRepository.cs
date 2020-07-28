@@ -8,6 +8,8 @@ namespace UserService.Contract
 {
    public interface IOperationsHistoryRepository
     {
-        Task Add(HistoryOperationModel operation);
+        Task AddFailedOperation(FailedHistoryOperationModel operation);
+        Task AddSuccessedOperation(HistoryOperationModel operation);
+
     }
 }

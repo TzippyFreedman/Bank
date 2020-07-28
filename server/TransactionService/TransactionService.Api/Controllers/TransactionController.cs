@@ -37,8 +37,9 @@ namespace TransactionService.Api.Controllers
             {
                 message.TransactionId = newTransactionModel.Id;
                 message.Amount = amountToTransactionInCents;
-                message.SrcAccountId = transaction.SrcAccountId;
-                message.DestAccountId = transaction.DestAccountId;
+                message.SrcAccountId = newTransactionModel.SrcAccountId;
+                message.DestAccountId = newTransactionModel.DestAccountId;
+                message.OperationTime = newTransactionModel.Date;
             });
             return Ok();
         }

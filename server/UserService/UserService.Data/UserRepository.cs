@@ -127,7 +127,7 @@ namespace UserService.Data
             return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
         }
 
-        public async Task DrawAsync(Guid accountId, int amount)
+        public async Task<int> DrawAsync(Guid accountId, int amount)
         {
             Account userAccount = await _userDbContext.Accounts
                 .Where(u => u.Id == accountId)
@@ -141,9 +141,11 @@ namespace UserService.Data
                 throw new InsufficientBalanceForTransactionException(accountId, amount);
             }
             userAccount.Balance -= amount;
+            return userAccount.Balance;
+
         }
 
-        public async Task DepositAsync(Guid accountId, int amount)
+        public async Task<int> DepositAsync(Guid accountId, int amount)
         {
             Account userAccount = await _userDbContext.Accounts
                 .Where(u => u.Id == accountId)
@@ -153,6 +155,7 @@ namespace UserService.Data
                 throw new AccountNotFoundException(accountId);
             }
             userAccount.Balance += amount;
+            return userAccount.Balance;
         }
 
     }
