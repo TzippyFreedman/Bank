@@ -8,5 +8,6 @@ namespace TransactionService.Contract
     {
         Task<TransactionModel> AddAsync(TransactionModel newTransaction);
         Task UpdateTransactionStatusAsync(Guid transactionId, bool isTransactionSuccess, string failureReason);
+        Task<TransactionModel> GetByIdAsync(Guid transactionId);
     }
 }
