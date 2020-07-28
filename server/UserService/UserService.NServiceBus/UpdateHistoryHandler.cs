@@ -19,8 +19,8 @@ namespace UserService.NServiceBus
         }
         public async Task Handle(IUpdateHistory message, IMessageHandlerContext context)
         {
-            bool IsTransactionSucceeded = message.IsTransactionSucceeded;
-            if (IsTransactionSucceeded==true)
+            bool isTransactionSucceeded = message.IsTransactionSucceeded;
+            if (isTransactionSucceeded==true)
             {
             HistoryOperationModel historyOperationModel = new HistoryOperationModel();
             historyOperationModel.TransactionId = message.TransactionId;
