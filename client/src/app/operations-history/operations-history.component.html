@@ -1,0 +1,34 @@
+<p>operations-history works!</p>
+<mat-form-field>
+    <input matInput class="dc-search" placeholder="Search" (keyup)="filterSubject.next($event.target.value)">
+</mat-form-field>
+
+<div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort matSortDisableClear="true" [matSortActive]="defaultSort.active"
+        [matSortDirection]="defaultSort.direction">
+
+        <ng-container matColumnDef="city">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.city}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="startDate">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.startDate | date:'shortDate'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="endDate">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row"> {{ row.endDate | date:'shortDate' }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="location">
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+            <mat-cell class="dc-content" *matCellDef="let row">{{row.location}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnHeaders;"> </mat-row>
+
+    </mat-table>
+
+    <mat-paginator [length]="operationTotal" [pageSize]="9" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
+
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using UserService.Contract.Models;
 
 namespace UserService.Api.DTO
 {
@@ -15,6 +16,9 @@ namespace UserService.Api.DTO
         public string SearchString { get; set; }
         [Required]
         public bool IsFilterChanged { get; set; }
+        public SortField SortField { get; set; }
+        public SortDirection SortDirection { get; set; }
+
 
     }
 }
