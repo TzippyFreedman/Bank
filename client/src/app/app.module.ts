@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { OperationsHistoryComponent } from './operations-history/operations-history.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TransferComponent } from './transfer/transfer.component';
     RegisterComponent,
     UserAccountComponent,
     HeaderComponent,
-    TransferComponent
+    TransferComponent,
+    OperationsHistoryComponent
   ],
   imports: [
     BrowserModule,
