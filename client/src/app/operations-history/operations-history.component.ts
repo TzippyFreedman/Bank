@@ -11,6 +11,7 @@ import { HistoryResponse } from './history-response.model';
 import { AuthService } from '../auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Transfer } from '../transfer/transfer.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-operations-history',
@@ -29,7 +30,7 @@ export class OperationsHistoryComponent implements OnInit {
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
-  public currentRowTransfer: Transfer;
+  public currentRowTransfer:Transfer;
   public noData: HistoryOperation[] = [<HistoryOperation>{}];
   public loading: boolean;
   public error$: Observable<boolean>;
@@ -45,7 +46,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private dataService: DataService, private authService: AuthService, public dialog: MatDialog) {
+  constructor(private dataService: DataService,private authService: AuthService, public dialog: MatDialog,private router: Router) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
@@ -85,9 +86,7 @@ export class OperationsHistoryComponent implements OnInit {
       })
     );
 
-    let sort$ = this.sort.sortChange
-      .pipe(tap(() =>
-        this.paginator.pageIndex = 0));
+    let sort$ = this.sort.sortChange.pipe(tap(() => this.paginator.pageIndex = 0));
 
     this.subscription.add(merge(filter$, sort$, this.paginator.page).pipe(
       tap(() => this.loadOperations().subscribe(res => {
@@ -113,17 +112,23 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
   selectRow(templateRef, row) {
-    this.dataService.getTransfer(row['transactionId'])
-      .subscribe(transfer => {
-        this.currentRowTransfer = transfer;
-      },
-        error => {
-          alert(error);
-        });
-    const dialogRef = this.dialog.open(templateRef, {
-      height: '200px',
-      width: '250px'
-    });
 
-  }
+    this.router.navigate(['transfer-details', row['transactionId']]);
+
+
+//     this.dataService.getTransfer(row['transactionId'])
+//     .subscribe(transfer=>{         
+
+//          this.currentRowTransfer=transfer;
+//          const dialogRef = this.dialog.open(templateRef,{
+//           height: '200px',
+//           width: '250px'
+//               });
+     
+//     },
+//     error=>{
+// alert(error);
+//     });
+ 
+}
 }

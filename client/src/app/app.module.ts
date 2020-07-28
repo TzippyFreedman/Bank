@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input'
 import {  MatDialogModule } from "@angular/material/dialog";
 import {DataSource} from '@angular/cdk/table';
 import { CdkTableModule } from '@angular/cdk/table';
+import { TransferDetailsComponent } from './transfer-details/transfer-details.component';
 
 
 
@@ -33,7 +34,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     UserAccountComponent,
     HeaderComponent,
     TransferComponent,
-    OperationsHistoryComponent
+    OperationsHistoryComponent,
+    TransferDetailsComponent
   ],
   imports: [
     BrowserModule,
