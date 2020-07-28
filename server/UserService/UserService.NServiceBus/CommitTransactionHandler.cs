@@ -22,17 +22,16 @@ namespace UserService.NServiceBus
             string failureReason = null;
             int destAccountBalance=0;
             int srcAccountBalance=0;
+
             try
             {
                srcAccountBalance=  await _userRepository.DrawAsync(message.SrcAccountId, message.Amount);
-               destAccountBalance=  await _userRepository.DepositAsync(message.DestAccountId, message.Amount);
-              
+               destAccountBalance=  await _userRepository.DepositAsync(message.DestAccountId, message.Amount);          
             }
             catch (Exception ex) when (ex is DataNotFoundException || ex is InsufficientBalanceForTransactionException)
             {
                 isTransactionSucceeded = false;
-                failureReason = ex.Message;
-               
+                failureReason = ex.Message;              
             }
             finally
             {
