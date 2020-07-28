@@ -43,7 +43,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private dataService: DataService, private authService: AuthService) {
+  constructor(private dataService: DataService,private authService: AuthService) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
@@ -96,7 +96,7 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
   initializeData(historyResponse: HistoryResponse): void {
-    this.operationTotal = historyResponse.OperationsTotal;
+    this.operationTotal = historyResponse.operationsTotal;
     this.dataSource.data = historyResponse.operationsList.length ? historyResponse.operationsList : this.noData;
   }
   public ngOnDestroy(): void {
