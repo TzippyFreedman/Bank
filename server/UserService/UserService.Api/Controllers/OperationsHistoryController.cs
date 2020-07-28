@@ -24,14 +24,12 @@ namespace UserService.Api.Controllers
             _operationsHistoryService = operationsHistoryService;
         }
 
-        //[HttpGet]
-        //public async Task<PaginationResultDTO<HistoryOperationDTO>> Get()
-        //{
-
-
-        //    PaginationResultModel<HistoryOperationModel> results=await _operationsHistoryService.Get();
-        //    return results;
-
-        //}
+        [HttpGet]
+        public async Task<PaginationResultDTO> Get([FromQuery] PaginationParamsDTO paginationParamsDTO)
+        {
+            PaginationParamsModel paginationParams = _mapper.Map<PaginationParamsModel>(paginationParamsDTO);
+            PaginationResultModel operationList = await _operationsHistoryService.GetByFilter(paginationParams);
+            return _mapper.Map<PaginationResultDTO>(operationList);
+        }
     }
 }
