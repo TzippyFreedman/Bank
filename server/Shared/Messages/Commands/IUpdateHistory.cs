@@ -11,6 +11,8 @@ namespace Messages.Commands
         public int SrcBalance { get; set; }
         public int DestBalance { get; set; }
         public DateTime OperationTime { get; set; }
+        public bool IsTransactionSucceeded { get; set; }
+
 
     }
 }

@@ -20,13 +20,24 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task Add(HistoryOperationModel operationModel)
+        public async Task AddSuccessedOperation(HistoryOperationModel operationModel)
         {
+
+
             HistoryOperation operation = _mapper.Map<HistoryOperation>(operationModel);
             await _userDbContext.HistoryOperations.AddAsync(operation);
 
         }
-        public async Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams)
+
+        public async Task AddFailedOperation(FailedHistoryOperationModel operationModel)
+        {
+
+            FailedHistoryOperation operation = _mapper.Map<FailedHistoryOperation>(operationModel);
+            await _userDbContext.FailedHistoryOperations.AddAsync(operation);
+
+        }
+    
+    public async Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams)
         {
             PaginationResultModel response = new PaginationResultModel();
 
