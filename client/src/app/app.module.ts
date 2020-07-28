@@ -11,6 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { OperationsHistoryComponent } from './operations-history/operations-history.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -19,14 +24,18 @@ import { TransferComponent } from './transfer/transfer.component';
     RegisterComponent,
     UserAccountComponent,
     HeaderComponent,
-    TransferComponent
+    TransferComponent,
+    OperationsHistoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

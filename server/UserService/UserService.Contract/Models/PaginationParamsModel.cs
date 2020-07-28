@@ -4,6 +4,18 @@ using System.Text;
 
 namespace UserService.Contract.Models
 {
+    public enum SortField
+    {
+        Location,
+        City,
+        StartDate,
+        EndDate,
+    }
+    public enum SortDirection
+    {
+        Asc,
+        Desc
+    }
     public class PaginationParamsModel
     {
         private const int maxPageSize = 50;
@@ -25,6 +37,8 @@ namespace UserService.Contract.Models
         }
         public string SearchString { get; set; }
         public bool IsFilterChanged { get; set; }
+        public SortField SortField { get; set; }
+        public SortDirection SortDirection { get; set; }
 
     }
 }
