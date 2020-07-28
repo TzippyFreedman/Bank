@@ -46,7 +46,7 @@ namespace UserService.Data
 
             string searchString = paginationParams.SearchString;
 
-            IQueryable<HistoryOperation> operations = _userDbContext.HistoryOperations;
+            IQueryable<HistoryOperation> operations = _userDbContext.HistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId); ;
 
             if (!string.IsNullOrEmpty(searchString))
             {

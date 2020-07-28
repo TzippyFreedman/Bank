@@ -9,13 +9,11 @@ namespace UserService.Api
         public ApiMappingProfile()
         {
             CreateMap<RegisterDTO, UserModel>();
-
             CreateMap<UserModel, AccountDTO>();
-
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
             CreateMap<HistoryOperationModel, HistoryOperationDTO>()
-                                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance  / 100))
-                                .ForMember(dest => dest.TransactionAmount, opt => opt.MapFrom(m => m.TransactionAmount / 100));
+                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance  / 100))
+                .ForMember(dest => dest.TransactionAmount, opt => opt.MapFrom(m => m.TransactionAmount / 100));
             CreateMap<PaginationParamsDTO, PaginationParamsModel>();
             CreateMap<PaginationResultModel, PaginationResultDTO>();
 
