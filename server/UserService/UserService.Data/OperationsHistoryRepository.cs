@@ -72,7 +72,7 @@ namespace UserService.Data
                 .Skip((paginationParams.PageIndex) * paginationParams.PageSize).Take(paginationParams.PageSize)
                 .ToListAsync();
 
-            response.OperationList = _mapper.Map<List<HistoryOperationModel>>(operationList);
+            response.OperationsList = _mapper.Map<List<HistoryOperationModel>>(operationList);
             return response;
         }
     }

@@ -29,7 +29,8 @@ namespace UserService.Api.Controllers
         {
             PaginationParamsModel paginationParams = _mapper.Map<PaginationParamsModel>(paginationParamsDTO);
             PaginationResultModel operationList = await _operationsHistoryService.GetByFilter(paginationParams);
-            return _mapper.Map<PaginationResultDTO>(operationList);
+            PaginationResultDTO paginationResultDTO= _mapper.Map<PaginationResultDTO>(operationList);
+            return paginationResultDTO;
         }
     }
 }

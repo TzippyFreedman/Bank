@@ -23,9 +23,9 @@ namespace UserService.NServiceBus
             if (IsTransactionSucceeded==true)
             {
             HistoryOperationModel historyOperationModel = new HistoryOperationModel();
-                historyOperationModel.TransactionId = message.TransactionId;
-                historyOperationModel.TransactionAmount = message.TransactionAmount;
-                historyOperationModel.OperationTime = message.OperationTime;
+            historyOperationModel.TransactionId = message.TransactionId;
+            historyOperationModel.TransactionAmount = message.TransactionAmount;
+            historyOperationModel.OperationTime = message.OperationTime;
             historyOperationModel.AccountId = message.SrcAccountId;
             historyOperationModel.Balance = message.SrcBalance;
             historyOperationModel.IsCredit = false;
