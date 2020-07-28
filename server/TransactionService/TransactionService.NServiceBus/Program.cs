@@ -38,7 +38,9 @@ namespace TransactionService.NServiceBus
 
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddScoped(typeof(ITransactionRepository), typeof(TransactionRepository));
-            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            //containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            containerSettings.ServiceCollection.AddAutoMapper(typeof(DataMappingProfile));
+
             using (var transactionDataContext = new TransactionDbContext(new DbContextOptionsBuilder<TransactionDbContext>()
                 .UseSqlServer(new SqlConnection(transactionConnection))
                 .Options))

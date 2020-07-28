@@ -32,6 +32,7 @@ namespace UserService.Data
         public async Task AddFailedOperation(FailedHistoryOperationModel operationModel)
         {
 
+            
             FailedHistoryOperation operation = _mapper.Map<FailedHistoryOperation>(operationModel);
             await _userDbContext.FailedHistoryOperations.AddAsync(operation);
 

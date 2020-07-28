@@ -44,7 +44,7 @@ namespace UserService.NServiceBus
                     command.SrcAccountId = message.SrcAccountId;
                     command.DestAccountId = message.DestAccountId;
                     command.SrcBalance = srcAccountBalance;
-                    command.DestBalance = srcAccountBalance;
+                    command.DestBalance = destAccountBalance;
                     command.OperationTime = message.OperationTime;
 
                 });
