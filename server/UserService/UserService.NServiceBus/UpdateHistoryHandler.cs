@@ -1,6 +1,6 @@
 ﻿using Messages.Commands;
 using NServiceBus;
-using System.Reflection.Metadata.Ecma335;
+using System;
 using System.Threading.Tasks;
 using UserService.Contract;
 using UserService.Contract.Models;
@@ -15,63 +15,42 @@ namespace UserService.NServiceBus
         {
             _operationsHistoryRepository = operationsHistoryRepository;
         }
+
         public async Task Handle(IUpdateHistory message, IMessageHandlerContext context)
         {
             bool isTransactionSucceeded = message.IsTransactionSucceeded;
-            if (isTransactionSucceeded == true)
+
+            await AddHistoryOperation(isTransactionSucceeded, message.SrcBalance, message.SrcAccountId, false, message);
+            await AddHistoryOperation(isTransactionSucceeded, message.DestBalance, message.DestAccountId, true, message);
+        }
+
+        private async Task AddHistoryOperation(bool isTransactionSucceeded, int balance, Guid accountId, bool isCredit, IUpdateHistory message)
+        {
+            HistoryOperationModel historyOperation;
+            if (isTransactionSucceeded)
             {
-                HistoryOperationModel historyOperationModel = new HistoryOperationModel();
-                historyOperationModel.Balance = message.SrcBalance;
+                historyOperation = new SucceededHistoryOperationModel();
+                ((SucceededHistoryOperationModel)historyOperation).Balance = balance;
             }
             else
             {
-                FailedHistoryOperationModel historyOperationModel = new FailedHistoryOperationModel();
-                SetHistoryOperation(historyOperationModel)
+                historyOperation = new FailedHistoryOperationModel();
             }
-            /*
-                            historyOperationModel.TransactionId = message.TransactionId;
-                            historyOperationModel.TransactionAmount = message.TransactionAmount;
-                            historyOperationModel.OperationTime = message.OperationTime;
-                            historyOperationModel.AccountId = message.SrcAccountId;
-                            historyOperationModel.Balance = message.SrcBalance;
-                            historyOperationModel.IsCredit = false;
 
-                            await _operationsHistoryRepository.AddSuccessedOperation(historyOperationModel);
-
-                            historyOperationModel.AccountId = message.DestAccountId;
-                            historyOperationModel.Balance = message.DestBalance;
-                            historyOperationModel.IsCredit = true;
-
-                            await _operationsHistoryRepository.AddSuccessedOperation(historyOperationModel);
-                        }
-                        else
-                        {
-
-                            FailedHistoryOperationModel historyOperationModel = new FailedHistoryOperationModel();
-
-                            historyOperationModel.TransactionId = message.TransactionId;
-                            historyOperationModel.TransactionAmount = message.TransactionAmount;
-                            historyOperationModel.OperationTime = message.OperationTime;
-                            historyOperationModel.AccountId = message.SrcAccountId;
-                            historyOperationModel.IsCredit = false;
-
-                            await _operationsHistoryRepository.AddFailedOperation(historyOperationModel);
-
-                            historyOperationModel.AccountId = message.DestAccountId;
-                            historyOperationModel.IsCredit = true;
-
-                            await _operationsHistoryRepository.AddFailedOperation(historyOperationModel);
-
-                        }*/
-
-        }
-
-        private void SetHistoryOperation(HistoryOperationModel historyOperation, bool isSuccess, IUpdateHistory message)
-        {
+            historyOperation.AccountId = accountId;
             historyOperation.TransactionId = message.TransactionId;
             historyOperation.TransactionAmount = message.TransactionAmount;
             historyOperation.OperationTime = message.OperationTime;
+            historyOperation.IsCredit = isCredit;
 
+            if (historyOperation is SucceededHistoryOperationModel)
+            {
+                await _operationsHistoryRepository.AddSuccessedOperation((historyOperation as SucceededHistoryOperationModel));
+            }
+            else
+            {
+                await _operationsHistoryRepository.AddFailedOperation((historyOperation as FailedHistoryOperationModel));
+            }
         }
     }
 }

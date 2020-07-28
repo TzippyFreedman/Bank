@@ -30,7 +30,7 @@ export class OperationsHistoryComponent implements OnInit {
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
-  public currentRowTransfer:Transfer;
+  public currentRowTransfer: Transfer;
   public noData: HistoryOperation[] = [<HistoryOperation>{}];
   public loading: boolean;
   public error$: Observable<boolean>;
@@ -46,7 +46,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private dataService: DataService,private authService: AuthService, public dialog: MatDialog,private router: Router) {
+  constructor(private dataService: DataService, private authService: AuthService, public dialog: MatDialog, private router: Router) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
@@ -86,14 +86,16 @@ export class OperationsHistoryComponent implements OnInit {
       })
     );
 
-    let sort$ = this.sort.sortChange.pipe(tap(() => this.paginator.pageIndex = 0));
+    let sort$ = this.sort.sortChange.pipe(
+      tap(() => this.paginator.pageIndex = 0));
 
-    this.subscription.add(merge(filter$, sort$, this.paginator.page).pipe(
-      tap(() => this.loadOperations().subscribe(res => {
+    this.subscription.add(merge(filter$, sort$, this.paginator.page)
+      .pipe(
+        tap(() => this.loadOperations().subscribe(res => {
 
-        this.initializeData(res);
-      }))
-    ).subscribe());
+          this.initializeData(res);
+        }))
+      ).subscribe());
 
   }
 
@@ -116,19 +118,19 @@ export class OperationsHistoryComponent implements OnInit {
     this.router.navigate(['transfer-details', row['transactionId']]);
 
 
-//     this.dataService.getTransfer(row['transactionId'])
-//     .subscribe(transfer=>{         
+    //     this.dataService.getTransfer(row['transactionId'])
+    //     .subscribe(transfer=>{         
 
-//          this.currentRowTransfer=transfer;
-//          const dialogRef = this.dialog.open(templateRef,{
-//           height: '200px',
-//           width: '250px'
-//               });
-     
-//     },
-//     error=>{
-// alert(error);
-//     });
- 
-}
+    //          this.currentRowTransfer=transfer;
+    //          const dialogRef = this.dialog.open(templateRef,{
+    //           height: '200px',
+    //           width: '250px'
+    //               });
+
+    //     },
+    //     error=>{
+    // alert(error);
+    //     });
+
+  }
 }

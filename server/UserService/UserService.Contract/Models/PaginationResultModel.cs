@@ -8,7 +8,7 @@ namespace UserService.Contract.Models
 {
     public class PaginationResultModel
     {
-      public  List<HistoryOperationModel> OperationsList {get; set;}
+      public  List<SucceededHistoryOperationModel> OperationsList {get; set;}
       public int OperationsTotal { get; set; }
     }
 }

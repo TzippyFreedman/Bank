@@ -31,7 +31,6 @@
         <mat-row *matRowDef="let row; columns: columnHeaders;" (click)="selectRow(mytemplate, row)"> </mat-row>
 
     </mat-table>
-
     <mat-paginator [length]="operationTotal" [pageSize]="2" [pageSizeOptions]="[1, 5, 10]"></mat-paginator>
 
 </div>
