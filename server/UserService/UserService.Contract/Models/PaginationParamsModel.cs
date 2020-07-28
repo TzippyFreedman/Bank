@@ -7,7 +7,7 @@ namespace UserService.Contract.Models
         OperationTime,
         TransactionAmount,
         Balance,
-        IsDebit,
+        IsCredit,
         TransactionId
     }
     public enum SortDirection

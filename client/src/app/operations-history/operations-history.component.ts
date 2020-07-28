@@ -22,7 +22,7 @@ export class OperationsHistoryComponent implements OnInit {
     "transactionId",
     "operationTime",
     "balance",
-    "isDebit",
+    "IsCredit",
     "transactionAmount"
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
@@ -55,7 +55,6 @@ export class OperationsHistoryComponent implements OnInit {
 
 
   public loadOperations(): Observable<HistoryResponse> {
-    debugger;
     this.pathRequestParams = {
       accountId: this.authService.getUserAccountId(),
       filter: this.filter.toLocaleLowerCase(),
