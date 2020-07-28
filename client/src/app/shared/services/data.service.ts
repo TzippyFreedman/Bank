@@ -43,6 +43,12 @@ export class DataService {
       .pipe(catchError(this.requestHandlerService.handleError));
   }
 
+  public getTransfer = (transferId: string) => {
+    debugger;
+    return this.http.get<Transfer>(this.requestHandlerService.createCompleteRoute(`${TRANSACTION_URL}/${transferId}`, environment.transferServiceBaseURL))
+      .pipe(catchError(this.requestHandlerService.handleError));
+  }
+
   public getOperationsHistory = (operationRequestParams: HistoryRequestParams) => {
     let params = new HttpParams();
     params = params.append('accountId', operationRequestParams.accountId.toString());

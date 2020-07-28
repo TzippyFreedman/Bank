@@ -9,6 +9,8 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { HistoryRequestParams } from './history-request-params.model';
 import { HistoryResponse } from './history-response.model';
 import { AuthService } from '../auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Transfer } from '../transfer/transfer.model';
 
 @Component({
   selector: 'app-operations-history',
@@ -27,11 +29,11 @@ export class OperationsHistoryComponent implements OnInit {
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
+  public currentRowTransfer:Transfer;
   public noData: HistoryOperation[] = [<HistoryOperation>{}];
   public loading: boolean;
   public error$: Observable<boolean>;
   public filterSubject = new Subject<string>();
-
   private filter: string = "";
   //dont forget to unsubscribe!!
   private subscription: Subscription = new Subscription();
@@ -43,7 +45,7 @@ export class OperationsHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
-  constructor(private dataService: DataService,private authService: AuthService) {
+  constructor(private dataService: DataService,private authService: AuthService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
@@ -107,5 +109,19 @@ export class OperationsHistoryComponent implements OnInit {
     //this.loadPaths();
 
   }
-}
 
+  selectRow(templateRef, row) {
+    this.dataService.getTransfer(row['transactionId'])
+    .subscribe(transfer=>{
+         this.currentRowTransfer=transfer;
+    },
+    error=>{
+alert(error);
+    });
+    const dialogRef = this.dialog.open(templateRef,{
+      height: '200px',
+      width: '250px'
+          });
+ 
+}
+}
