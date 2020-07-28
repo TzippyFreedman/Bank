@@ -44,5 +44,14 @@ namespace TransactionService.Api.Controllers
             });
             return Ok();
         }
+
+        [HttpGet]
+        [Route("{transactionId}")]
+        public async Task<ActionResult<TransactionDTO>> GetAsync(Guid transactionId)
+        {
+            TransactionModel transactionModel = await _transactionService.GetByIdAsync(transactionId);
+            TransactionDTO transaction = _mapper.Map<TransactionDTO>(transactionModel);
+            return transaction;
+        }
     }
 }

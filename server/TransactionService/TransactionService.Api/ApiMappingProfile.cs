@@ -9,7 +9,8 @@ namespace TransactionService.Api
         public ApiMappingProfile()
         {
             CreateMap<TransactionDTO, TransactionModel>()
-                    .ForMember(dest => dest.Amount, opt => opt.MapFrom(m => m.Amount * 100));
+                    .ReverseMap();
+
         }
     }
 }

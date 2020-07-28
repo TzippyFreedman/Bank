@@ -30,6 +30,18 @@ namespace TransactionService.Data
             return _mapper.Map<TransactionModel>(transaction);
         }
 
+        public async Task<TransactionModel> GetByIdAsync(Guid transactionId)
+        {
+            Transaction transaction = await _transactionDbContext.Transactions
+               .Where(transaction => transaction.Id == transactionId)
+               .FirstOrDefaultAsync();
+            if (transaction == null)
+            {
+                throw new TransactionNotFoundException(transactionId);
+            }
+            return _mapper.Map<TransactionModel>(transaction);
+        }
+
         public async Task UpdateTransactionStatusAsync(Guid transactionId, bool isTransactionSuccess, string failureReason)
         {
              Transaction transactionToUpdate = await _transactionDbContext.Transactions
