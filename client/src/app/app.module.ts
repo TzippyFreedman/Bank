@@ -12,6 +12,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { OperationsHistoryComponent } from './operations-history/operations-history.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,10 @@ import { OperationsHistoryComponent } from './operations-history/operations-hist
     AppRoutingModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
