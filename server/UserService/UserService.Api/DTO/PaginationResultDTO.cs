@@ -7,7 +7,7 @@ namespace UserService.Api.DTO
 {
     public class PaginationResultDTO
     {
-      public  List<HistoryOperationDTO> operations {get; set;}
-        public int Total { get; set; }
+      public  List<HistoryOperationDTO> OperationsList {get; set;}
+        public int OperationsTotal { get; set; }
     }
 }

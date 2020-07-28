@@ -34,7 +34,10 @@ namespace UserService.NServiceBus
 
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
             containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-            containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
+            containerSettings.ServiceCollection.AddScoped(typeof(IOperationsHistoryRepository), typeof(OperationsHistoryRepository));
+            containerSettings.ServiceCollection.AddAutoMapper(typeof(DataMappingProfile));
+
+            //containerSettings.ServiceCollection.AddAutoMapper(typeof(Program));
             using (var userDataContext = new UserDbContext(new DbContextOptionsBuilder<UserDbContext>()
                 .UseSqlServer(new SqlConnection(userConnection)).Options))
             {
