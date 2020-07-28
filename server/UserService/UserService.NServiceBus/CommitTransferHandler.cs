@@ -8,17 +8,17 @@ using UserService.Data.Exceptions;
 
 namespace UserService.NServiceBus
 {
-    class CommitTransferHandler : IHandleMessages<ICommitTransfer>
+    class CommitTransactionHandler : IHandleMessages<ICommitTransaction>
     {
         private readonly IUserRepository _userRepository;
 
-        public CommitTransferHandler(IUserRepository userRepository)
+        public CommitTransactionHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
-        public async Task Handle(ICommitTransfer message, IMessageHandlerContext context)
+        public async Task Handle(ICommitTransaction message, IMessageHandlerContext context)
         {
-            bool isTransferSucceeded = true;
+            bool isTransactionSucceeded = true;
             string failureReason = null;
             try
             {
@@ -27,20 +27,20 @@ namespace UserService.NServiceBus
             }
             catch (Exception ex) when (ex is DataNotFoundException || ex is InsufficientBalanceForTransactionException)
             {
-                isTransferSucceeded = false;
+                isTransactionSucceeded = false;
                 failureReason = ex.Message;
             }
             finally
             {
-                await SendResponse(isTransferSucceeded, failureReason, context);
+                await SendResponse(isTransactionSucceeded, failureReason, context);
             }
         }
 
-        private async Task SendResponse(bool isTransferSucceeded, string failureReason, IMessageHandlerContext context)
+        private async Task SendResponse(bool isTransactionSucceeded, string failureReason, IMessageHandlerContext context)
         {
-            await context.Reply<ICommitTransferResponse>(message =>
+            await context.Reply<ICommitTransactionResponse>(message =>
             {
-                message.IsTransferSucceeded = isTransferSucceeded;
+                message.IsTransactionSucceeded = isTransactionSucceeded;
                 message.FailureReason = failureReason;
             });
         }
