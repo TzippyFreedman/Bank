@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserService.Contract.Models
 {
-    class successedHistoryOperationModel : HistoryOperationModel
+  public  class SucceededHistoryOperationModel : HistoryOperationModel
     {
         public int Balance { get; set; }
     }
