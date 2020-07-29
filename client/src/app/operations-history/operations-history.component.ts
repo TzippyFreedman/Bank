@@ -32,7 +32,6 @@ export class OperationsHistoryComponent implements OnInit {
   public currentRowTransfer: Transfer;
   public noData: HistoryOperation[] = [<HistoryOperation>{}];
   public loading: boolean;
-  public error$: Observable<boolean>;
   public filterSubject = new Subject<string>();
   private filter: string = "";
   //dont forget to unsubscribe!!
@@ -117,5 +116,6 @@ export class OperationsHistoryComponent implements OnInit {
   }
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    // this.filterSubject.unsubscribe();
   }
 }
