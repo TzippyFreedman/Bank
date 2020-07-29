@@ -10,6 +10,10 @@ namespace UserService.Contract
     {
         Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams);
         Task AddFailedOperation(FailedHistoryOperationModel operation);
-        Task AddSuccessedOperation(HistoryOperationModel operation);
+        Task AddSuccessedOperation(SucceededHistoryOperationModel operation);
+        Task AddAsync(SucceededHistoryOperationModel historyOperation);
+        Task AddAsync(FailedHistoryOperationModel historyOperation);
+
+
     }
 }

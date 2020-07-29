@@ -22,31 +22,25 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task AddSuccessedOperation(HistoryOperationModel operationModel)
+        public async Task AddSuccessedOperation(SucceededHistoryOperationModel operationModel)
         {
-
-
-            HistoryOperation operation = _mapper.Map<HistoryOperation>(operationModel);
-            await _userDbContext.HistoryOperations.AddAsync(operation);
-
+            SucceededHistoryOperation operation = _mapper.Map<SucceededHistoryOperation>(operationModel);
+            await _userDbContext.SucceededHistoryOperations.AddAsync(operation);
         }
 
         public async Task AddFailedOperation(FailedHistoryOperationModel operationModel)
         {
-
-            
             FailedHistoryOperation operation = _mapper.Map<FailedHistoryOperation>(operationModel);
             await _userDbContext.FailedHistoryOperations.AddAsync(operation);
-
         }
-    
-    public async Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams)
+
+        public async Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams)
         {
             PaginationResultModel response = new PaginationResultModel();
 
             string searchString = paginationParams.SearchString;
 
-            IQueryable<HistoryOperation> operations = _userDbContext.HistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId); ;
+            IQueryable<SucceededHistoryOperation> operations = _userDbContext.SucceededHistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId); ;
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -66,14 +60,24 @@ namespace UserService.Data
             response.OperationsTotal = await operations.CountAsync();
             SortField sortField = paginationParams.SortField;
 
-            List<HistoryOperation> operationList =  await operations
-                .OrderBy(sortField.ToString(),paginationParams.SortDirection
+            List<SucceededHistoryOperation> operationList = await operations
+                .OrderBy(sortField.ToString(), paginationParams.SortDirection
                 .ToString() == "Asc" ? false : true)
                 .Skip((paginationParams.PageIndex) * paginationParams.PageSize).Take(paginationParams.PageSize)
                 .ToListAsync();
 
-            response.OperationsList = _mapper.Map<List<HistoryOperationModel>>(operationList);
+            response.OperationsList = _mapper.Map<List<SucceededHistoryOperationModel>>(operationList);
             return response;
+        }
+
+        public Task AddAsync(SucceededHistoryOperationModel historyOperation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddAsync(FailedHistoryOperationModel historyOperation)
+        {
+            throw new NotImplementedException();
         }
     }
 

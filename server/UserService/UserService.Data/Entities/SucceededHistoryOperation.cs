@@ -5,7 +5,7 @@ using System.Transactions;
 
 namespace UserService.Data.Entities
 {
-    public class HistoryOperation
+    public class SucceededHistoryOperation
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
