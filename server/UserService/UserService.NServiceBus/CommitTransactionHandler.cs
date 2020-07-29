@@ -35,6 +35,7 @@ namespace UserService.NServiceBus
             }
             finally
             {
+                //implementation
                 await context.SendLocal<IUpdateHistory>(command =>
                 {
                     command.IsTransactionSucceeded = isTransactionSucceeded;
