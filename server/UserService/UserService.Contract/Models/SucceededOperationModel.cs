@@ -4,8 +4,8 @@ using System.Text;
 
 namespace UserService.Contract.Models
 {
-   public class FailedHistoryOperationModel : HistoryOperationModel
+  public  class SucceededOperationModel : OperationModel
     {
-        public string FailureReason { get; set; }
+        public int Balance { get; set; }
     }
 }

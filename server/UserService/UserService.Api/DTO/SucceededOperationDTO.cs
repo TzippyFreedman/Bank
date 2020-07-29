@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserService.Api.DTO
 {
-    public class HistoryOperationDTO
+    public class SucceededOperationDTO
     {
         public Guid TransactionId { get; set; }
         public DateTime OperationTime { get; set; }

@@ -9,8 +9,8 @@ namespace UserService.Contract
    public interface IOperationsHistoryRepository
     {
         Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams);
-        Task AddFailedOperation(FailedHistoryOperationModel operation);
-        Task AddSucceededOperation(SucceededHistoryOperationModel operation);
+        Task AddFailedOperation(FailedOperationModel operation);
+        Task AddSucceededOperation(SucceededOperationModel operation);
 
 
     }

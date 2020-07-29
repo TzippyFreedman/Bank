@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 
-namespace UserService.Contract.Models
+namespace UserService.Data.Entities
 {
-   public abstract class HistoryOperationModel
+    public class SucceededOperation
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
         public Guid TransactionId { get; set; }
         public bool IsCredit { get; set; }
-
         public int TransactionAmount { get; set; }
-  
+        public int Balance { get; set; }
         public DateTime OperationTime { get; set; }
+
     }
 }

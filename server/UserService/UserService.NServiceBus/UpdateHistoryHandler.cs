@@ -23,48 +23,48 @@ namespace UserService.NServiceBus
         {
             bool isTransactionSucceeded = message.IsTransactionSucceeded;
 
-            await AddHistoryOperation(isTransactionSucceeded, message.SrcBalance, message.SrcAccountId, false, message.FailureReason,message);
-            await AddHistoryOperation(isTransactionSucceeded, message.DestBalance, message.DestAccountId, true, message.FailureReason,message);
+            await AddOperation(isTransactionSucceeded, message.SrcBalance, message.SrcAccountId, false, message.FailureReason,message);
+            await AddOperation(isTransactionSucceeded, message.DestBalance, message.DestAccountId, true, message.FailureReason,message);
         }
 
-        private async Task AddHistoryOperation(bool isTransactionSucceeded, int balance, Guid accountId, bool isCredit,string failureReason, IUpdateHistory message)
+        private async Task AddOperation(bool isTransactionSucceeded, int balance, Guid accountId, bool isCredit,string failureReason, IUpdateHistory message)
         {
-            HistoryOperationModel historyOperation;
+            OperationModel operation;
 
             if (isTransactionSucceeded)
             {
-                historyOperation = new SucceededHistoryOperationModel();
+                operation = new SucceededOperationModel();
 
-                ((SucceededHistoryOperationModel)historyOperation).Balance = balance;
-                historyOperation = SetOperationModel(historyOperation,accountId, isCredit, message);
+                ((SucceededOperationModel)operation).Balance = balance;
+                operation = SetOperationModel(operation,accountId, isCredit, message);
 
-                await _operationsHistoryRepository.AddSucceededOperation((historyOperation as SucceededHistoryOperationModel));
+                await _operationsHistoryRepository.AddSucceededOperation((operation as SucceededOperationModel));
             }
             else
             {
-                historyOperation = new FailedHistoryOperationModel();
-                ((FailedHistoryOperationModel)historyOperation).FailureReason = failureReason;
+                operation = new FailedOperationModel();
+                ((FailedOperationModel)operation).FailureReason = failureReason;
 
-                historyOperation = SetOperationModel(historyOperation, accountId, isCredit, message);
-                await _operationsHistoryRepository.AddFailedOperation((historyOperation as FailedHistoryOperationModel));
+                operation = SetOperationModel(operation, accountId, isCredit, message);
+                await _operationsHistoryRepository.AddFailedOperation((operation as FailedOperationModel));
             }
         }
 
-        public HistoryOperationModel SetOperationModel(HistoryOperationModel historyOperation, Guid accountId, bool isCredit, IUpdateHistory message)
+        public OperationModel SetOperationModel(OperationModel operation, Guid accountId, bool isCredit, IUpdateHistory message)
         {
-            historyOperation.AccountId = accountId;
-            historyOperation.TransactionId = message.TransactionId;
-            historyOperation.TransactionAmount = message.TransactionAmount;
-            historyOperation.OperationTime = message.OperationTime;
-            historyOperation.IsCredit = isCredit;
-            return historyOperation;
+            operation.AccountId = accountId;
+            operation.TransactionId = message.TransactionId;
+            operation.TransactionAmount = message.TransactionAmount;
+            operation.OperationTime = message.OperationTime;
+            operation.IsCredit = isCredit;
+            return operation;
         }
 
         /*  public async Task Handle(IUpdateHistory message, IMessageHandlerContext context)
           {
 
-              HistoryOperationModel operationSrcAccount = CreateHistoryOperation(message.SrcBalance, message.SrcAccountId, false, message);
-              HistoryOperationModel operationDestAccount = CreateHistoryOperation(message.DestBalance, message.DestAccountId, true, message);
+              OperationModel operationSrcAccount = CreateOperation(message.SrcBalance, message.SrcAccountId, false, message);
+              OperationModel operationDestAccount = CreateOperation(message.DestBalance, message.DestAccountId, true, message);
 
               bool isTransactionSucceeded = message.IsTransactionSucceeded;
 
@@ -80,9 +80,9 @@ namespace UserService.NServiceBus
               }
           }
 
-          private HistoryOperationModel CreateHistoryOperation(int balance, Guid accountId, bool isCredit, IUpdateHistory message)
+          private OperationModel CreateOperation(int balance, Guid accountId, bool isCredit, IUpdateHistory message)
           {
-              HistoryOperationModel operationModel = new HistoryOperationModel
+              OperationModel operationModel = new OperationModel
               {
                   AccountId = accountId,
                   TransactionId = message.TransactionId,
@@ -94,15 +94,15 @@ namespace UserService.NServiceBus
               return operationModel;
           }
  
-        private async Task AddSucceededOperation(HistoryOperationModel operationSrcAccount)
+        private async Task AddSucceededOperation(OperationModel operationSrcAccount)
         {
-            SucceededHistoryOperationModel succeededOperationSrcAccount = _mapper.Map<SucceededHistoryOperationModel>(operationSrcAccount);
-            await _operationsHistoryRepository.AddSucceededOperation(succeededOperationSrcAccount as SucceededHistoryOperationModel);
+            SucceededOperationModel succeededOperationSrcAccount = _mapper.Map<SucceededOperationModel>(operationSrcAccount);
+            await _operationsHistoryRepository.AddSucceededOperation(succeededOperationSrcAccount as SucceededOperationModel);
         }
-        private async Task AddFailedOperation(HistoryOperationModel operationSrcAccount)
+        private async Task AddFailedOperation(OperationModel operationSrcAccount)
         {
-            FailedHistoryOperationModel failedOperationSrcAccount = _mapper.Map<FailedHistoryOperationModel>(operationSrcAccount);
-            await _operationsHistoryRepository.AddFailedOperation(failedOperationSrcAccount as FailedHistoryOperationModel);
+            FailedOperationModel failedOperationSrcAccount = _mapper.Map<FailedOperationModel>(operationSrcAccount);
+            await _operationsHistoryRepository.AddFailedOperation(failedOperationSrcAccount as FailedOperationModel);
         }
          */
     }

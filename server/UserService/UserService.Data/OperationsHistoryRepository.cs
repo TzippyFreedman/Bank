@@ -22,16 +22,16 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task AddSucceededOperation(SucceededHistoryOperationModel operationModel)
+        public async Task AddSucceededOperation(SucceededOperationModel operationModel)
         {
-            SucceededHistoryOperation operation = _mapper.Map<SucceededHistoryOperation>(operationModel);
-            await _userDbContext.SucceededHistoryOperations.AddAsync(operation);
+            SucceededOperation operation = _mapper.Map<SucceededOperation>(operationModel);
+            await _userDbContext.SucceededOperations.AddAsync(operation);
         }
 
-        public async Task AddFailedOperation(FailedHistoryOperationModel operationModel)
+        public async Task AddFailedOperation(FailedOperationModel operationModel)
         {
-            FailedHistoryOperation operation = _mapper.Map<FailedHistoryOperation>(operationModel);
-            await _userDbContext.FailedHistoryOperations.AddAsync(operation);
+            FailedOperation operation = _mapper.Map<FailedOperation>(operationModel);
+            await _userDbContext.FailedOperations.AddAsync(operation);
         }
 
         public async Task<PaginationResultModel> GetByFilter(PaginationParamsModel paginationParams)
@@ -40,12 +40,12 @@ namespace UserService.Data
 
             string searchString = paginationParams.SearchString;
 
-            IQueryable<SucceededHistoryOperation> operations = _userDbContext.SucceededHistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId);
+            IQueryable<SucceededOperation> operations = _userDbContext.SucceededOperations.Where(operation => operation.AccountId == paginationParams.AccountId);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 //If the search string changed during paging, the page is  reset to 0
-                if (paginationParams.IsFilterChanged)
+               if (paginationParams.IsFilterChanged)
                 {
                     paginationParams.PageIndex = 0;
 
@@ -61,13 +61,13 @@ namespace UserService.Data
             response.OperationsTotal = await operations.CountAsync();
             SortField sortField = paginationParams.SortField;
 
-            List<SucceededHistoryOperation> operationList = await operations
+            List<SucceededOperation> operationList = await operations
                 .OrderBy(sortField.ToString(), paginationParams.SortDirection
                 .ToString() == "Asc" ? false : true)
                 .Skip((paginationParams.PageIndex) * paginationParams.PageSize).Take(paginationParams.PageSize)
                 .ToListAsync();
 
-            response.OperationsList = _mapper.Map<List<SucceededHistoryOperationModel>>(operationList);
+            response.OperationsList = _mapper.Map<List<SucceededOperationModel>>(operationList);
             return response;
         }
 

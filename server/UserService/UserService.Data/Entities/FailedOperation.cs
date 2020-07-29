@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UserService.Data.Entities
 {
-  public  class FailedHistoryOperation
+  public  class FailedOperation
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
