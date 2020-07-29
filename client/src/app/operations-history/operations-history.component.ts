@@ -112,7 +112,7 @@ export class OperationsHistoryComponent implements OnInit {
 
   }
 
-  selectRow(templateRef, row) {
+  selectRow( row) {
 
     this.router.navigate(['transfer-details', row['transactionId']]);
 
