@@ -24,7 +24,7 @@
             <mat-cell class="dc-content" *matCellDef="let row">{{row.balance}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="IsCredit">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Direction</mat-header-cell>
+            <mat-header-cell class="dc-label" *matHeaderCellDef >Transaction Direction</mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.isCredit}} </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>

@@ -19,7 +19,8 @@ namespace UserService.Data
             CreateMap<EmailVerificationModel, EmailVerification>()
                 .ReverseMap();
 
-            CreateMap<SucceededHistoryOperationModel, SucceededHistoryOperation>();
+            CreateMap<SucceededHistoryOperationModel, SucceededHistoryOperation>()
+                .ReverseMap();
 
             CreateMap<FailedHistoryOperationModel, FailedHistoryOperation>();
 

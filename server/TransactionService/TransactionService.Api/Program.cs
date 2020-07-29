@@ -112,7 +112,6 @@ namespace TransactionService.Api
                       endpointConfiguration.AuditProcessedMessagesTo(
                           auditQueue: auditQueue,
                           timeToBeReceived: timeToBeReceived);
-                      var endpointInstance =  Endpoint.Start(endpointConfiguration);
 
                       return endpointConfiguration;
                   })
