@@ -6,7 +6,6 @@
 <div class="example-container mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort matSortDisableClear="true" [matSortActive]="defaultSort.active"
         [matSortDirection]="defaultSort.direction">
-
         <ng-container matColumnDef="transactionId">
             <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Id</mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.transactionId}} </mat-cell>
@@ -20,22 +19,20 @@
             <mat-cell class="dc-content" *matCellDef="let row"> {{row.transactionAmount}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="balance">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Balance After Operation</mat-header-cell>
+            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Balance After Operation
+            </mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.balance}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="IsCredit">
-            <mat-header-cell class="dc-label" *matHeaderCellDef mat-sort-header>Transaction Direction</mat-header-cell>
+            <mat-header-cell class="dc-label" *matHeaderCellDef>Transaction Direction</mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.isCredit}} </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnHeaders;" (click)="selectRow(row)"> </mat-row>
-
     </mat-table>
-
     <mat-paginator [length]="operationTotal" [pageSize]="2" [pageSizeOptions]="[1,2, 5, 10]"></mat-paginator>
-
 </div>
- <!-- <div>
+<!-- <div>
 <ng-template #mytemplate>
 <h2>Src Accoutn ID = {{currentRowTransfer.srcAccountId}}</h2>
 <h2>Dest Account ID = {{currentRowTransfer.destAccountId}}</h2>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HistoryOperation } from './history-operation.model';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './operations-history.component.html',
   styleUrls: ['./operations-history.component.css']
 })
-export class OperationsHistoryComponent implements OnInit {
+export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public columnHeaders: string[] = [
     "transactionId",
@@ -35,7 +35,6 @@ export class OperationsHistoryComponent implements OnInit {
   public error$: Observable<boolean>;
   public filterSubject = new Subject<string>();
   private filter: string = "";
-  //dont forget to unsubscribe!!
   private subscription: Subscription = new Subscription();
   public defaultSort: Sort = { active: 'operationTime', direction: 'asc' };
   public pathRequestParams: HistoryRequestParams = new HistoryRequestParams();
