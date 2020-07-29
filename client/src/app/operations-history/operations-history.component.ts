@@ -101,9 +101,6 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
     this.operationTotal = historyResponse.operationsTotal;
     this.dataSource.data = historyResponse.operationsList.length ? historyResponse.operationsList : this.noData;
   }
-  public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
 
   selectRow(row) {
@@ -125,5 +122,8 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
     // alert(error);
     //     });
 
+  }
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

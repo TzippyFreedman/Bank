@@ -40,7 +40,7 @@ namespace UserService.Data
 
             string searchString = paginationParams.SearchString;
 
-            IQueryable<SucceededHistoryOperation> operations = _userDbContext.SucceededHistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId); ;
+            IQueryable<SucceededHistoryOperation> operations = _userDbContext.SucceededHistoryOperations.Where(operation => operation.AccountId == paginationParams.AccountId);
 
             if (!string.IsNullOrEmpty(searchString))
             {

@@ -45,6 +45,7 @@ namespace UserService.NServiceBus
                     command.SrcBalance = srcAccountBalance;
                     command.DestBalance = destAccountBalance;
                     command.OperationTime = message.OperationTime;
+                    command.FailureReason = failureReason;
 
                 });
                 await SendResponse(isTransactionSucceeded, failureReason, context);
