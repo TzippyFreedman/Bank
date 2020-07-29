@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Contract.Models;
-using UserService.Services;
 using UserService.Services.Interfaces;
 
 namespace UserService.Api.Controllers

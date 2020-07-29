@@ -76,7 +76,7 @@ export class OperationsHistoryComponent implements OnInit {
     });
 
     let filter$ = this.filterSubject.pipe(
-      debounceTime(150),
+      debounceTime(600),
       distinctUntilChanged(),
       tap((value: string) => {
         this.paginator.pageIndex = 0;

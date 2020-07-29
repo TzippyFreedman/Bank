@@ -53,6 +53,8 @@ namespace UserService.Data
 
                 operations = operations.Where(operation => operation.AccountId.ToString().Contains(searchString)
                                          || operation.Id.ToString().Contains(searchString)
+                                  || operation.Balance.ToString().Contains(searchString)
+
                                          || operation.OperationTime.ToString().Contains(searchString)
                                          || operation.TransactionAmount.ToString().Contains(searchString));
             }
