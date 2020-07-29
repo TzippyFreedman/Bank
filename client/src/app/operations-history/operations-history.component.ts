@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
 })
 export class OperationsHistoryComponent implements OnInit {
 
-
   public columnHeaders: string[] = [
     "transactionId",
     "operationTime",
