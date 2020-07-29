@@ -8,7 +8,6 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { HeaderComponent } from './header/header.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { OperationsHistoryComponent } from './operations-history/operations-history.component';
@@ -20,8 +19,6 @@ import { MatInputModule } from '@angular/material/input'
 
 
 import {  MatDialogModule } from "@angular/material/dialog";
-import {DataSource} from '@angular/cdk/table';
-import { CdkTableModule } from '@angular/cdk/table';
 import { TransferDetailsComponent } from './transfer-details/transfer-details.component';
 
 
@@ -50,7 +47,7 @@ import { TransferDetailsComponent } from './transfer-details/transfer-details.co
     MatSortModule,
     MatDialogModule
   ],
-  providers: [CookieService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
