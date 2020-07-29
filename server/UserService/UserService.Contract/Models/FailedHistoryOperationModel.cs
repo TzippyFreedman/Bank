@@ -6,6 +6,6 @@ namespace UserService.Contract.Models
 {
    public class FailedHistoryOperationModel : HistoryOperationModel
     {
-     
+        public string FailureReason { get; set; }
     }
 }

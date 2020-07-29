@@ -23,11 +23,11 @@ namespace UserService.NServiceBus
         {
             bool isTransactionSucceeded = message.IsTransactionSucceeded;
 
-            await AddHistoryOperation(isTransactionSucceeded, message.SrcBalance, message.SrcAccountId, false, message);
-            await AddHistoryOperation(isTransactionSucceeded, message.DestBalance, message.DestAccountId, true, message);
+            await AddHistoryOperation(isTransactionSucceeded, message.SrcBalance, message.SrcAccountId, false, message.FailureReason,message);
+            await AddHistoryOperation(isTransactionSucceeded, message.DestBalance, message.DestAccountId, true, message.FailureReason,message);
         }
 
-        private async Task AddHistoryOperation(bool isTransactionSucceeded, int balance, Guid accountId, bool isCredit, IUpdateHistory message)
+        private async Task AddHistoryOperation(bool isTransactionSucceeded, int balance, Guid accountId, bool isCredit,string failureReason, IUpdateHistory message)
         {
             HistoryOperationModel historyOperation;
 
@@ -43,6 +43,8 @@ namespace UserService.NServiceBus
             else
             {
                 historyOperation = new FailedHistoryOperationModel();
+                ((FailedHistoryOperationModel)historyOperation).FailureReason = failureReason;
+
                 historyOperation = SetOperationModel(historyOperation, accountId, isCredit, message);
                 await _operationsHistoryRepository.AddFailedOperation((historyOperation as FailedHistoryOperationModel));
             }

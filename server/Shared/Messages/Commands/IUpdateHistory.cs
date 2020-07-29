@@ -12,6 +12,8 @@ namespace Messages.Commands
         public int DestBalance { get; set; }
         public DateTime OperationTime { get; set; }
         public bool IsTransactionSucceeded { get; set; }
+        public string FailureReason { get; set; }
+
 
 
     }
