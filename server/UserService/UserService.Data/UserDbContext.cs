@@ -67,51 +67,51 @@ namespace UserService.Data
                           .HasDefaultValueSql("dateadd(minute,5,getdate())")
                           .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<SucceededHistoryOperation>()
-                .ToTable("SucceededHistoryOperation");
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
+                .ToTable("SucceededOperation");
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.TransactionId)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.AccountId)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.Balance)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.TransactionAmount)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.IsCredit)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                         .Property(operation => operation.OperationTime)
                         .IsRequired();
-            modelBuilder.Entity<SucceededHistoryOperation>()
+            modelBuilder.Entity<SucceededOperation>()
                       .Property(operation => operation.Id)
                       .HasDefaultValueSql("NEWID()")
                       .ValueGeneratedOnAdd();
             
             
 
-            modelBuilder.Entity<FailedHistoryOperation>()
-                           .ToTable("FailedHistoryOperation");
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
+                           .ToTable("FailedOperation");
+            modelBuilder.Entity<FailedOperation>()
                        .Property(operation => operation.TransactionId)
                        .IsRequired();
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
                         .Property(operation => operation.AccountId)
                         .IsRequired();
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
                   .Property(operation => operation.TransactionAmount)
                   .IsRequired();
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
             .Property(operation => operation.IsCredit)
             .IsRequired();
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
                         .Property(operation => operation.OperationTime)
                         .IsRequired();
-            modelBuilder.Entity<FailedHistoryOperation>()
+            modelBuilder.Entity<FailedOperation>()
                      .Property(operation => operation.Id)
                      .HasDefaultValueSql("NEWID()")
                      .ValueGeneratedOnAdd();
@@ -121,9 +121,9 @@ namespace UserService.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<EmailVerification> EmailVerifications { get; set; }
-        public DbSet<SucceededHistoryOperation> SucceededHistoryOperations { get; set; }
+        public DbSet<SucceededOperation> SucceededOperations { get; set; }
 
-        public DbSet<FailedHistoryOperation> FailedHistoryOperations { get; set; }
+        public DbSet<FailedOperation> FailedOperations { get; set; }
 
 
 
