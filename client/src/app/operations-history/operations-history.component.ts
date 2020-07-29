@@ -75,7 +75,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
     });
 
     let filter$ = this.filterSubject.pipe(
-      debounceTime(150),
+      debounceTime(500),
       distinctUntilChanged(),
       tap((value: string) => {
         this.paginator.pageIndex = 0;
@@ -88,11 +88,10 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
       tap(() => this.paginator.pageIndex = 0));
 
     this.subscription.add(merge(filter$, sort$, this.paginator.page)
-      .pipe(
-        tap(() => this.loadOperations().subscribe(res => {
-
-          this.initializeData(res);
-        }))
+      .pipe(tap(() => this.loadOperations()
+          .subscribe(res => {
+            this.initializeData(res);
+          }))
       ).subscribe());
 
   }
@@ -125,5 +124,6 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
   }
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    //unsubscribe children
   }
 }
