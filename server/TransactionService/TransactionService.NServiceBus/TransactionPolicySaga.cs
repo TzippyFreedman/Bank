@@ -13,6 +13,7 @@ namespace TransactionService.NServiceBus
     {
         public async Task Handle(ITransactionRequestAdded message, IMessageHandlerContext context)
         {
+            //change to command
             await context.Send<ICommitTransaction>(msg =>
              {
                  msg.TransactionId = message.TransactionId;

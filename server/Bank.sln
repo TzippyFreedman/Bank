@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "UserService\UserService.Api\UserService.Api.csproj", "{77B4E5FC-5CEE-452D-B3C7-268D6E6FD35A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TransactionService", "TransactionService", "{BE72C16D-1612-4B75-A5CA-94455E8523F1}"
-	ProjectSection(SolutionItems) = preProject
-		UserService\UserService.Api\DTO\PaginationInfoDTO.cs = UserService\UserService.Api\DTO\PaginationInfoDTO.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FDE8719F-EF35-4B73-A06C-79C6DFFBDD1F}"
 EndProject
