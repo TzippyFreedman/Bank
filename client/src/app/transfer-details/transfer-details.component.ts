@@ -23,5 +23,6 @@ export class TransferDetailsComponent implements OnInit {
      });
     });
   }
+ //unsubscribe on OnDestroy
 
 }
