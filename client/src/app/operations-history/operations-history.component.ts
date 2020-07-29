@@ -40,21 +40,17 @@ export class OperationsHistoryComponent implements OnInit {
   public defaultSort: Sort = { active: 'operationTime', direction: 'asc' };
   public pathRequestParams: HistoryRequestParams = new HistoryRequestParams();
 
-
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
 
   constructor(private dataService: DataService, private authService: AuthService, public dialog: MatDialog, private router: Router) {
     this.dataSource = new MatTableDataSource(this.noData);
     this.dataSource.sort = this.sort;
   }
 
-
   public ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.noData);
   }
-
 
   public loadOperations(): Observable<HistoryResponse> {
     this.pathRequestParams = {
@@ -70,7 +66,6 @@ export class OperationsHistoryComponent implements OnInit {
   }
 
   public ngAfterViewInit(): void {
-
     this.loadOperations().subscribe(res => {
       this.initializeData(res);
     });
@@ -103,12 +98,9 @@ export class OperationsHistoryComponent implements OnInit {
     this.dataSource.data = historyResponse.operationsList.length ? historyResponse.operationsList : this.noData;
   }
 
-
   selectRow(row) {
 
     this.router.navigate(['transfer-details', row['transactionId']]);
-
-
     //     this.dataService.getTransfer(row['transactionId'])
     //     .subscribe(transfer=>{         
 
@@ -122,7 +114,6 @@ export class OperationsHistoryComponent implements OnInit {
     //     error=>{
     // alert(error);
     //     });
-
   }
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
