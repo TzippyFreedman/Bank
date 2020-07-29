@@ -22,7 +22,7 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task AddSuccessedOperation(SucceededHistoryOperationModel operationModel)
+        public async Task AddSucceededOperation(SucceededHistoryOperationModel operationModel)
         {
             SucceededHistoryOperation operation = _mapper.Map<SucceededHistoryOperation>(operationModel);
             await _userDbContext.SucceededHistoryOperations.AddAsync(operation);
@@ -70,15 +70,6 @@ namespace UserService.Data
             return response;
         }
 
-        public Task AddAsync(SucceededHistoryOperationModel historyOperation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task AddAsync(FailedHistoryOperationModel historyOperation)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public static class OrderByHelper

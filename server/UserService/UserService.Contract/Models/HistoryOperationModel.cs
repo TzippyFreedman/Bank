@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserService.Contract.Models
 {
-   public class HistoryOperationModel
+   public abstract class HistoryOperationModel
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
