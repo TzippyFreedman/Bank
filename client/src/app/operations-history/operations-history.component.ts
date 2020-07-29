@@ -106,13 +106,8 @@ export class OperationsHistoryComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  public retry(): void {
 
-    //this.loadPaths();
-
-  }
-
-  selectRow( row) {
+  selectRow(row) {
 
     this.router.navigate(['transfer-details', row['transactionId']]);
 
