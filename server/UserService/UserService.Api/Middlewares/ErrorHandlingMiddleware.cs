@@ -59,21 +59,6 @@ namespace UserService.Api.Middlewares
 
             }
 
-            /*            if (ex is DataNotFoundException)
-                        {
-                            code = HttpStatusCode.NotFound;
-                            message = ex.Message;
-                        }
-                        if (ex is BadRequestException)
-                        {
-                            code = HttpStatusCode.BadRequest;
-                            message = ex.Message;
-                        }
-                        if (ex is IncorrectPasswordException)
-                        {
-                            code = HttpStatusCode.Unauthorized;
-                            message = ex.Message;
-                        }*/
 
             string result = JsonSerializer
             .Serialize(new { errorMessage = message, statusCode = code });
