@@ -37,7 +37,8 @@ export class RegisterComponent implements OnInit {
       'lastName': new FormControl('', [
         Validators.required]),
       'verificationCode': new FormControl('', [
-        Validators.required]),
+        Validators.required,
+        Validators.minLength(4)]),
     });
 
     this.verificationForm = new FormGroup({

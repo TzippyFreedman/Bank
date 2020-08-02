@@ -1,6 +1,5 @@
-﻿using UserService.Services.Interfaces;
-
-namespace UserService.Services
+﻿
+namespace UserService.Helpers
 {
     public class SmtpSettings 
     {
