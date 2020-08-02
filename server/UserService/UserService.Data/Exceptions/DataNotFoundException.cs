@@ -2,7 +2,7 @@
 
 namespace UserService.Data.Exceptions
 {
-    public class DataNotFoundException : Exception
+    public abstract class DataNotFoundException : Exception
     {
         public DataNotFoundException()
         {

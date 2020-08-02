@@ -35,7 +35,6 @@ namespace UserService.Contract.Models
             }
         }
         public string SearchString { get; set; }
-        public bool IsFilterChanged { get; set; }
         public SortField SortField { get; set; }
         public SortDirection SortDirection { get; set; }
 

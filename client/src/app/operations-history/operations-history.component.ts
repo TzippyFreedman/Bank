@@ -24,7 +24,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
     "transactionId",
     "operationTime",
     "balance",
-    "IsCredit",
+    "isCredit",
     "transactionAmount"
   ]
   public dataSource: MatTableDataSource<HistoryOperation>;
