@@ -14,7 +14,7 @@ export class TransferDetailsComponent implements OnInit {
   public transfer:Transfer;
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
-    this.dataService.getTransfer(paramMap.get('transferId'))
+    this.dataService.getTransaction(paramMap.get('transferId'))
      .subscribe(transfer=>{         
         this.transfer=transfer;
    },
