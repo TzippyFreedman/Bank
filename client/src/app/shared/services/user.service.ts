@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 const REGISTER_URL = 'user';
-const VERIFICATION_URL = 'user/verifyEmail';
+const VERIFICATION_URL = 'verificationCode/verifyEmail';
 
 @Injectable({
   providedIn: 'root'
