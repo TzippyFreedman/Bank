@@ -30,7 +30,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
   public currentRowTransfer: Transfer;
-  public noData: HistoryOperation[] = [<HistoryOperation>{}];
+  public noData: HistoryOperation[] = [];
   public loading: boolean;
   public error$: Observable<boolean>;
   public filterSubject = new Subject<string>();
