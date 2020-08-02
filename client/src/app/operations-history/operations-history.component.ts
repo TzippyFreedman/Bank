@@ -93,7 +93,6 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
             this.initializeData(res);
           }))
       ).subscribe());
-
   }
 
   initializeData(historyResponse: HistoryResponse): void {
