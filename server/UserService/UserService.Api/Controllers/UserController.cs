@@ -45,17 +45,6 @@ namespace UserService.Api.Controllers
             return accountId;
         }
 
-        [HttpGet]
-        [Route("[action]/{accountId}")]
-        public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
-        {
-            AccountModel account = await _userService.GetAccountByIdAsync(accountId);
-            UserModel user = await _userService.GetUserByIdAsync(account.UserId);
-            AccountDTO accountDTO = new AccountDTO();
-            _mapper.Map(user, accountDTO);
-            accountDTO.Balance = account.Balance;
-            accountDTO.OpenDate = account.OpenDate;
-            return accountDTO;
-        }
+       
     }
 }
