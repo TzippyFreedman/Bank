@@ -51,10 +51,10 @@ namespace TransactionService.Api
                       const string endpointName = "Bank.Transaction.Api";
                       var endpointConfiguration = new EndpointConfiguration(endpointName);
 
-                      var auditQueue = Configuration["AppSettings:auditQueue"];
-                      var serviceControlQueue = Configuration["AppSettings:ServiceControlQueue"];
-                      var timeToBeReceivedSetting = Configuration["AppSettings:timeToBeReceived"];
-                      var schemaName = Configuration["AppSettings:SchemaName"];
+                      var auditQueue = Configuration["NServiceBus:auditQueue"];
+                      var serviceControlQueue = Configuration["NServiceBus:ServiceControlQueue"];
+                      var timeToBeReceivedSetting = Configuration["NServiceBus:timeToBeReceived"];
+                      var schemaName = Configuration["NServiceBus:SchemaName"];
                       var transportConnection = Configuration.GetConnectionString("transportConnection");
                       var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
 
