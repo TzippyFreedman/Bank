@@ -17,13 +17,12 @@ namespace TransactionService.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ITransactionService _transactionService;
-        private readonly IMessageSession _messageSession;
 
-        public TransactionController(IMapper mapper, ITransactionService transactionService, IMessageSession messageSession)
+
+        public TransactionController(IMapper mapper, ITransactionService transactionService)
         {
             _mapper = mapper;
             _transactionService = transactionService;
-            _messageSession = messageSession;
         }
 
       
@@ -32,16 +31,7 @@ namespace TransactionService.Api.Controllers
         {
             TransactionModel transactionModel = _mapper.Map<TransactionModel>(transaction);
             transactionModel.Status = TransactionStatus.Pending;
-            TransactionModel newTransactionModel = await _transactionService.AddAsync(transactionModel);
-            int amountToTransactionInCents = (int)Math.Round(transaction.Amount * 100);
-            await _messageSession.Publish<ITransactionRequestAdded>(message =>
-            {
-                message.TransactionId = newTransactionModel.Id;
-                message.Amount = amountToTransactionInCents;
-                message.SrcAccountId = newTransactionModel.SrcAccountId;
-                message.DestAccountId = newTransactionModel.DestAccountId;
-                message.OperationTime = newTransactionModel.Date;
-            });
+            await _transactionService.AddAsync(transactionModel);
             return Ok();
         }
 

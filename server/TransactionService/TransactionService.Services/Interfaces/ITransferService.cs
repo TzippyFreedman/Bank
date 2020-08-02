@@ -6,7 +6,7 @@ namespace TransactionService.Services.Interfaces
 {
     public interface ITransactionService
     {
-        Task<TransactionModel> AddAsync(TransactionModel newTransaction);
+        Task AddAsync(TransactionModel newTransaction);
         Task<TransactionModel> GetByIdAsync(Guid transactionId);
     }
 }

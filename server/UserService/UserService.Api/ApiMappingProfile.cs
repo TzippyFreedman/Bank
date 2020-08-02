@@ -10,7 +10,8 @@ namespace UserService.Api
         {
             CreateMap<RegisterDTO, UserModel>();
 
-            CreateMap<UserModel, AccountDTO>();
+            CreateMap<AccountModel, AccountDTO>()
+                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => (float)m.Balance / 100));
 
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
 
