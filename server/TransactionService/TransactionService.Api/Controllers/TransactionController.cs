@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Messages.Events;
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using System;

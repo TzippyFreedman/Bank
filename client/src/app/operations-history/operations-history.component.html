@@ -23,7 +23,7 @@
             </mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.balance}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="IsCredit">
+        <ng-container matColumnDef="isCredit">
             <mat-header-cell class="dc-label" *matHeaderCellDef>Transaction Type</mat-header-cell>
             <mat-cell class="dc-content" *matCellDef="let row">{{row.isCredit | debitCredit}} </mat-cell>
         </ng-container>
