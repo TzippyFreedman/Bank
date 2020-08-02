@@ -30,7 +30,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
   public dataSource: MatTableDataSource<HistoryOperation>;
   public operationTotal: number;
   public currentRowTransfer: Transfer;
-  public noData: HistoryOperation[];
+  public noData: HistoryOperation[] = [];
   public loading: boolean;
   public error$: Observable<boolean>;
   public filterSubject = new Subject<string>();
@@ -38,6 +38,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
   private subscription: Subscription = new Subscription();
   public defaultSort: Sort = { active: 'operationTime', direction: 'asc' };
   public pathRequestParams: HistoryRequestParams = new HistoryRequestParams();
+
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

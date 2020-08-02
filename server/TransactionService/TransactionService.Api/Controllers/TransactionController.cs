@@ -16,14 +16,12 @@ namespace TransactionService.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ITransactionService _transactionService;
 
-
         public TransactionController(IMapper mapper, ITransactionService transactionService)
         {
             _mapper = mapper;
             _transactionService = transactionService;
         }
-
-      
+ 
        [HttpPost]
         public async Task<ActionResult> Post(TransactionDTO transaction)
         {

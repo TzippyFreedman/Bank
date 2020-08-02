@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DebitCreditPipe implements PipeTransform {
 
   transform(value) {
+    debugger;
     return value ? 'Credit' : 'Debit';
 }
 
