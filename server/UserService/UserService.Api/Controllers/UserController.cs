@@ -15,14 +15,13 @@ namespace UserService.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly IAccountService _accountService;
 
-        public UserController(IMapper mapper, IUserService userService, IAccountService accountService)
+        public UserController(IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;
-            _accountService = accountService;
         }
+
         [HttpPost]
         public async Task<ActionResult> RegisterAsync(RegisterDTO userRegister)
         {
@@ -31,33 +30,12 @@ namespace UserService.Api.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
 
-        [HttpPost]
-        [Route("[action]")]
-        public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
-        {
-            EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
-            await _userService.VerifyEmailAsync(emailVerification);
-        }
-
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             return accountId;
-        }
-
-        [HttpGet]
-        [Route("[action]/{accountId}")]
-        public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
-        {
-            AccountModel account = await _accountService.GetByIdAsync(accountId);
-            UserModel user = await _userService.GetByIdAsync(account.UserId);
-            AccountDTO accountDTO = new AccountDTO();
-            _mapper.Map(user, accountDTO);
-            accountDTO.Balance = account.Balance;
-            accountDTO.OpenDate = account.OpenDate;
-            return accountDTO;
         }
     }
 }
