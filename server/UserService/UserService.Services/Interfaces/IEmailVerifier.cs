@@ -1,8 +1,10 @@
-﻿namespace UserService.Services.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace UserService.Services.Interfaces
 {
     public interface IEmailVerifier
     {
         string GenerateVerificationCode();
-        void SendVerificationEmail(string emailAddress, string verificationCode);
+        Task SendVerificationEmail(string emailAddress, string verificationCode);
     }
 }

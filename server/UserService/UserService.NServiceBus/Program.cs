@@ -33,7 +33,7 @@ namespace UserService.NServiceBus
             var timeToBeReceived = TimeSpan.Parse(timeToBeReceivedSetting);
 
             var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
-            containerSettings.ServiceCollection.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            containerSettings.ServiceCollection.AddScoped(typeof(IAccountRepository), typeof(AccountRepository));
             containerSettings.ServiceCollection.AddScoped(typeof(IOperationsHistoryRepository), typeof(OperationsHistoryRepository));
             containerSettings.ServiceCollection.AddAutoMapper(typeof(DataMappingProfile));
 

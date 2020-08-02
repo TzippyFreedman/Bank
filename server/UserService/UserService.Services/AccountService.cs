@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using UserService.Contract;
 using UserService.Contract.Models;
 using UserService.Services.Interfaces;
 
@@ -9,15 +8,15 @@ namespace UserService.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IAccountService _accountService;
+        private readonly IAccountRepository _accountRepository;
 
-        public AccountService(IAccountService accountService)
+        public AccountService(IAccountRepository accountRepository)
         {
-            _accountService = accountService;
+            _accountRepository = accountRepository;
         }
         public async Task<AccountModel> GetByIdAsync(Guid accountId)
         {
-            AccountModel account = await _accountService.GetByIdAsync(accountId);
+            AccountModel account = await _accountRepository.GetByIdAsync(accountId);
             return account;
         }
     }

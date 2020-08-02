@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UserService.Api.DTO;
 using UserService.Contract.Models;
@@ -26,7 +23,8 @@ namespace UserService.Api.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
+        //check neccesity of from body
+        public async Task VerifyEmailAsync(EmailVerificationDTO emailVerificationDTO)
         {
             EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
             await _userService.VerifyEmailAsync(emailVerification);

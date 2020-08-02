@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using UserService.Services.Interfaces;
 
 namespace UserService.Services
@@ -12,7 +13,7 @@ namespace UserService.Services
         {
             _smtpSettings = smtpSettings;
         }
-        public void SendVerificationEmail(string emailAddress, string verificationCode)
+        public async Task SendVerificationEmail(string emailAddress, string verificationCode)
         {
             string senderEmailAddress = _smtpSettings.Address;
             string senderEmailPassword = _smtpSettings.Password;
@@ -35,7 +36,7 @@ namespace UserService.Services
                     smtp.Credentials = new NetworkCredential(senderEmailAddress, senderEmailPassword);
                     smtp.EnableSsl = true;
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtp.Send(mail);
+                   await smtp.SendMailAsync(mail);
                 }
             }
         }
