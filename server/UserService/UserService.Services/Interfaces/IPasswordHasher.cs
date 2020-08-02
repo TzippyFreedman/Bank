@@ -1,6 +1,6 @@
 ﻿namespace UserService.Services.Interfaces
 {
-    public interface IHashPassword
+    public interface IPasswordHasher
     {
         string CreatePasswordHash(string value, string salt);
         string CreateSalt();

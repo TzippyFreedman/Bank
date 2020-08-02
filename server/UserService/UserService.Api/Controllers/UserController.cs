@@ -29,13 +29,13 @@ namespace UserService.Api.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
 
-        [HttpPost]
-        [Route("[action]")]
-        public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
-        {
-            EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
-            await _userService.VerifyEmailAsync(emailVerification);
-        }
+        //[HttpPost]
+        //[Route("[action]")]
+        //public async Task VerifyEmailAsync([FromBody] EmailVerificationDTO emailVerificationDTO)
+        //{
+        //    EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
+        //    await _userService.VerifyEmailAsync(emailVerification);
+        //}
 
         [HttpGet]
         [Route("[action]")]

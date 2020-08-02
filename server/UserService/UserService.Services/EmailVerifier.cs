@@ -5,10 +5,10 @@ using UserService.Services.Interfaces;
 
 namespace UserService.Services
 {
-    public class VerifyEmail : IVerifyEmail
+    public class EmailVerifier : IEmailVerifier
     {
-        private readonly ISmtpSettings _smtpSettings;
-        public VerifyEmail(ISmtpSettings smtpSettings)
+        private readonly SmtpSettings _smtpSettings;
+        public EmailVerifier(SmtpSettings smtpSettings)
         {
             _smtpSettings = smtpSettings;
         }

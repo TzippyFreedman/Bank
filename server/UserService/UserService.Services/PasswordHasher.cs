@@ -6,7 +6,7 @@ using UserService.Services.Interfaces;
 
 namespace UserService.Services
 {
-    public class HashPassword : IHashPassword
+    public class PasswordHasher : IPasswordHasher
     {
         public string CreatePasswordHash(string value, string salt)
         {
