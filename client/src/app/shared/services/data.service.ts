@@ -10,7 +10,7 @@ import { HistoryRequestParams } from 'src/app/operations-history/history-request
 import { HistoryResponse } from 'src/app/operations-history/history-response.model';
 import { AuthService } from 'src/app/auth/auth.service';
 
-const ACCOUNT_URL = 'user/getAccountDetails/'
+const ACCOUNT_URL = 'account/getAccountDetails/'
 const TRANSACTION_URL = 'transaction';
 const OPERATIONS_HISTORY_URL = 'operationsHistory';
 
