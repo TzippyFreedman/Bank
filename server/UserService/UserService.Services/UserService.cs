@@ -11,12 +11,14 @@ namespace UserService.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IEmailVerifier _emailVerifier;
         private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IUserRepository userRepository, IEmailVerifier emailVerifier, IPasswordHasher passwordHasher)
+        public UserService(IUserRepository userRepository, IAccountRepository accountRepository, IEmailVerifier emailVerifier, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
+            _accountRepository = accountRepository;
             _emailVerifier = emailVerifier;
             _passwordHasher = passwordHasher;
         }
@@ -33,7 +35,7 @@ namespace UserService.Services
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
             }
 
-            bool isUserExist = await _userRepository.IsUserExistsAsync(newUser.Email);
+            bool isUserExist = await _userRepository.IsExistsAsync(newUser.Email);
             if (isUserExist)
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(newUser.Email);
@@ -44,33 +46,33 @@ namespace UserService.Services
                 string passwordHash = _passwordHasher.CreatePasswordHash(password, passwordSalt);
                 newUser.PasswordHash = passwordHash;
                 newUser.PasswordSalt = passwordSalt;
-                await _userRepository.AddUserAsync(newUser);
+                await _userRepository.AddAsync(newUser);
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
             }
         }
 
         public async Task<Guid> LoginAsync(string email, string password)
         {
-            UserModel user = await _userRepository.GetUserAsync(email);
+            UserModel user = await _userRepository.GetAsync(email);
             bool isPasswordCorrect = _passwordHasher.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
             if (!isPasswordCorrect)
             {
                 throw new IncorrectPasswordException(email);
             }
-            AccountModel account = await _userRepository.GetAccountByUserIdAsync(user.Id);
+            AccountModel account = await _accountRepository.GetByUserIdAsync(user.Id);
             return account.Id;
         }
 
 
-        public async Task<UserModel> GetUserByIdAsync(Guid id)
+        public async Task<UserModel> GetByIdAsync(Guid id)
         {
-            UserModel user = await _userRepository.GetUserByIdAsync(id);
+            UserModel user = await _userRepository.GetByIdAsync(id);
             return user;
         }
 
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
         {
-            bool isUserExist = await _userRepository.IsUserExistsAsync(emailVerification.Email);
+            bool isUserExist = await _userRepository.IsExistsAsync(emailVerification.Email);
             if (isUserExist)
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);

@@ -19,7 +19,7 @@ namespace UserService.Data
             _userDbContext = userDbContext;
             _mapper = mapper;
         }
-        public async Task<AccountModel> GetAccountByUserIdAsync(Guid accountId)
+        public async Task<AccountModel> GetByUserIdAsync(Guid accountId)
         {
             Account account = await _userDbContext.Accounts
                       .Where(file => file.UserId == accountId)
@@ -32,7 +32,7 @@ namespace UserService.Data
             return _mapper.Map<AccountModel>(account);
         }
 
-        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
+        public async Task<AccountModel> GetByIdAsync(Guid accountId)
         {
             Account account = await _userDbContext.Accounts
                   .Where(account => account.Id == accountId)
@@ -57,7 +57,7 @@ namespace UserService.Data
             return await _userDbContext.Accounts.AnyAsync(u => u.Id == accountId);
         }
 
-        public async Task<int> DrawAsync(Guid accountId, int amount)
+        public async Task<int> WithDrawAsync(Guid accountId, int amount)
         {
             Account userAccount = await _userDbContext.Accounts
                 .Where(u => u.Id == accountId)

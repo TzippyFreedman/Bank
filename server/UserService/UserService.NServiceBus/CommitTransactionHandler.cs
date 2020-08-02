@@ -10,11 +10,11 @@ namespace UserService.NServiceBus
 {
     class CommitTransactionHandler : IHandleMessages<ICommitTransaction>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public CommitTransactionHandler(IUserRepository userRepository)
+        public CommitTransactionHandler(IAccountRepository accountRepository)
         {
-            _userRepository = userRepository;
+            _accountRepository = accountRepository;
         }
         public async Task Handle(ICommitTransaction message, IMessageHandlerContext context)
         {
@@ -25,8 +25,8 @@ namespace UserService.NServiceBus
 
             try
             {
-               srcAccountBalance=  await _userRepository.DrawAsync(message.SrcAccountId, message.Amount);
-               destAccountBalance=  await _userRepository.DepositAsync(message.DestAccountId, message.Amount);          
+               srcAccountBalance=  await _accountRepository.WithDrawAsync(message.SrcAccountId, message.Amount);
+               destAccountBalance=  await _accountRepository.DepositAsync(message.DestAccountId, message.Amount);          
             }
             catch (Exception ex) when (ex is DataNotFoundException || ex is InsufficientBalanceForTransactionException)
             {

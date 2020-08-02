@@ -21,13 +21,13 @@ namespace UserService.Data
             _mapper = mapper;
         }
 
-        public async Task<bool> IsUserExistsAsync(string email)
+        public async Task<bool> IsExistsAsync(string email)
         {
             bool isEmailExist = await _userDbContext.Users.AnyAsync(user => user.Email == email);
             return isEmailExist;
         }
 
-        public async Task<UserModel> GetUserAsync(string email)
+        public async Task<UserModel> GetAsync(string email)
         {
             User user = await _userDbContext.Users
                .Where(user => user.Email == email)
@@ -40,7 +40,7 @@ namespace UserService.Data
         }
 
        
-        public async Task<UserModel> GetUserByIdAsync(Guid userId)
+        public async Task<UserModel> GetByIdAsync(Guid userId)
         {
             User user = await _userDbContext.Users
                   .Where(user => user.Id == userId)?
@@ -51,7 +51,7 @@ namespace UserService.Data
             }
             return _mapper.Map<UserModel>(user);
         }
-        public async Task AddUserAsync(UserModel newUserModel)
+        public async Task AddAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
             newUser.Account = new Account();

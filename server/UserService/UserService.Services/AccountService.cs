@@ -9,13 +9,15 @@ namespace UserService.Services
 {
     public class AccountService : IAccountService
     {
-        public AccountService()
-        {
+        private readonly IAccountService _accountService;
 
-        }
-        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
+        public AccountService(IAccountService accountService)
         {
-            AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
+            _accountService = accountService;
+        }
+        public async Task<AccountModel> GetByIdAsync(Guid accountId)
+        {
+            AccountModel account = await _accountService.GetByIdAsync(accountId);
             return account;
         }
     }
