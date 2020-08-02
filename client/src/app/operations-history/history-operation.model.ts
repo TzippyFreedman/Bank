@@ -1,7 +1,7 @@
 export interface HistoryOperation {
     operationTime: Date;
     balance: number;
-    isCredit: boolean;
+    isCredit?: boolean;
     transactionId: string;
 	transactionAmount :number;
 }
