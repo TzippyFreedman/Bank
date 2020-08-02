@@ -25,6 +25,8 @@
             [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.verificationCode.errors }" />
         <div *ngIf="registrationSubmitted && registrationFormControls.verificationCode.errors" class="invalid-feedback">
             <div *ngIf="registrationFormControls.verificationCode.errors.required">Verification Code is required</div>
+            <div *ngIf="registrationFormControls.verificationCode.errors.minlength">Verification Code should contain 4
+                characters.</div>
         </div>
     </div>
     <div class="form-group">

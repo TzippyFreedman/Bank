@@ -1,4 +1,4 @@
-﻿namespace UserService.Services.Interfaces
+﻿namespace UserService.Helpers.Interfaces
 {
     public interface IPasswordHasher
     {

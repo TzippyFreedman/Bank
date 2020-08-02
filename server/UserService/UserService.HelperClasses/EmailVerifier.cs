@@ -2,9 +2,8 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using UserService.Services.Interfaces;
 
-namespace UserService.Services
+namespace UserService.Helpers
 {
     public class EmailVerifier : IEmailVerifier
     {

@@ -9,6 +9,8 @@ using Microsoft.OpenApi.Models;
 using UserService.Api.Middlewares;
 using UserService.Contract;
 using UserService.Data;
+using UserService.Helpers;
+using UserService.Helpers.Interfaces;
 using UserService.Services;
 using UserService.Services.Interfaces;
 
@@ -33,7 +35,6 @@ namespace UserService.Api
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(IAccountRepository), typeof(AccountRepository));
-
             services.AddScoped(typeof(IEmailVerifier), typeof(EmailVerifier));
             services.AddScoped(typeof(IPasswordHasher), typeof(PasswordHasher));
             services.AddScoped(typeof(SmtpSettings),smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
