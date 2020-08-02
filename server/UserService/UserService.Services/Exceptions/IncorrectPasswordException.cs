@@ -6,11 +6,9 @@ namespace UserService.Services.Exceptions
     {
         public IncorrectPasswordException()
         {
-
         }
         public IncorrectPasswordException(string email) : base($"Login attempt with incorrect password for email:{email}.")
         {
-
         }
     }
 }

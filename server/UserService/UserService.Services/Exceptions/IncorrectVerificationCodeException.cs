@@ -4,11 +4,9 @@
     {
         public IncorrectVerificationCodeException()
         {
-
         }
         public IncorrectVerificationCodeException(string verificationCode) : base($"Verification code:{verificationCode} is incorrect!!")
         {
-
         }
     }
 }
