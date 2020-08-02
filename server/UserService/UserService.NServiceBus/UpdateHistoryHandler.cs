@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Messages.Commands;
+﻿using Messages.Commands;
 using NServiceBus;
 using System;
 using System.Threading.Tasks;
@@ -11,12 +10,10 @@ namespace UserService.NServiceBus
     public class UpdateHistoryHandler : IHandleMessages<IUpdateHistory>
     {
         private readonly IOperationsHistoryRepository _operationsHistoryRepository;
-        private readonly IMapper _mapper;
 
-        public UpdateHistoryHandler(IOperationsHistoryRepository operationsHistoryRepository, IMapper mapper)
+        public UpdateHistoryHandler(IOperationsHistoryRepository operationsHistoryRepository)
         {
             _operationsHistoryRepository = operationsHistoryRepository;
-            _mapper = mapper;
         }
 
         public async Task Handle(IUpdateHistory message, IMessageHandlerContext context)

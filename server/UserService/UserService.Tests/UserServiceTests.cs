@@ -11,10 +11,10 @@ namespace UserService.Tests
 {
     public class UserServiceTests
     {
-        private Mock<IUserRepository> userRepoMoq = new Mock<IUserRepository>();
-        private IAccountRepository accountRepoMoqObject = new Mock<IAccountRepository>().Object;
-        private IEmailVerifier emailVerifierMoqObject = new Mock<IEmailVerifier>().Object;
-        private IPasswordHasher passwordHasherMoqObject = new Mock<IPasswordHasher>().Object;
+        private readonly Mock<IUserRepository> userRepoMoq = new Mock<IUserRepository>();
+        private readonly IAccountRepository accountRepoMoqObject = new Mock<IAccountRepository>().Object;
+        private readonly IEmailVerifier emailVerifierMoqObject = new Mock<IEmailVerifier>().Object;
+        private readonly IPasswordHasher passwordHasherMoqObject = new Mock<IPasswordHasher>().Object;
         private readonly string password = "123456";
 
         [Fact]
