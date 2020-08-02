@@ -13,7 +13,7 @@ namespace UserService.Services
         {
 
         }
-        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
+        public async Task<AccountModel> GetByIdAsync(Guid accountId)
         {
             AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
             return account;

@@ -62,7 +62,7 @@ namespace UserService.Services
         }
 
 
-        public async Task<UserModel> GetUserByIdAsync(Guid id)
+        public async Task<UserModel> GetByIdAsync(Guid id)
         {
             UserModel user = await _userRepository.GetUserByIdAsync(id);
             return user;

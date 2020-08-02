@@ -28,8 +28,8 @@ namespace UserService.Api.Controllers
         [Route("[action]/{accountId}")]
         public async Task<ActionResult<AccountDTO>> GetAccountDetails(Guid accountId)
         {
-            AccountModel account = await _accountService.GetAccountByIdAsync(accountId);
-            UserModel user = await _userService.GetUserByIdAsync(account.UserId);
+            AccountModel account = await _accountService.GetByIdAsync(accountId);
+            UserModel user = await _userService.GetByIdAsync(account.UserId);
             AccountDTO accountDTO = new AccountDTO();
             _mapper.Map(user, accountDTO);
             accountDTO.Balance = account.Balance;
