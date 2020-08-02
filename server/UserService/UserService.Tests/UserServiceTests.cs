@@ -1,40 +1,118 @@
+using Moq;
 using System;
+using System.Threading.Tasks;
+using UserService.Contract;
+using UserService.Contract.Models;
+using UserService.Helpers.Interfaces;
+using UserService.Services.Exceptions;
 using Xunit;
 
 namespace UserService.Tests
 {
     public class UserServiceTests
     {
-
-        IUserRepository userRepository;
-        Guid userFileId;
-
-        private void SetupMocks()
-        {
-            // 1. Create moq object
-            var userRepoMoq = new Mock<IUserRepository>();
-            userFileId = Guid.NewGuid();
-            // 2. Setup the returnables
-            userRepoMoq
-            .Setup(o => o.GetUserFileById(It.IsAny<Guid>()))
-            .ReturnsAsync(new UserFileModel { Id = userFileId });
-
-            // 3. Assign to Object when needed
-            // userRepository = userRepository.Object;
-            userRepository = userRepoMoq.Object;
-        }
-
+        private Mock<IUserRepository> userRepoMoq = new Mock<IUserRepository>();
+        private IAccountRepository accountRepoMoqObject = new Mock<IAccountRepository>().Object;
+        private IEmailVerifier emailVerifierMoqObject = new Mock<IEmailVerifier>().Object;
+        private IPasswordHasher passwordHasherMoqObject = new Mock<IPasswordHasher>().Object;
+        private readonly string password = "123456";
 
         [Fact]
-        public async void GetUserFileById_UserFileExists_ReturnsUserFile()
+        public async void AddVerificationAsync_UserAlreadyExists_ThrowsUserWithRequestedEmailAlreadyExistsException()
         {
-            SetupMocks();
-            UserService userService = new UserService(userRepository);
+            //Arrange
+            string emailOfExistingUser = "estherivka1@gmail.com";
+            userRepoMoq
+                    .Setup(repo => repo.IsExistsAsync(emailOfExistingUser))
+                    .ReturnsAsync(true);
+            Services.UserService userService = new Services.UserService(userRepoMoq.Object, accountRepoMoqObject, emailVerifierMoqObject, passwordHasherMoqObject);
 
-            var userFile = await userService.GetUserFileById(userFileId);
+            //Act
+            Task act() => userService.AddVerificationAsync(new EmailVerificationModel { Email = emailOfExistingUser });
 
-            //Assert.IsType(typeof(UserFileModel), userFile);
-            Assert.True(userFile.Id == userFileId);
+            //Assert
+            await Assert.ThrowsAsync<UserWithRequestedEmailAlreadyExistsException>(act);
+
+        }
+
+        [Fact]
+        public async void RegisterAsync_IncorrectVerificationCode_ThrowsIncorrectVerificationCodeException()
+        {
+            //Arrange
+            string emailAddress = "esther@gmail.com";
+            string incorrectVerificationCode = "e123";
+            userRepoMoq
+                    .Setup(repo => repo.IsExistsAsync(emailAddress))
+                    .ReturnsAsync(false);
+            userRepoMoq
+             .Setup(repo => repo.GetVerificationCodeAsync(emailAddress))
+             .ReturnsAsync(new EmailVerificationModel { Email = emailAddress, Code = "abcd" });
+            Services.UserService userService = new Services.UserService(userRepoMoq.Object, accountRepoMoqObject, emailVerifierMoqObject, passwordHasherMoqObject);
+
+            //Act
+            Task act() => userService.RegisterAsync(new UserModel { Email = emailAddress }, password, incorrectVerificationCode);
+
+            //Assert
+            await Assert.ThrowsAsync<IncorrectVerificationCodeException>(act);
+
+        }
+
+        [Fact]
+        public async void RegisterAsync_VerificationCodeExpired_ThrowsVerificationCodeExpiredException()
+        {
+            //Arrange
+            string emailAddress = "esther@gmail.com";
+            string expiredVerificationCode = "e123";
+            userRepoMoq
+                    .Setup(repo => repo.IsExistsAsync(emailAddress))
+                    .ReturnsAsync(false);
+            userRepoMoq
+                        .Setup(repo => repo.GetVerificationCodeAsync(emailAddress))
+                        .ReturnsAsync(new EmailVerificationModel { Email = emailAddress, Code = expiredVerificationCode, ExpirationTime = DateTime.Now });
+            Services.UserService userService = new Services.UserService(userRepoMoq.Object, accountRepoMoqObject, emailVerifierMoqObject, passwordHasherMoqObject);
+
+            //Act
+            Task act() => userService.RegisterAsync(new UserModel { Email = emailAddress }, password, expiredVerificationCode);
+
+            //Assert
+            await Assert.ThrowsAsync<VerificationCodeExpiredException>(act);
+
+        }
+
+        [Fact]
+        public async void RegisterAsync_UserAlreadyExists_ThrowsUserWithRequestedEmailAlreadyExistsException()
+        {
+            //Arrange
+            string emailOfExistingUser = "estherivka1@gmail.com";
+            string verificationCode = "a345";
+            userRepoMoq
+                    .Setup(repo => repo.IsExistsAsync(emailOfExistingUser))
+                    .ReturnsAsync(true);
+            Services.UserService userService = new Services.UserService(userRepoMoq.Object, accountRepoMoqObject, emailVerifierMoqObject, passwordHasherMoqObject);
+
+            //Act
+            Task act() => userService.RegisterAsync(new UserModel { Email = emailOfExistingUser }, password, verificationCode);
+
+            //Assert
+            await Assert.ThrowsAsync<UserWithRequestedEmailAlreadyExistsException>(act);
+
+        }
+
+        [Fact]
+        public async void GetByIdAsync_UserExists_ReturnsUserModel()
+        {
+            //Arrange
+            Guid userId = Guid.NewGuid();
+            userRepoMoq
+                    .Setup(repo => repo.GetByIdAsync(userId))
+                    .ReturnsAsync(new UserModel { Id = userId });
+            Services.UserService userService = new Services.UserService(userRepoMoq.Object, accountRepoMoqObject, emailVerifierMoqObject, passwordHasherMoqObject);
+
+            //Act
+            var user = await userService.GetByIdAsync(userId);
+
+            //Assert
+            Assert.IsType<UserModel>(user);
 
         }
     }
