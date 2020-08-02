@@ -1,6 +1,6 @@
 ﻿namespace UserService.Services.Exceptions
 {
-    class IncorrectVerificationCodeException : BadRequestException
+   public class IncorrectVerificationCodeException : BadRequestException
     {
         public IncorrectVerificationCodeException()
         {

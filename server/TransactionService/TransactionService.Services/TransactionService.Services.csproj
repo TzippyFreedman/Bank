@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Messages" Version="1.0.1" />
     <PackageReference Include="NServiceBus" Version="7.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Messages\Messages.csproj" />
     <ProjectReference Include="..\TransactionService.Contract\TransactionService.Contract.csproj" />
   </ItemGroup>
 

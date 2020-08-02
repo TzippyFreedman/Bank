@@ -2,7 +2,7 @@
 
 namespace UserService.Services.Exceptions
 {
-    class VerificationCodeExpiredException : BadRequestException
+   public class VerificationCodeExpiredException : BadRequestException
     {
         public VerificationCodeExpiredException()
         {

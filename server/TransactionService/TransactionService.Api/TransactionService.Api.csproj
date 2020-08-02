@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Messages\Messages.csproj" />
     <ProjectReference Include="..\TransactionService.Data\TransactionService.Data.csproj" />
     <ProjectReference Include="..\TransactionService.Services\TransactionService.Services.csproj" />
   </ItemGroup>

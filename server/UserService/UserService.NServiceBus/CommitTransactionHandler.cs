@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UserService.Contract;
 using UserService.Data.Exceptions;
 
+
 namespace UserService.NServiceBus
 {
     class CommitTransactionHandler : IHandleMessages<ICommitTransaction>

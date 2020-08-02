@@ -1,7 +1,7 @@
 ﻿
 namespace UserService.Services.Exceptions
 {
-    class UserWithRequestedEmailAlreadyExistsException : BadRequestException
+   public class UserWithRequestedEmailAlreadyExistsException : BadRequestException
     {
         public UserWithRequestedEmailAlreadyExistsException()
         {
