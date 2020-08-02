@@ -15,14 +15,13 @@ namespace UserService.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        private readonly IAccountService _accountService;
 
-        public UserController(IMapper mapper, IUserService userService, IAccountService accountService)
+        public UserController(IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;
-            _accountService = accountService;
         }
+
         [HttpPost]
         public async Task<ActionResult> RegisterAsync(RegisterDTO userRegister)
         {
@@ -31,7 +30,6 @@ namespace UserService.Api.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
 
-
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
@@ -39,6 +37,5 @@ namespace UserService.Api.Controllers
             Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
             return accountId;
         }
-
     }
 }
