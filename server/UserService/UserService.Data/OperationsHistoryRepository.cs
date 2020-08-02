@@ -44,13 +44,6 @@ namespace UserService.Data
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                //If the search string changed during paging, the page is  reset to 0
-               //if (paginationParams.IsFilterChanged)
-               // {
-               //     paginationParams.PageIndex = 0;
-
-               // }
-
                 operations = operations.Where(operation => operation.AccountId.ToString().Contains(searchString)
                                   || operation.Id.ToString().Contains(searchString)
                                   || operation.Balance.ToString().Contains(searchString)
