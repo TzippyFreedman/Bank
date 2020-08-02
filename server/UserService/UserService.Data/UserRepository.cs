@@ -39,7 +39,6 @@ namespace UserService.Data
             return _mapper.Map<UserModel>(user);
         }
 
-       
         public async Task<UserModel> GetByIdAsync(Guid userId)
         {
             User user = await _userDbContext.Users
@@ -51,6 +50,7 @@ namespace UserService.Data
             }
             return _mapper.Map<UserModel>(user);
         }
+
         public async Task AddAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
@@ -78,6 +78,7 @@ namespace UserService.Data
             }
             await _userDbContext.SaveChangesAsync();
         }
+
         public async Task<EmailVerificationModel> GetVerificationAsync(string email)
         {
             EmailVerification emailVerification = await _userDbContext.EmailVerifications
@@ -88,9 +89,6 @@ namespace UserService.Data
                 throw new VerificationNotFoundException(email);
             }
             return _mapper.Map<EmailVerificationModel>(emailVerification);
-        }
-      
-      
+        } 
     }
-
 }

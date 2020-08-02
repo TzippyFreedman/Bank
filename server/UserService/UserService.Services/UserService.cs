@@ -52,15 +52,12 @@ namespace UserService.Services
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(newUser.Email);
             }
-            else
-            {
                 string passwordSalt = _passwordHasher.CreateSalt();
                 string passwordHash = _passwordHasher.CreatePasswordHash(password, passwordSalt);
                 newUser.PasswordHash = passwordHash;
                 newUser.PasswordSalt = passwordSalt;
                 await _userRepository.AddAsync(newUser);
                 Log.Information("User with email {@email}  created successfully", newUser.Email);
-            }
         }
 
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
@@ -70,10 +67,10 @@ namespace UserService.Services
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);
             }
-            string vertificationCode = _emailVerifier.GenerateVerificationCode();
-            emailVerification.Code = vertificationCode;
+            string verificationCode = _emailVerifier.GenerateVerificationCode();
+            emailVerification.Code = verificationCode;
             await _userRepository.AddVerificationAsync(emailVerification);
-            _emailVerifier.SendVerificationEmail(emailVerification.Email, vertificationCode);
+            await _emailVerifier.SendVerificationEmailAsync(emailVerification.Email, verificationCode);
         }
 
         public async Task<UserModel> GetByIdAsync(Guid id)
