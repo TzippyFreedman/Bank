@@ -28,13 +28,14 @@ namespace UserService.Api
         {
             services.AddAutoMapper(typeof(ApiMappingProfile), typeof(DataMappingProfile));
             services.AddScoped(typeof(IUserService), typeof(Services.UserService));
+            services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(IOperationsHistoryService), typeof(OperationsHistoryService));
             services.AddScoped(typeof(IOperationsHistoryRepository), typeof(OperationsHistoryRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(IAccountRepository), typeof(AccountRepository));
             services.AddScoped(typeof(IEmailVerifier), typeof(EmailVerifier));
             services.AddScoped(typeof(IPasswordHasher), typeof(PasswordHasher));
-            services.AddScoped(typeof(SmtpSettings),smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
-
+            services.AddScoped(typeof(SmtpSettings) , smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
             services.AddDbContext<UserDbContext>
               (options => options
               .UseSqlServer(Configuration.GetConnectionString("BankUserServiceConnectionString")));
