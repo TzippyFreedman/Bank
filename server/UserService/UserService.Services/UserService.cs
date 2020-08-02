@@ -61,11 +61,6 @@ namespace UserService.Services
             return account.Id;
         }
 
-        public async Task<AccountModel> GetAccountByIdAsync(Guid accountId)
-        {
-            AccountModel account = await _userRepository.GetAccountByIdAsync(accountId);
-            return account;
-        }
 
         public async Task<UserModel> GetUserByIdAsync(Guid id)
         {
