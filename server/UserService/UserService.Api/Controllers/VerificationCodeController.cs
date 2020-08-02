@@ -23,6 +23,7 @@ namespace UserService.Api.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        //check neccesity of from body
         public async Task VerifyEmailAsync(EmailVerificationDTO emailVerificationDTO)
         {
             EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);

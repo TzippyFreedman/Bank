@@ -39,6 +39,7 @@ namespace UserService.Data
             return _mapper.Map<UserModel>(user);
         }
 
+
         public async Task<UserModel> GetByIdAsync(Guid userId)
         {
             User user = await _userDbContext.Users
@@ -50,7 +51,6 @@ namespace UserService.Data
             }
             return _mapper.Map<UserModel>(user);
         }
-
         public async Task AddAsync(UserModel newUserModel)
         {
             User newUser = _mapper.Map<User>(newUserModel);
@@ -59,7 +59,7 @@ namespace UserService.Data
             await _userDbContext.SaveChangesAsync();
         }
 
-        public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
+        public async Task AddVerificationCodeAsync(EmailVerificationModel emailVerification)
         {
             EmailVerification verification = _mapper.Map<EmailVerification>(emailVerification);
             bool isEmailExist = await _userDbContext.EmailVerifications
@@ -78,17 +78,19 @@ namespace UserService.Data
             }
             await _userDbContext.SaveChangesAsync();
         }
-
-        public async Task<EmailVerificationModel> GetVerificationAsync(string email)
+        public async Task<EmailVerificationModel> GetVerificationCodeAsync(string email)
         {
             EmailVerification emailVerification = await _userDbContext.EmailVerifications
                 .Where(verification => verification.Email == email)
                 .FirstOrDefaultAsync();
             if (emailVerification == null)
             {
-                throw new VerificationNotFoundException(email);
+                throw new VerificationCodeNotFoundException(email);
             }
             return _mapper.Map<EmailVerificationModel>(emailVerification);
-        } 
+        }
+
+
     }
+
 }
