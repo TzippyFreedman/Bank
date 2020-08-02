@@ -102,24 +102,7 @@ export class OperationsHistoryComponent implements OnInit, OnDestroy, AfterViewI
 
 
   selectRow(row) {
-
     this.router.navigate(['transfer-details', row['transactionId']]);
-
-
-    //     this.dataService.getTransfer(row['transactionId'])
-    //     .subscribe(transfer=>{         
-
-    //          this.currentRowTransfer=transfer;
-    //          const dialogRef = this.dialog.open(templateRef,{
-    //           height: '200px',
-    //           width: '250px'
-    //               });
-
-    //     },
-    //     error=>{
-    // alert(error);
-    //     });
-
   }
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();

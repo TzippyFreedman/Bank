@@ -42,7 +42,7 @@ export class TransferComponent implements OnInit {
     // this.transfer.destAccountId=this.transferForm.value.destAccountId );
     this.transfer.srcAccountId=this.authService.getUserAccountId();
     this.loading = true;
-    this.dataService.transfer(this.transfer)
+    this.dataService.commitTransaction(this.transfer)
       .subscribe(
         result => {
          alert("your request has been accepted!");
