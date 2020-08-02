@@ -10,9 +10,7 @@ import { HistoryRequestParams } from 'src/app/operations-history/history-request
 import { HistoryResponse } from 'src/app/operations-history/history-response.model';
 import { AuthService } from 'src/app/auth/auth.service';
 
-const REGISTER_URL = 'user';
 const ACCOUNT_URL = 'user/getAccountDetails/'
-const VERIFICATION_URL = 'user/verifyEmail';
 const TRANSACTION_URL = 'transaction';
 const OPERATIONS_HISTORY_URL = 'operationsHistory';
 
@@ -23,29 +21,19 @@ export class DataService {
 
   constructor(private http: HttpClient, private requestHandlerService: HttpRequestHandlerService, private authService: AuthService) { }
 
-  public register = (user: Register) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(REGISTER_URL, environment.userServiceBaseURL), user)
-      .pipe(catchError(this.requestHandlerService.handleError));
-  }
-
-  public verifyEmail = (email: string) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(VERIFICATION_URL, environment.userServiceBaseURL), email)
-      .pipe(catchError(this.requestHandlerService.handleError));
-  }
-
   public getAccountDetails = (userId: String) => {
     return this.http.get<UserAccount>(this.requestHandlerService.createCompleteRoute(ACCOUNT_URL + userId, environment.userServiceBaseURL))
       .pipe(catchError(this.requestHandlerService.handleError));
   }
 
-  public transfer = (transfer: Transfer) => {
-    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSACTION_URL, environment.transferServiceBaseURL), transfer)
+  public commitTransaction = (transfer: Transfer) => {
+    return this.http.post<void>(this.requestHandlerService.createCompleteRoute(TRANSACTION_URL, environment.transactionServiceBaseURL), transfer)
       .pipe(catchError(this.requestHandlerService.handleError));
   }
 
-  public getTransfer = (transferId: string) => {
+  public getTransaction = (transferId: string) => {
     debugger;
-    return this.http.get<Transfer>(this.requestHandlerService.createCompleteRoute(`${TRANSACTION_URL}/${transferId}`, environment.transferServiceBaseURL))
+    return this.http.get<Transfer>(this.requestHandlerService.createCompleteRoute(`${TRANSACTION_URL}/${transferId}`, environment.transactionServiceBaseURL))
       .pipe(catchError(this.requestHandlerService.handleError));
   }
 
@@ -58,7 +46,7 @@ export class DataService {
     params = params.append('sortDirection', operationRequestParams.sortDirection.toString());
     params = params.append('searchString', operationRequestParams.filter.toString());
     params = params.append('isFilterChanged', operationRequestParams.isFilterChanged.toString());
-    return this.http.get<HistoryResponse>(this.requestHandlerService.createCompleteRoute(OPERATIONS_HISTORY_URL, environment.userServiceBaseURL) , { params: params })
+    return this.http.get<HistoryResponse>(this.requestHandlerService.createCompleteRoute(OPERATIONS_HISTORY_URL, environment.userServiceBaseURL), { params: params })
       .pipe(catchError(this.requestHandlerService.handleError));
   }
 

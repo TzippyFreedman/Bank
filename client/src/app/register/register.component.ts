@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { DataService } from '../shared/services/data.service';
 import { Register } from './register.model';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -23,10 +24,7 @@ export class RegisterComponent implements OnInit {
   isVisibleRegistrationForm: boolean = false;
   userToRegister = <Register>{};
 
-  constructor(
-    private router: Router,
-    private dataService: DataService
-  ) { }
+  constructor(private router: Router,private dataService: DataService, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -61,7 +59,7 @@ export class RegisterComponent implements OnInit {
     }
     this.verificationLoading = true;
     this.email = this.verificationForm.value;
-    this.dataService.verifyEmail(this.email)
+    this.userService.verifyEmail(this.email)
       .pipe(first())
       .subscribe(
         Response => {
@@ -83,7 +81,7 @@ export class RegisterComponent implements OnInit {
     this.registrationLoading = true;
     this.userToRegister = this.registrationForm.value;
     this.userToRegister.email = this.verificationFormControls.email.value;
-    this.dataService.register(this.userToRegister)
+    this.userService.register(this.userToRegister)
       .pipe(first())
       .subscribe(
         success => {

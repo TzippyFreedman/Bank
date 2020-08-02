@@ -14,14 +14,14 @@ export class UserAccountComponent implements OnInit {
   account: UserAccount;
   accountId: string;
 
-  constructor(private route: ActivatedRoute, public http: DataService, private cookieService: CookieService) { }
+  constructor(private route: ActivatedRoute, public dataService: DataService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.accountId = paramMap.get('userFileId');
     });
 
-    this.http.getAccountDetails(this.accountId)
+    this.dataService.getAccountDetails(this.accountId)
       .subscribe(
         Response => {
           this.account = Response;
