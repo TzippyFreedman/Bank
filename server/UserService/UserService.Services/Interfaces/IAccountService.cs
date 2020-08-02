@@ -8,6 +8,6 @@ namespace UserService.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<AccountModel> GetAccountByIdAsync(Guid accountId);
+        Task<AccountModel> GetByIdAsync(Guid accountId);
     }
 }
