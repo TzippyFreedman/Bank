@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NServiceBus;
 using System;
 using System.Threading.Tasks;
 using TransactionService.Api.DTO;
