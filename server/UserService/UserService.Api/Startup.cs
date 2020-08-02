@@ -31,9 +31,9 @@ namespace UserService.Api
             services.AddScoped(typeof(IOperationsHistoryService), typeof(OperationsHistoryService));
             services.AddScoped(typeof(IOperationsHistoryRepository), typeof(OperationsHistoryRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
-            services.AddScoped(typeof(IVerifyEmail), typeof(VerifyEmail));
-            services.AddScoped(typeof(IHashPassword), typeof(HashPassword));
-            services.AddScoped(typeof(ISmtpSettings),smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
+            services.AddScoped(typeof(IEmailVerifier), typeof(EmailVerifier));
+            services.AddScoped(typeof(IPasswordHasher), typeof(PasswordHasher));
+            services.AddScoped(typeof(SmtpSettings),smtpSender => Configuration.GetSection("SmtpSettings").Get<SmtpSettings>());
 
             services.AddDbContext<UserDbContext>
               (options => options
