@@ -14,7 +14,6 @@ namespace UserService.Api.DTO
         public int PageIndex { get; set; }
         public int PageSize { get; set; }       
         public string SearchString { get; set; }
-        [Required]
         public bool IsFilterChanged { get; set; }
         public SortField SortField { get; set; }
         public SortDirection SortDirection { get; set; }

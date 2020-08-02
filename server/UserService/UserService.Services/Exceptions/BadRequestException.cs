@@ -3,7 +3,7 @@
 
 namespace UserService.Services.Exceptions
 {
-   public class BadRequestException : Exception
+   public abstract class BadRequestException : Exception
     {
         public BadRequestException()
         {

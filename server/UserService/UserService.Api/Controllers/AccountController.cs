@@ -31,9 +31,11 @@ namespace UserService.Api.Controllers
             AccountModel account = await _accountService.GetByIdAsync(accountId);
             UserModel user = await _userService.GetByIdAsync(account.UserId);
             AccountDTO accountDTO = new AccountDTO();
-            _mapper.Map(user, accountDTO);
-            accountDTO.Balance = account.Balance;
-            accountDTO.OpenDate = account.OpenDate;
+            _mapper.Map(account, accountDTO);
+            accountDTO.FirstName = user.FirstName;
+            accountDTO.LastName = user.LastName;
+            accountDTO.Email = user.Email;
+
             return accountDTO;
         }
     }

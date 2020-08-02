@@ -12,9 +12,9 @@ namespace UserService.Data
                 .ReverseMap();
 
             CreateMap<AccountModel, Account>()
-                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance * 100))
-                .ReverseMap()
-                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance / 100) );
+                //.ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance * 100))
+                .ReverseMap();
+                //.ForMember(dest => dest.Balance, opt => opt.MapFrom(m => m.Balance / 100) );
 
             CreateMap<EmailVerificationModel, EmailVerification>()
                 .ReverseMap();

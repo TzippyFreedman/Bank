@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Messages.Events;
+using NServiceBus;
+using System;
 using System.Threading.Tasks;
 using TransactionService.Contract;
 using TransactionService.Contract.Models;
@@ -10,15 +12,24 @@ namespace TransactionService.Services
     { 
     
         private readonly ITransactionRepository _transactionRepository;
-
-        public TransactionService(ITransactionRepository transactionRepository)
+        private readonly IMessageSession _messageSession;
+        public TransactionService(ITransactionRepository transactionRepository, IMessageSession messageSession
+)
         {
             _transactionRepository = transactionRepository;
+            _messageSession = messageSession;
         }
-        public async Task<TransactionModel> AddAsync(TransactionModel transaction)
+        public async Task AddAsync(TransactionModel transaction)
         {
             TransactionModel newTransaction = await _transactionRepository.AddAsync(transaction);
-            return newTransaction;
+            await _messageSession.Publish<ITransactionRequestAdded>(message =>
+            {
+                message.TransactionId = newTransaction.Id;
+                message.Amount = newTransaction.Amount;
+                message.SrcAccountId = newTransaction.SrcAccountId;
+                message.DestAccountId = newTransaction.DestAccountId;
+                message.OperationTime = newTransaction.Date;
+            });
         }
 
         public async Task<TransactionModel> GetByIdAsync(Guid transactionId)
