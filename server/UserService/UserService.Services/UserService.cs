@@ -23,6 +23,18 @@ namespace UserService.Services
             _passwordHasher = passwordHasher;
         }
 
+        public async Task<Guid> LoginAsync(string email, string password)
+        {
+            UserModel user = await _userRepository.GetAsync(email);
+            bool isPasswordCorrect = _passwordHasher.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
+            if (!isPasswordCorrect)
+            {
+                throw new IncorrectPasswordException(email);
+            }
+            AccountModel account = await _accountRepository.GetByUserIdAsync(user.Id);
+            return account.Id;
+        }
+
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
             EmailVerificationModel verification = await _userRepository.GetVerificationAsync(newUser.Email);
@@ -51,25 +63,6 @@ namespace UserService.Services
             }
         }
 
-        public async Task<Guid> LoginAsync(string email, string password)
-        {
-            UserModel user = await _userRepository.GetAsync(email);
-            bool isPasswordCorrect = _passwordHasher.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
-            if (!isPasswordCorrect)
-            {
-                throw new IncorrectPasswordException(email);
-            }
-            AccountModel account = await _accountRepository.GetByUserIdAsync(user.Id);
-            return account.Id;
-        }
-
-
-        public async Task<UserModel> GetByIdAsync(Guid id)
-        {
-            UserModel user = await _userRepository.GetByIdAsync(id);
-            return user;
-        }
-
         public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
         {
             bool isUserExist = await _userRepository.IsExistsAsync(emailVerification.Email);
@@ -81,6 +74,12 @@ namespace UserService.Services
             emailVerification.Code = vertificationCode;
             await _userRepository.AddVerificationAsync(emailVerification);
             _emailVerifier.SendVerificationEmail(emailVerification.Email, vertificationCode);
+        }
+
+        public async Task<UserModel> GetByIdAsync(Guid id)
+        {
+            UserModel user = await _userRepository.GetByIdAsync(id);
+            return user;
         }
     }
 }
