@@ -27,7 +27,7 @@ namespace UserService.Api.Controllers
         public async Task VerifyEmailAsync(EmailVerificationDTO emailVerificationDTO)
         {
             EmailVerificationModel emailVerification = _mapper.Map<EmailVerificationModel>(emailVerificationDTO);
-            await _userService.VerifyEmailAsync(emailVerification);
+            await _userService.AddVerificationAsync(emailVerification);
         }
 
     }

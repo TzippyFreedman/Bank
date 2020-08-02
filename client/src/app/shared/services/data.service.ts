@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { Register } from '../../register/register.model';
 import { UserAccount } from 'src/app/user-account/user-account.model';
 import { HttpRequestHandlerService } from './http-request-handler.service';
 import { Transfer } from 'src/app/transfer/transfer.model';
@@ -10,7 +9,7 @@ import { HistoryRequestParams } from 'src/app/operations-history/history-request
 import { HistoryResponse } from 'src/app/operations-history/history-response.model';
 import { AuthService } from 'src/app/auth/auth.service';
 
-const ACCOUNT_URL = 'user/getAccountDetails/'
+const ACCOUNT_URL = 'account/getAccountDetails/'
 const TRANSACTION_URL = 'transaction';
 const OPERATIONS_HISTORY_URL = 'operationsHistory';
 

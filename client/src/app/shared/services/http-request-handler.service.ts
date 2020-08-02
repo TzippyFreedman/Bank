@@ -13,7 +13,6 @@ export class HttpRequestHandlerService {
     return `${envAddress}/${route}`;
   }
 
-
    handleError(error: HttpErrorResponse) {
     // A client-side or network error occurred. Handle it accordingly.
     if (error.error.errorMessage) {

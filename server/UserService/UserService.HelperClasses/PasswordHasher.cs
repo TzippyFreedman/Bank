@@ -2,9 +2,9 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using UserService.Services.Interfaces;
+using UserService.HelperClasses.Interfaces;
 
-namespace UserService.Services
+namespace UserService.HelperClasses
 {
     public class PasswordHasher : IPasswordHasher
     {

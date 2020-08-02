@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using UserService.Contract;
 using UserService.Contract.Models;
+using UserService.Helpers.Interfaces;
 using UserService.Services.Exceptions;
 using UserService.Services.Interfaces;
 
@@ -25,6 +26,7 @@ namespace UserService.Services
 
         public async Task RegisterAsync(UserModel newUser, string password, string verificationCode)
         {
+            //double check user does not exist in case function is called in some other way. 
             bool isUserExist = await _userRepository.IsExistsAsync(newUser.Email);
             if (isUserExist)
             {
@@ -67,7 +69,7 @@ namespace UserService.Services
             return user;
         }
 
-        public async Task VerifyEmailAsync(EmailVerificationModel emailVerification)
+        public async Task AddVerificationAsync(EmailVerificationModel emailVerification)
         {
             bool isUserExist = await _userRepository.IsExistsAsync(emailVerification.Email);
             if (isUserExist)

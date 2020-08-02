@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UserService.Services.Interfaces
+namespace UserService.Helpers.Interfaces
 {
     public interface IEmailVerifier
     {
