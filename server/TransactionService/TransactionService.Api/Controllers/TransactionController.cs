@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NServiceBus;
 using System;
 using System.Threading.Tasks;
 using TransactionService.Api.DTO;
@@ -17,14 +16,12 @@ namespace TransactionService.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ITransactionService _transactionService;
 
-
         public TransactionController(IMapper mapper, ITransactionService transactionService)
         {
             _mapper = mapper;
             _transactionService = transactionService;
         }
-
-      
+ 
        [HttpPost]
         public async Task<ActionResult> Post(TransactionDTO transaction)
         {

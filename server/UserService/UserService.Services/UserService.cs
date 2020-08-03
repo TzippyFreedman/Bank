@@ -41,7 +41,6 @@ namespace UserService.Services
             {
                 throw new VerificationCodeExpiredException(verification.ExpirationTime);
             }
-
             string passwordSalt = _passwordHasher.CreateSalt();
             string passwordHash = _passwordHasher.CreatePasswordHash(password, passwordSalt);
             newUser.PasswordHash = passwordHash;
@@ -76,7 +75,6 @@ namespace UserService.Services
             {
                 throw new UserWithRequestedEmailAlreadyExistsException(emailVerification.Email);
             }
-
             string verificationCode = _emailVerifier.GenerateVerificationCode();
             emailVerification.Code = verificationCode;
             await _userRepository.AddVerificationCodeAsync(emailVerification);

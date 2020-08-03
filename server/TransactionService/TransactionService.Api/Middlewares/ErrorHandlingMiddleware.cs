@@ -48,7 +48,6 @@ namespace TransactionService.Api.Middlewares
             context.Response.StatusCode = (int)code;
             await context.Response.WriteAsync(result);
         }
-
     }
     public static class ErrorHandlingMiddlewareExtentions
     {
