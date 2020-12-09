@@ -47,6 +47,29 @@ namespace UserService.Data.Migrations
                     b.ToTable("Account");
                 });
 
+            modelBuilder.Entity("UserService.Data.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("UserService.Data.Entities.EmailVerification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -138,6 +161,9 @@ namespace UserService.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -145,6 +171,9 @@ namespace UserService.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -158,7 +187,12 @@ namespace UserService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -173,6 +207,13 @@ namespace UserService.Data.Migrations
                         .HasForeignKey("UserService.Data.Entities.Account", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UserService.Data.Entities.User", b =>
+                {
+                    b.HasOne("UserService.Data.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
                 });
 #pragma warning restore 612, 618
         }

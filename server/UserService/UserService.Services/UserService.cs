@@ -45,11 +45,20 @@ namespace UserService.Services
             string passwordHash = _passwordHasher.CreatePasswordHash(password, passwordSalt);
             newUser.PasswordHash = passwordHash;
             newUser.PasswordSalt = passwordSalt;
+            newUser.IsAdmin = false;
+            newUser.Address.Id = Guid.NewGuid();
             await _userRepository.AddAsync(newUser);
             Log.Information("User with email {@email}  created successfully", newUser.Email);
         }
 
-        public async Task<Guid> LoginAsync(string email, string password)
+        public async Task<UserModel> Update(UserModel userModel)
+        {
+            return await _userRepository.UpdateAsync(userModel);
+
+        }
+
+
+        public async Task<LoginResponse> LoginAsync(string email, string password)
         {
             UserModel user = await _userRepository.GetAsync(email);
             bool isPasswordCorrect = _passwordHasher.VerifyPassword(password, user.PasswordSalt, user.PasswordHash);
@@ -57,8 +66,9 @@ namespace UserService.Services
             {
                 throw new IncorrectPasswordException(email);
             }
-            AccountModel account = await _accountRepository.GetByUserIdAsync(user.Id);
-            return account.Id;
+            LoginResponse response = new LoginResponse { IsAdmin = user.IsAdmin, UserId = user.Id };
+            return response;
+            
         }
 
 

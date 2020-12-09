@@ -10,6 +10,8 @@ namespace UserService.Data
         {
             CreateMap<UserModel, User>()
                 .ReverseMap();
+            CreateMap<AddressModel, Address>()
+                .ReverseMap();
 
             CreateMap<AccountModel, Account>()
                 .ReverseMap();

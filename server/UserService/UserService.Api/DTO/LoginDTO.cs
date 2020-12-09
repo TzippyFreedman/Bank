@@ -11,5 +11,6 @@ namespace UserService.Api.DTO
         [MinLength(6)]
         [Required]
         public string Password { get; set; }
+
     }
 }
