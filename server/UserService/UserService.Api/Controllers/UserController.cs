@@ -30,12 +30,22 @@ namespace UserService.Api.Controllers
             return StatusCode((int)HttpStatusCode.Created);
         }
 
+        [HttpPost]
+        [Route("[action]")]
+
+        public async Task<ActionResult<UserDTO>> UpdateAccouneDetails(UserDTO user)
+        {
+            UserModel userModel = _mapper.Map<UserModel>(user);
+            UserModel updatedUser = await _userService.Update(userModel);
+            return _mapper.Map<UserDTO>(updatedUser);
+        }
+
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<Guid>> LoginAsync([FromQuery] LoginDTO loginDTO)
+        public async Task<ActionResult<LoginResponse>> LoginAsync([FromQuery] LoginDTO loginDTO)
         {
-            Guid accountId = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
-            return accountId;
+            LoginResponse response = await _userService.LoginAsync(loginDTO.Email, loginDTO.Password);
+            return response;
         }
     }
 }

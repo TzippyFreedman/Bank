@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +60,27 @@ namespace UserService.Data
             await _userDbContext.SaveChangesAsync();
         }
 
+        public async Task<UserModel> UpdateAsync(UserModel userModel)
+        {
+            User updatedUser = _mapper.Map<User>(userModel);
+            User existingUser = await _userDbContext.Users
+                .Where(user => user.UserId == updatedUser.UserId)
+                .FirstOrDefaultAsync();
+            if (existingUser == null)
+            {
+                throw new UserNotFoundException(updatedUser.UserId);
+            }
+            existingUser.FirstName = updatedUser.FirstName;
+            existingUser.LastName = updatedUser.LastName;
+            existingUser.Email = updatedUser.Email;
+            existingUser.Address = updatedUser.Address;
+            await _userDbContext.SaveChangesAsync();
+            return _mapper.Map<UserModel>(existingUser);
+
+
+
+        }
+
         public async Task AddVerificationCodeAsync(EmailVerificationModel emailVerification)
         {
             EmailVerification verification = _mapper.Map<EmailVerification>(emailVerification);
@@ -74,7 +96,7 @@ namespace UserService.Data
                     .Where(verification => verification.Email == emailVerification.Email)
                     .FirstOrDefaultAsync();
                 verificationToUpdate.Code = verification.Code;
-                verificationToUpdate.ExpirationTime = DateTime.Now.AddMinutes(5);
+                verificationToUpdate.ExpirationTime = DateTime.Now.AddMinutes(200);
             }
             await _userDbContext.SaveChangesAsync();
         }

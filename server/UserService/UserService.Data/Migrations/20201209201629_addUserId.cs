@@ -2,21 +2,21 @@
 
 namespace UserService.Data.Migrations
 {
-    public partial class Added_Failure_Reason_In_HistoryTable : Migration
+    public partial class addUserId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "FailureReason",
-                table: "FailedHistoryOperation",
+                name: "UserId",
+                table: "User",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FailureReason",
-                table: "FailedHistoryOperation");
+                name: "UserId",
+                table: "User");
         }
     }
 }

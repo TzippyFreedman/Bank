@@ -10,8 +10,8 @@ using UserService.Data;
 namespace UserService.Data.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20200729091313_Added_Failure_Reason_In_HistoryTable")]
-    partial class Added_Failure_Reason_In_HistoryTable
+    [Migration("20201209201629_addUserId")]
+    partial class addUserId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,29 @@ namespace UserService.Data.Migrations
                     b.ToTable("Account");
                 });
 
+            modelBuilder.Entity("UserService.Data.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("UserService.Data.Entities.EmailVerification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -73,7 +96,7 @@ namespace UserService.Data.Migrations
                     b.ToTable("EmailVerification");
                 });
 
-            modelBuilder.Entity("UserService.Data.Entities.FailedHistoryOperation", b =>
+            modelBuilder.Entity("UserService.Data.Entities.FailedOperation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,10 +123,10 @@ namespace UserService.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FailedHistoryOperation");
+                    b.ToTable("FailedOperation");
                 });
 
-            modelBuilder.Entity("UserService.Data.Entities.SucceededHistoryOperation", b =>
+            modelBuilder.Entity("UserService.Data.Entities.SucceededOperation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +153,7 @@ namespace UserService.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SucceededHistoryOperation");
+                    b.ToTable("SucceededOperation");
                 });
 
             modelBuilder.Entity("UserService.Data.Entities.User", b =>
@@ -140,6 +163,9 @@ namespace UserService.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -147,6 +173,9 @@ namespace UserService.Data.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -160,7 +189,12 @@ namespace UserService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -175,6 +209,13 @@ namespace UserService.Data.Migrations
                         .HasForeignKey("UserService.Data.Entities.Account", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UserService.Data.Entities.User", b =>
+                {
+                    b.HasOne("UserService.Data.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
                 });
 #pragma warning restore 612, 618
         }

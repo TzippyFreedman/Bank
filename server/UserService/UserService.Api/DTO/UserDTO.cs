@@ -1,22 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace UserService.Api.DTO
 {
-    public class RegisterDTO
+    public class UserDTO
     {
         [Required]
-        [StringLength(4)]
-        public string VerificationCode { get; set; }
-
-        [Required]
-        [StringLength(6)]
-        public string UserId { get; set; }
-
+        [MinLength(6)]
+        public String UserId { get; set; }
 
         [Required]
         public string FirstName { get; set; }
-
 
         [Required]
         public string LastName { get; set; }
@@ -29,7 +26,5 @@ namespace UserService.Api.DTO
         public string Password { get; set; }
         [Required]
         public AddressDTO Address { get; set; }
-
-
     }
 }

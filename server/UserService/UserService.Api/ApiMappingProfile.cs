@@ -9,9 +9,14 @@ namespace UserService.Api
         public ApiMappingProfile()
         {
             CreateMap<RegisterDTO, UserModel>();
+            CreateMap<UserDTO, UserModel>()
+                .ReverseMap();
+
+            CreateMap<AddressDTO, AddressModel> ()
+                   .ReverseMap();
 
             CreateMap<AccountModel, AccountDTO>()
-                .ForMember(dest => dest.Balance, opt => opt.MapFrom(m => (float)m.Balance / 100));
+                .ForMember(dest => dest.Income, opt => opt.MapFrom(m => (float)m.Balance / 100));
 
             CreateMap<EmailVerificationDTO, EmailVerificationModel>();
 
