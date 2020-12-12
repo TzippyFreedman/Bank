@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  userServiceBaseURL : "https://localhost:44334/api",
+  userServiceBaseURL : "https://localhost:5001/api",
   transactionServiceBaseURL : "https://localhost:44388/api"
 };
 /*

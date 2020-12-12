@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { TransferComponent } from './transfer/transfer.component';
 import { OperationsHistoryComponent } from './operations-history/operations-history.component';
 import { TransferDetailsComponent } from './transfer-details/transfer-details.component';
+import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'history', component: OperationsHistoryComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'user/:userFileId', component: UserAccountComponent, canActivate: [AuthGuard] },
+  { path: 'admin-homePage/:userFileId', component: AdminHomePageComponent, canActivate: [AuthGuard] },
   { path: "", redirectTo: '/login', pathMatch: "full" }
 ];
 

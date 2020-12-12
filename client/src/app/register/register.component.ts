@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { DataService } from '../shared/services/data.service';
 import { Register } from './register.model';
 import { UserService } from '../shared/services/user.service';
+import { UserAddress } from './userAddress.model';
 
 @Component({
   selector: 'app-register',
@@ -22,9 +23,10 @@ export class RegisterComponent implements OnInit {
   email: string;
   isVisibleVerificationForm: boolean = true;
   isVisibleRegistrationForm: boolean = false;
+
   userToRegister = <Register>{};
 
-  constructor(private router: Router,private dataService: DataService, private userService: UserService) { }
+  constructor(private router: Router, private dataService: DataService, private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -36,11 +38,18 @@ export class RegisterComponent implements OnInit {
         Validators.required]),
       'lastName': new FormControl('', [
         Validators.required]),
+      'street': new FormControl('', [
+        Validators.required]),
+        'city': new FormControl('', [
+          Validators.required]),
+      'houseNumber': new FormControl('', [
+        Validators.required]),
+      'postCode': new FormControl('', [
+        Validators.required]),
       'verificationCode': new FormControl('', [
         Validators.required,
         Validators.minLength(4)]),
     });
-
     this.verificationForm = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
@@ -60,6 +69,7 @@ export class RegisterComponent implements OnInit {
     }
     this.verificationLoading = true;
     this.email = this.verificationForm.value;
+  
     this.userService.verifyEmail(this.email)
       .subscribe(
         Response => {
@@ -80,7 +90,13 @@ export class RegisterComponent implements OnInit {
     }
     this.registrationLoading = true;
     this.userToRegister = this.registrationForm.value;
+    let address = <UserAddress>{};
+    address.city = this.registrationFormControls.city.value;
+    address.houseNumber = this.registrationFormControls.houseNumber.value;
+    address.street = this.registrationFormControls.street.value;
+    address.postCode = this.registrationFormControls.postCode.value;
     this.userToRegister.email = this.verificationFormControls.email.value;
+    this.userToRegister.address =address;
     this.userService.register(this.userToRegister)
       .subscribe(
         result => {

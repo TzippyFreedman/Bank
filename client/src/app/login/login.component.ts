@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
     this.userToAuthenticate.email = this.formControls.username.value;
     this.authService.login(this.userToAuthenticate)
       .subscribe(
-        userAccountId => {
-          this.authService.setLoggedIn(userAccountId);
-          this.router.navigate(['user', userAccountId]);
+        response => {
+          this.authService.setLoggedIn(response.userId);
+          response.isAdmin ? this.router.navigate(['user', response.userId]) : this.router.navigate(['admin-homePage', response.userId]);
         },
         error => {
           alert(error);

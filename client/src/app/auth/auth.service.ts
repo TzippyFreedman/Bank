@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { HttpRequestHandlerService } from '../shared/services/http-request-handler.service';
+import { LoginResponse } from '../login/loginResponse.model';
 
 const LOGIN_URL = 'user/login';
 
@@ -38,7 +39,7 @@ export class AuthService {
   }
 
   login(loginObj: Login){
-    return this.http.get<string>(this.requestHandlerService.createCompleteRoute(LOGIN_URL, environment.userServiceBaseURL),
+    return this.http.get<LoginResponse>(this.requestHandlerService.createCompleteRoute(LOGIN_URL, environment.userServiceBaseURL),
       { params: { email: loginObj.email, password: loginObj.password } })
       .pipe(catchError(this.requestHandlerService.handleError));
   }

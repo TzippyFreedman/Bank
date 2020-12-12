@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input'
 import {  MatDialogModule } from "@angular/material/dialog";
 import { TransferDetailsComponent } from './transfer-details/transfer-details.component';
 import { DebitCreditPipe } from './operations-history/debit-credit.pipe';
+import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 
 
 
@@ -34,7 +35,8 @@ import { DebitCreditPipe } from './operations-history/debit-credit.pipe';
     TransferComponent,
     OperationsHistoryComponent,
     TransferDetailsComponent,
-    DebitCreditPipe
+    DebitCreditPipe,
+    AdminHomePageComponent
   ],
   imports: [
     BrowserModule,
