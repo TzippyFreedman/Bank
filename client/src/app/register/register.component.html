@@ -1,104 +1,124 @@
 <div class="register-containor h-100">
-    <form class="d-flex justify-content-center align-items-center flex-column" *ngIf="isVisibleVerificationForm" [formGroup]="verificationForm" (ngSubmit)="onVerificationSubmit()">
-    <div class="form-group w-25 mt-5">
-        <label for="email">Enter your Email address</label>
-        <input type="text" formControlName="email" class="form-control w-75"
-            [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
-        <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
+    <form class="d-flex justify-content-center align-items-center flex-column register-form"
+        *ngIf="isVisibleVerificationForm" [formGroup]="verificationForm" (ngSubmit)="onVerificationSubmit()">
+        <div class="form-group w-25 mt-5">
+            <label for="email">Enter your Email address</label>
+            <input type="text" formControlName="email" class="form-control w-75"
+                [ngClass]="{ 'is-invalid': verificationSubmitted && verificationFormControls.email.errors }" />
+            <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
+                <div *ngIf="verificationFormControls.email.errors.required">Email is required</div>
+            </div>
+            <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
+                <div *ngIf="verificationFormControls.email.errors.pattern"> Email is invalid</div>
+            </div>
         </div>
-        <div *ngIf="verificationSubmitted && verificationFormControls.email.errors" class="invalid-feedback">
-            <div *ngIf="verificationFormControls.email.errors.pattern"> Email is invalid</div>
+        <div class="form-group w-25">
+            <button [disabled]="verificationLoading" class="btn btn-primary">
+                <span *ngIf="verificationLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                Send me verification code
+            </button>
+            <a routerLink="/login" class="btn btn-link cancel-btn mt-4">Cancel</a>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <button [disabled]="verificationLoading" class="btn btn-primary">
-            <span *ngIf="verificationLoading" class="spinner-border spinner-border-sm mr-1"></span>
-            Send me verification code
-        </button>
-        <a routerLink="/login" class="btn btn-link cancel-btn mt-4">Cancel</a>
-    </div>
-</form>
-<form  [formGroup]="registrationForm" *ngIf="isVisibleRegistrationForm" class="pt-3 d-flex flex-column justify-content-center align-items-center"  (ngSubmit)="onRegisterSubmit()">
-   <div class="d-flex flex-column w-25"> <div class="form-group mb-0">
-        <label for="verificationCode">Verification Code</label>
-        <input type="text" formControlName="verificationCode" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.verificationCode.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.verificationCode.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.verificationCode.errors.required">Verification Code is required</div>
-            <div *ngIf="registrationFormControls.verificationCode.errors.minlength">Verification Code should contain 4
-                characters.</div>
+    </form>
+    <form [formGroup]="registrationForm" *ngIf="isVisibleRegistrationForm"
+        class="register-form pt-3 d-flex flex-column justify-content-center align-items-center"
+        (ngSubmit)="onRegisterSubmit()">
+        <div>
+            <div class="registration-form-msg"> Registration Form</div>
+            <div class="registration-msg">Please fill in yuor details for registration.</div>
         </div>
-    </div>
-    <div class="form-group">
-        <button (click)="showVerificationForm()" class="pl-0 btn btn-link resend-code-btn">
-            Resend Verification Code
-        </button>
-    </div></div>
-    <div class="form-group w-25">
-        <label for="firstName">First Name</label>
-        <input type="text" formControlName="firstName" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.firstName.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.firstName.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.firstName.errors.required"> First Name is required</div>
+        <div class="d-flex flex-column w-25">
+            <div class="form-group mb-0">
+                <label for="verificationCode">Verification Code</label>
+                <input type="text" formControlName="verificationCode" class="form-control"
+                    [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.verificationCode.errors }" />
+                <div *ngIf="registrationSubmitted && registrationFormControls.verificationCode.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="registrationFormControls.verificationCode.errors.required">Verification Code is required
+                    </div>
+                    <div *ngIf="registrationFormControls.verificationCode.errors.minlength">Verification Code should
+                        contain 4
+                        characters.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button (click)="showVerificationForm()" class="pl-0 btn btn-link resend-code-btn">
+                    Resend Verification Code
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="lastName">Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.lastName.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.lastName.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.lastName.errors.required">Last Name is required</div>
+        <div class="form-group w-25">
+            <label for="firstName">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.firstName.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.firstName.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.firstName.errors.required"> First Name is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.password.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.password.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.password.errors.required">Password is required</div>
-            <div *ngIf="registrationFormControls.password.errors.minlength">Password should contain at least 6
-                characters.</div>
+        <div class="form-group w-25">
+            <label for="lastName">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.lastName.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.lastName.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.lastName.errors.required">Last Name is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="firstName">Street</label>
-        <input type="text" formControlName="street" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.street.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.street.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.street.errors.required"> Street is required</div>
+        <div class="form-group w-25">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.password.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.password.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.password.errors.required">Password is required</div>
+                <div *ngIf="registrationFormControls.password.errors.minlength">Password should contain at least 6
+                    characters.</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="firstName">House Number</label>
-        <input type="text" formControlName="houseNumber" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.houseNumber.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.houseNumber.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.houseNumber.errors.required"> First Name is required</div>
+        <div class="form-group w-25">
+            <label for="firstName">Street</label>
+            <input type="text" formControlName="street" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.street.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.street.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.street.errors.required"> Street is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="firstName">City</label>
-        <input type="text" formControlName="city" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.city.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.city.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.city.errors.required"> City is required</div>
+        <div class="form-group w-25">
+            <label for="firstName">House Number</label>
+            <input type="text" formControlName="houseNumber" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.houseNumber.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.houseNumber.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.houseNumber.errors.required"> First Name is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <label for="firstName">Post Code</label>
-        <input type="text" formControlName="postCode" class="form-control"
-            [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.postCode.errors }" />
-        <div *ngIf="registrationSubmitted && registrationFormControls.postCode.errors" class="invalid-feedback">
-            <div *ngIf="registrationFormControls.postCode.errors.required"> Post Code is required</div>
+        <div class="form-group w-25">
+            <label for="firstName">City</label>
+            <input type="text" formControlName="city" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.city.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.city.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.city.errors.required"> City is required</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group w-25">
-        <button [disabled]="registrationLoading" class="btn btn-primary">
-            <span *ngIf="registrationLoading" class="spinner-border spinner-border-sm mr-1"></span>
-            Register
-        </button>
-        <a routerLink="/login" class="btn btn-link cancel-btn mt-4">Cancel</a>
-    </div>
-</form>
+        <div class="form-group w-25">
+            <label for="firstName">Id</label>
+            <input type="text" formControlName="userId" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.userId.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.userId.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.userId.errors.required"> userId is required</div>
+            </div>
+        </div>
+        <div class="form-group w-25">
+            <label for="firstName">Post Code</label>
+            <input type="text" formControlName="postCode" class="form-control"
+                [ngClass]="{ 'is-invalid': registrationSubmitted && registrationFormControls.postCode.errors }" />
+            <div *ngIf="registrationSubmitted && registrationFormControls.postCode.errors" class="invalid-feedback">
+                <div *ngIf="registrationFormControls.postCode.errors.required"> Post Code is required</div>
+            </div>
+        </div>
+        <div class="form-group w-25">
+            <button [disabled]="registrationLoading" class="btn btn-primary">
+                <span *ngIf="registrationLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                Register
+            </button>
+            <a routerLink="/login" class="btn btn-link cancel-btn mt-4">Cancel</a>
+        </div>
+    </form>
 </div>

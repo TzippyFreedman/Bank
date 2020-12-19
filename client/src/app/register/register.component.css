@@ -8,3 +8,14 @@
     font-size: 12px;
     text-decoration: underline;
 }
+.register-form{
+    background-color: lightblue;
+}
+.registration-form-msg{
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: bold;
+}
+.registration-msg{
+    font-size: 10px;
+}

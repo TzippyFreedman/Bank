@@ -36,6 +36,8 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(6)]),
       'firstName': new FormControl('', [
         Validators.required]),
+        'userId': new FormControl('', [
+          Validators.required]),
       'lastName': new FormControl('', [
         Validators.required]),
       'street': new FormControl('', [
@@ -89,12 +91,19 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.registrationLoading = true;
-    this.userToRegister = this.registrationForm.value;
+    this.userToRegister.firstName = this.registrationFormControls.firstName.value;
+
+    this.userToRegister.lastName = this.registrationFormControls.lastName.value;
+    this.userToRegister.password = this.registrationFormControls.password.value;
+
+    this.userToRegister.userId = this.registrationFormControls.userId.value;
+    this.userToRegister.verificationCode = this.registrationFormControls.verificationCode.value;
+    //this.userToRegister = this.registrationForm.value;
     let address = <UserAddress>{};
     address.city = this.registrationFormControls.city.value;
-    address.houseNumber = this.registrationFormControls.houseNumber.value;
+    address.houseNumber = Number(this.registrationFormControls.houseNumber.value);
     address.street = this.registrationFormControls.street.value;
-    address.postCode = this.registrationFormControls.postCode.value;
+    address.postCode = Number(this.registrationFormControls.postCode.value);
     this.userToRegister.email = this.verificationFormControls.email.value;
     this.userToRegister.address =address;
     this.userService.register(this.userToRegister)
